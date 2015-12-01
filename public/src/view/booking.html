@@ -1,1 +1,388 @@
-<h1>Booking</h1>
+View:{{bookingView}} Item:{{bookingItem}} 
+<div ng-show="bookingItem == 'none'">
+    <div ng-show="bookingView == 'none'">
+        <div class="row">
+            <div class="col-md-12">
+                Select the service, tool or shared space you would like to book
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <a href ng-click="selectBookingItem('laundry')">LAUNDRY</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingView('spaces')">SPACES</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingView('tools')">TOOLS</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <a href ng-click="selectBookingView('services')">SERVICES</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingView('vehicles')">VEHICLES</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingView('others')">OTHERS</a>
+            </div>
+        </div>
+    </div>
+    <div ng-show="bookingView == 'spaces'">
+        <div class="row">
+            <div class="col-md-12">
+                <a href ng-click="selectBookingView('none')">BACK TO MAIN</a><br />
+                You have selected spaces, select a category
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <a href ng-click="selectBookingItem('gym')">GYM</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingItem('sauna')">SAUNA</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingItem('workshop')">WORKSHOP</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <a href ng-click="selectBookingItem('barbeque')">BARBEQUE</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingItem('kitchen')">KITCHEN</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingItem('kids')">KIDS PLAYROOM</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="bookingItem != 'none'">
+    <div class="row">
+        <div class="col-md-12">
+            <a href ng-click="selectBookingItem('none')">BACK</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            IMAGES
+        </div>
+        <div class="col-md-6">
+            ITEM NAME & DESCRIPTION
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            ESTABLISH THE PERIOD OF YOUR BOOKING
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <span style="display:inline-block; width:100px;">Tid/Dag</span>
+            <span style="display:inline-block; width:130px;" data-ng-repeat="d in weekdays">
+                {{ d }} {{ weekDates[$index] }}
+            </span>
+            <div data-ng-repeat="s in bookingData.slots">
+                <div>
+                    <span style="display:inline-block; width:100px;">{{t.name}}</span>
+                    <span  style="display:inline-block; width:130px; border-style: double; border-color: green;" data-ng-repeat="d in weekdays">
+                        <span ng-click="bookUnit($index, s.slotId)">
+                            {{ vacancies = getVacancies($index, s.slotId); "" }}
+                            <div data-ng-repeat="t in bookingData.unitTypes">
+                                {{ bookingData.bookingFormat(t, vacancies) }}
+                            </div>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="isShowingNewBooking()">
+        <div>
+            Booking {{bookingItem}}
+        </div>
+        <div>
+            {{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}                
+            <button ng-click="showNewQueue()">Queue</button>
+        </div>
+        <div data-ng-repeat="t in bookingData.unitTypes">
+            <span>{{ t.name }}</span>
+            <span data-ng-repeat="u in t.units">
+                <span ng-show="isBookable(t, u)">
+                    <input type="checkbox" ng-model="bookingEdit.type[t.typeId][u.unitId]"></input>{{ u.name }}
+                </span>
+            </span>
+        </div>
+        <div>
+            Send reminder via 
+            <input type="checkbox" ng-model="bookingEdit.medium[1]"></input> email 
+            <input type="checkbox" ng-model="bookingEdit.medium[2]"></input> sms
+        </div>
+        <div>
+            <input type="checkbox" ng-model="bookingEdit.time[4]"></input> 10 min
+            <input type="checkbox" ng-model="bookingEdit.time[8]"></input> 30 min
+            <input type="checkbox" ng-model="bookingEdit.time[16]"></input> 1 hour
+            <input type="checkbox" ng-model="bookingEdit.time[64]"></input> 5 hours
+            <input type="checkbox" ng-model="bookingEdit.time[256]"></input> 1 day
+            <input type="checkbox" ng-model="bookingEdit.time[2048]"></input> 1 week
+            BEFORE BOOKING DATE
+        </div>
+        <div>
+            <button ng-click="setBooking()">Confirm booking</button>
+        </div>
+        <div>
+            <button ng-click="clearBooking()">Delete</button>
+        </div>
+    </div>
+    <div ng-show="isShowingNewQueue()">
+        <div>
+            Waiting list {{bookingItem}}
+        </div>
+        <div>
+            {{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}
+        </div>
+        <div data-ng-repeat="t in bookingData.unitTypes">
+            <span>{{ t.name }}</span>
+            <span data-ng-repeat="b in queueData.type[t.typeId].queue">
+                <span ng-show="b[0] == 1">
+                    You are waiting for {{ b[1] }} units.
+                </span>
+                <span ng-show="b[0] != 1">
+                    Someone is waiting for {{ b[1] }} units.
+                </span>
+            </span>  
+            Antal <select ng-model="queueData.type[t.typeId].count" 
+                    ng-options="c for c in createNumberArray(queueData.type[t.typeId].max + 1)">
+            </select>
+        </div>
+        <div>
+            Alert me via 
+            <input type="checkbox" ng-model="queueData.alert[1]"></input> email 
+            <input type="checkbox" ng-model="queueData.alert[2]"></input> sms
+            if a machine in this turn becomes available
+        </div>
+        <div>
+            <input type="checkbox" ng-model="queueData.autobook"></input> Autobook the available machine for me
+        </div>
+        <div>
+            Send reminder via 
+            <input type="checkbox" ng-model="queueData.medium[1]"></input> email 
+            <input type="checkbox" ng-model="queueData.medium[2]"></input> sms
+        </div>
+        <div>
+            <input type="checkbox" ng-model="queueData.time[4]"></input> 10 min
+            <input type="checkbox" ng-model="queueData.time[8]"></input> 30 min
+            <input type="checkbox" ng-model="queueData.time[16]"></input> 1 hour
+            <input type="checkbox" ng-model="queueData.time[64]"></input> 5 hours
+            <input type="checkbox" ng-model="queueData.time[256]"></input> 1 day
+            <input type="checkbox" ng-model="queueData.time[2048]"></input> 1 week
+            BEFORE BOOKING DATE
+        </div>
+        <div>
+            <button ng-click="setQueue()">Join waiting list</button>
+        </div>
+    </div>
+</div>
+
+
+
+<div>
+    Alex
+    <hr />
+    Sven
+</div>
+
+
+
+
+View:{{bookingView}} Item:{{bookingItem}} 
+<div ng-show="bookingItem == 'none'">
+    <div ng-show="bookingView == 'none'">
+        <div class="row">
+            <div class="col-md-12">
+                Select the service, tool or shared space you would like to book
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <a href ng-click="selectBookingItem('laundry')">LAUNDRY</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingView('spaces')">SPACES</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingView('tools')">TOOLS</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <a href ng-click="selectBookingView('services')">SERVICES</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingView('vehicles')">VEHICLES</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingView('others')">OTHERS</a>
+            </div>
+        </div>
+    </div>
+    <div ng-show="bookingView == 'spaces'">
+        <div class="row">
+            <div class="col-md-12">
+                <a href ng-click="selectBookingView('none')">BACK TO MAIN</a><br />
+                You have selected spaces, select a category
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <a href ng-click="selectBookingItem('gym')">GYM</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingItem('sauna')">SAUNA</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingItem('workshop')">WORKSHOP</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <a href ng-click="selectBookingItem('barbeque')">BARBEQUE</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingItem('kitchen')">KITCHEN</a>
+            </div>
+            <div class="col-md-4">
+                <a href ng-click="selectBookingItem('kids')">KIDS PLAYROOM</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="bookingItem != 'none'">
+    <div class="row">
+        <div class="col-md-12">
+            <a href ng-click="selectBookingItem('none')">BACK</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            IMAGES
+        </div>
+        <div class="col-md-6">
+            ITEM NAME & DESCRIPTION
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            ESTABLISH THE PERIOD OF YOUR BOOKING
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <span style="display:inline-block; width:100px;">Tid/Dag</span>
+            <span style="display:inline-block; width:130px;" data-ng-repeat="d in weekdays">
+                {{ d }} {{ weekDates[$index] }}
+            </span>
+            <div data-ng-repeat="s in bookingData.slots">
+                <div>
+                    <span style="display:inline-block; width:100px;">{{t.name}}</span>
+                    <span  style="display:inline-block; width:130px; border-style: double; border-color: green;" data-ng-repeat="d in weekdays">
+                        <span ng-click="bookUnit($index, s.slotId)">
+                            {{ vacancies = getVacancies($index, s.slotId); "" }}
+                            <div data-ng-repeat="t in bookingData.unitTypes">
+                                {{ bookingData.bookingFormat(t, vacancies) }}
+                            </div>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="isShowingNewBooking()">
+        <div>
+            Booking {{bookingItem}}
+        </div>
+        <div>
+            {{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}                
+            <button ng-click="showNewQueue()">Queue</button>
+        </div>
+        <div data-ng-repeat="t in bookingData.unitTypes">
+            <span>{{ t.name }}</span>
+            <span data-ng-repeat="u in t.units">
+                <span ng-show="isBookable(t, u)">
+                    <input type="checkbox" ng-model="bookingEdit.type[t.typeId][u.unitId]"></input>{{ u.name }}
+                </span>
+            </span>
+        </div>
+        <div>
+            Send reminder via 
+            <input type="checkbox" ng-model="bookingEdit.medium[1]"></input> email 
+            <input type="checkbox" ng-model="bookingEdit.medium[2]"></input> sms
+        </div>
+        <div>
+            <input type="checkbox" ng-model="bookingEdit.time[4]"></input> 10 min
+            <input type="checkbox" ng-model="bookingEdit.time[8]"></input> 30 min
+            <input type="checkbox" ng-model="bookingEdit.time[16]"></input> 1 hour
+            <input type="checkbox" ng-model="bookingEdit.time[64]"></input> 5 hours
+            <input type="checkbox" ng-model="bookingEdit.time[256]"></input> 1 day
+            <input type="checkbox" ng-model="bookingEdit.time[2048]"></input> 1 week
+            BEFORE BOOKING DATE
+        </div>
+        <div>
+            <button ng-click="setBooking()">Confirm booking</button>
+        </div>
+        <div>
+            <button ng-click="clearBooking()">Delete</button>
+        </div>
+    </div>
+    <div ng-show="isShowingNewQueue()">
+        <div>
+            Waiting list {{bookingItem}}
+        </div>
+        <div>
+            {{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}
+        </div>
+        <div data-ng-repeat="t in bookingData.unitTypes">
+            <span>{{ t.name }}</span>
+            <span data-ng-repeat="b in queueData.type[t.typeId].queue">
+                <span ng-show="b[0] == 1">
+                    You are waiting for {{ b[1] }} units.
+                </span>
+                <span ng-show="b[0] != 1">
+                    Someone is waiting for {{ b[1] }} units.
+                </span>
+            </span>  
+            Antal <select ng-model="queueData.type[t.typeId].count" 
+                    ng-options="c for c in createNumberArray(queueData.type[t.typeId].max + 1)">
+            </select>
+        </div>
+        <div>
+            Alert me via 
+            <input type="checkbox" ng-model="queueData.alert[1]"></input> email 
+            <input type="checkbox" ng-model="queueData.alert[2]"></input> sms
+            if a machine in this turn becomes available
+        </div>
+        <div>
+            <input type="checkbox" ng-model="queueData.autobook"></input> Autobook the available machine for me
+        </div>
+        <div>
+            Send reminder via 
+            <input type="checkbox" ng-model="queueData.medium[1]"></input> email 
+            <input type="checkbox" ng-model="queueData.medium[2]"></input> sms
+        </div>
+        <div>
+            <input type="checkbox" ng-model="queueData.time[4]"></input> 10 min
+            <input type="checkbox" ng-model="queueData.time[8]"></input> 30 min
+            <input type="checkbox" ng-model="queueData.time[16]"></input> 1 hour
+            <input type="checkbox" ng-model="queueData.time[64]"></input> 5 hours
+            <input type="checkbox" ng-model="queueData.time[256]"></input> 1 day
+            <input type="checkbox" ng-model="queueData.time[2048]"></input> 1 week
+            BEFORE BOOKING DATE
+        </div>
+        <div>
+            <button ng-click="setQueue()">Join waiting list</button>
+        </div>
+    </div>
+</div>

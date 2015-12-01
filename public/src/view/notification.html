@@ -1,1 +1,226 @@
-<h1>Notification</h1>
+<div ng-show="notificationItem == null && !messageData.createMessage">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Your notifications</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <input type="checkbox" 
+                   ng-model="notificationView.selectAll" 
+                   ng-change="changedNotificationSelectAll()" />SELECT ALL
+            <select ng-model="notificationView.mark" 
+                    ng-change="changedNotificationMark()"
+                    ng-options="mark.name for mark in notificationMarks">
+            </select>
+            <a href ng-click="deleteNotifications()">DELETE</a>
+            <select ng-model="notificationView.view" 
+                    ng-change="changedNotificationView()"
+                    ng-options="view.name for view in notificationViews">
+            </select>
+            <a href ng-click="messageData.createMessage = true">CREATE NEW</a>
+        </div>
+    </div>
+    <div class="row" height=400 style="overflow-y:scroll">
+        <div data-ng-repeat="n in notifications">
+            <span><input type="checkbox" ng-model="n.isSelected" /></span>
+            <span ng-click="selectNotification(n)">
+                <span ng-show="n.typeId == 1">
+                    <span>{{n.fromUser.firstName}} {{n.fromUser.lastName}}:</span>
+                    <span><b>{{n.subject}}</b></span>
+                    <span>{{n.body}}</span>
+                    <span>({{n.creationTime}})</span>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
+<div ng-show="messageData.createMessage">
+    <div class="row">
+        <div class="col-md-12">
+            <a href ng-click="messageData.createMessage = false">BACK</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Create a message</h4>
+            <div>To:
+                <span data-ng-repeat="u in users">
+                    <span ng-show="messageData.isRecipient[u.userId] == true">
+                        <span>{{u.firstName}} {{u.lastName}}</span>
+                    </span>
+                </span>
+                <div ng-show="showRecipients != true">
+                    <a href ng-click="showRecipients = true">Select recipients</a>
+                </div>
+                <div ng-show="showRecipients == true">
+                    <a href ng-click="showRecipients = false">Hide</a>
+                </div>
+            </div>
+            <div ng-show="showRecipients == true">
+                <div data-ng-repeat="u in users">
+                    <div ng-show="u.userId != user.userId">
+                        <input type="checkbox" ng-model="messageData.isRecipient[u.userId]"></input>{{u.firstName}} {{u.lastName}}
+                    </div>
+                </div>
+            </div>
+            <div>Subject: <input type="text" ng-model="messageData.subject"/></div>
+            <div>Message</div>
+            <div><textarea ng-model="messageData.body"></textarea></div>
+            <a href ng-click="sendMessage()">Send</a>
+        </div>
+    </div>
+</div>
+<div ng-show="notificationItem != null && !messageData.createMessage">
+    <div class="row">
+        <div class="col-md-12">
+            <a href ng-click="selectNotificationItem(null)">BACK</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <select ng-model="notificationView.mark" 
+                    ng-change="changedNotificationMark()"
+                    ng-options="mark.name for mark in notificationMarks">
+            </select>
+            <a href ng-click="selectBookingItem('laundry')">DELETE</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div ng-show="notificationItem.typeId == 1">
+                <div>FROM: {{ notificationItem.fromUser.firstName }} {{notificationItem.fromUser.lastName}}</div>
+                <div>SUBJECT: {{ notificationItem.subject }}</div>
+                <div>BODY: {{ notificationItem.body }}</div>
+                <div>TIME: {{ notificationItem.creationTime }}</div>
+                <div>
+                    Reply text<br />
+                    <textarea ng-model="messageData.body"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <a href ng-click="selectNotificationItem(null)">Cancel</a>
+            <a href ng-click="sendMessage()">Send</a>
+        </div>
+    </div>
+</div>
+
+
+
+<div>
+    Alex
+    <hr />
+    Sven
+</div>
+
+
+
+
+<div ng-show="notificationItem == null && !messageData.createMessage">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Your notifications</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <input type="checkbox" 
+                   ng-model="notificationView.selectAll" 
+                   ng-change="changedNotificationSelectAll()" />SELECT ALL
+            <select ng-model="notificationView.mark" 
+                    ng-change="changedNotificationMark()"
+                    ng-options="mark.name for mark in notificationMarks">
+            </select>
+            <a href ng-click="deleteNotifications()">DELETE</a>
+            <select ng-model="notificationView.view" 
+                    ng-change="changedNotificationView()"
+                    ng-options="view.name for view in notificationViews">
+            </select>
+            <a href ng-click="messageData.createMessage = true">CREATE NEW</a>
+        </div>
+    </div>
+    <div class="row" height=400 style="overflow-y:scroll">
+        <div data-ng-repeat="n in notifications">
+            <span><input type="checkbox" ng-model="n.isSelected" /></span>
+            <span ng-click="selectNotification(n)">
+                <span ng-show="n.typeId == 1">
+                    <span>{{n.fromUser.firstName}} {{n.fromUser.lastName}}:</span>
+                    <span><b>{{n.subject}}</b></span>
+                    <span>{{n.body}}</span>
+                    <span>({{n.creationTime}})</span>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
+<div ng-show="messageData.createMessage">
+    <div class="row">
+        <div class="col-md-12">
+            <a href ng-click="messageData.createMessage = false">BACK</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Create a message</h4>
+            <div>To:
+                <span data-ng-repeat="u in users">
+                    <span ng-show="messageData.isRecipient[u.userId] == true">
+                        <span>{{u.firstName}} {{u.lastName}}</span>
+                    </span>
+                </span>
+                <div ng-show="showRecipients != true">
+                    <a href ng-click="showRecipients = true">Select recipients</a>
+                </div>
+                <div ng-show="showRecipients == true">
+                    <a href ng-click="showRecipients = false">Hide</a>
+                </div>
+            </div>
+            <div ng-show="showRecipients == true">
+                <div data-ng-repeat="u in users">
+                    <div ng-show="u.userId != user.userId">
+                        <input type="checkbox" ng-model="messageData.isRecipient[u.userId]"></input>{{u.firstName}} {{u.lastName}}
+                    </div>
+                </div>
+            </div>
+            <div>Subject: <input type="text" ng-model="messageData.subject"/></div>
+            <div>Message</div>
+            <div><textarea ng-model="messageData.body"></textarea></div>
+            <a href ng-click="sendMessage()">Send</a>
+        </div>
+    </div>
+</div>
+<div ng-show="notificationItem != null && !messageData.createMessage">
+    <div class="row">
+        <div class="col-md-12">
+            <a href ng-click="selectNotificationItem(null)">BACK</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <select ng-model="notificationView.mark" 
+                    ng-change="changedNotificationMark()"
+                    ng-options="mark.name for mark in notificationMarks">
+            </select>
+            <a href ng-click="selectBookingItem('laundry')">DELETE</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div ng-show="notificationItem.typeId == 1">
+                <div>FROM: {{ notificationItem.fromUser.firstName }} {{notificationItem.fromUser.lastName}}</div>
+                <div>SUBJECT: {{ notificationItem.subject }}</div>
+                <div>BODY: {{ notificationItem.body }}</div>
+                <div>TIME: {{ notificationItem.creationTime }}</div>
+                <div>
+                    Reply text<br />
+                    <textarea ng-model="messageData.body"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <a href ng-click="selectNotificationItem(null)">Cancel</a>
+            <a href ng-click="sendMessage()">Send</a>
+        </div>
+    </div>
+</div>

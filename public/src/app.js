@@ -1,27 +1,55 @@
-var app = angular.module('StarterApp', ['ngMaterial', 'ngAnimate', 'ngRoute']);
+var app = angular.module('HSB', ['ngMaterial', 'ngAnimate', 'ngRoute']);
 
 app.config(['$routeProvider',
 	function($routeProvider){
 		$routeProvider
 			.when('/', {
 				templateUrl: 'src/view/home.html',
-				controller: 'AppController'
+				controller: 'HSBController'
 			})
-			.when('/about', {
-				templateUrl: 'src/view/about.html',
-				controller: 'AppController'
+			.when('/notification', {
+				templateUrl: 'src/view/notification.html',
+				controller: 'HSBController'
+			})
+			.when('/booking', {
+				templateUrl: 'src/view/booking.html',
+				controller: 'HSBController'
+			})
+			.when('/adboard', {
+				templateUrl: 'src/view/adboard.html',
+				controller: 'HSBController'
 			})
 			.when('/reports', {
 				templateUrl: 'src/view/reports.html',
-				controller: 'AppController'
+				controller: 'HSBController'
 			})
-			.when('/myneighbours', {
-				templateUrl: 'src/view/myneighbours.html',
-				controller: 'AppController'
+			.when('/profile', {
+				templateUrl: 'src/view/profile.html',
+				controller: 'HSBController'
+			})
+			.when('/apartment', {
+				templateUrl: 'src/view/apartment.html',
+				controller: 'HSBController'
 			})
 			.when('/support', {
 				templateUrl: 'src/view/support.html',
-				controller: 'AppController'
+				controller: 'HSBController'
+			})
+			.when('/logout', {
+				templateUrl: 'src/view/logout.html',
+				controller: 'HSBController'
+			})
+			.when('/about', {
+				templateUrl: 'src/view/about.html',
+				controller: 'HSBController'
+			})
+			.when('/reports', {
+				templateUrl: 'src/view/reports.html',
+				controller: 'HSBController'
+			})
+			.when('/myneighbours', {
+				templateUrl: 'src/view/myneighbours.html',
+				controller: 'HSBController'
 			})
 			.otherwise({
 				redirectTo: '/'
@@ -29,7 +57,7 @@ app.config(['$routeProvider',
 	}
 ]);
 
-app.controller('AppController', function($mdSidenav) {
+app.controller('HSBController', function($mdSidenav) {
   var vm = this;
 
   vm.toggleSidenav = function(menuId) {

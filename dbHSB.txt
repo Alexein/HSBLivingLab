@@ -1,0 +1,125 @@
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS SystemUser;
+DROP TABLE IF EXISTS Session;
+DROP TABLE IF EXISTS NotificationType;
+DROP TABLE IF EXISTS NotificationStatus;
+DROP TABLE IF EXISTS Notification;
+DROP TABLE IF EXISTS Message;
+DROP TABLE IF EXISTS TimeSlotSet;
+DROP TABLE IF EXISTS TimeSlot;
+DROP TABLE IF EXISTS Resource;
+DROP TABLE IF EXISTS ResourceUnitType;
+DROP TABLE IF EXISTS ResourceUnit;
+DROP TABLE IF EXISTS BookingReminderMedium;
+DROP TABLE IF EXISTS BookingReminderTime;
+DROP TABLE IF EXISTS Booking;
+DROP TABLE IF EXISTS BookingUnit;
+DROP TABLE IF EXISTS BookingQueue;
+
+CREATE TABLE User(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, firstName VARCHAR(255) NOT NULL, lastName VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, md5Password VARCHAR(255) NOT NULL, changePassword BOOLEAN NOT NULL DEFAULT 1);
+CREATE UNIQUE INDEX User_email_idx ON User(email);
+CREATE TABLE SystemUser(userId INT NOT NULL PRIMARY KEY, permission INT NOT NULL);
+CREATE TABLE Session(userId INT NOT NULL, sessionKey VARCHAR(255) NOT NULL, validFrom DATETIME NOT NULL, validUntil DATETIME NOT NULL);
+CREATE INDEX Session_user_idx ON Session(userId, validUntil);
+CREATE INDEX Session_session_idx ON Session(sessionKey);
+
+CREATE TABLE NotificationType(id INT NOT NULL, name VARCHAR(255) NOT NULL);
+CREATE TABLE NotificationStatus(id INT NOT NULL, name VARCHAR(255) NOT NULL);
+CREATE TABLE Notification(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, recipientId INT NOT NULL, notificationTypeId INT NOT NULL, referenceId INT NOT NULL, statusId INT NOT NULL, statusTime DATETIME NOT NULL);
+CREATE INDEX Notification_recipient_idx ON Notification(recipientId);
+CREATE INDEX Notification_reference_idx ON Notification(notificationTypeId, referenceId);
+
+CREATE TABLE Message(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, fromUserId INT NOT NULL, subject VARCHAR(255) NOT NULL, body TEXT NOT NULL, creationTime DATETIME NOT NULL, replyToMessageId INT);
+
+CREATE TABLE TimeSlotSet(id INT NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL);
+CREATE TABLE TimeSlot(setId INT NOT NULL, slotId INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY (setId, slotId));
+
+CREATE TABLE Resource(id INT NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL, slotSetId INT NOT NULL);
+CREATE TABLE ResourceUnitType(resourceId INT NOT NULL, typeId INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY (resourceId, typeId));
+CREATE TABLE ResourceUnit(resourceId INT NOT NULL, typeId INT NOT NULL, unitId INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY (resourceId, typeId, unitId));
+
+CREATE TABLE BookingReminderMedium(id INT NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL);
+CREATE TABLE BookingReminderTime(id INT NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL, minutes INT NOT NULL);
+
+CREATE TABLE Booking(resourceId INT NOT NULL, date DATE NOT NULL, slotId INT NOT NULL, userId INT NOT NULL, bookingTime DATETIME NOT NULL, reminderMedia INT NOT NULL, reminderTimes INT NOT NULL, PRIMARY KEY (resourceId, date, slotId, userId));
+CREATE UNIQUE INDEX Booking_user_idx ON Booking(userId, resourceId, date, slotId);
+CREATE TABLE BookingUnit(resourceId INT NOT NULL, date DATE NOT NULL, slotId INT NOT NULL, typeId INT NOT NULL, unitId INT NOT NULL, userId INT NOT NULL, PRIMARY KEY (resourceId, date, slotId, typeId, unitId));
+CREATE UNIQUE INDEX BookingUnit_user_idx ON BookingUnit(userId, resourceId, date, slotId, typeId, unitId);
+CREATE TABLE BookingQueue(resourceId INT NOT NULL, date DATE NOT NULL, slotId INT NOT NULL, typeId INT NOT NULL, userId INT NOT NULL, count INT NOT NULL, creationTime DATETIME NOT NULL, alert INT NOT NULL, autobook BOOLEAN NOT NULL, reminderMedia INT NOT NULL, reminderTimes INT NOT NULL, PRIMARY KEY (resourceId, date, slotId, typeId, userId));
+CREATE UNIQUE INDEX BookingQueue_user_idx ON BookingQueue(userId, resourceId, date, slotId, typeId);
+
+INSERT INTO NotificationType(id, name) VALUES(1, "Message");
+INSERT INTO NotificationType(id, name) VALUES(8, "Announcement");
+INSERT INTO NotificationType(id, name) VALUES(64, "Reminder");
+INSERT INTO NotificationType(id, name) VALUES(512, "Alert");
+
+INSERT INTO NotificationStatus(id, name) VALUES(1, "New");
+INSERT INTO NotificationStatus(id, name) VALUES(8, "Read");
+INSERT INTO NotificationStatus(id, name) VALUES(64, "Removed");
+
+INSERT INTO TimeSlotSet(id, name) VALUES(10, "All hours");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 0, "00-01");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 1, "01-02");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 2, "02-03");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 3, "03-04");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 4, "04-05");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 5, "05-06");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 6, "06-07");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 7, "07-08");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 8, "08-09");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 9, "09-10");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 10, "10-11");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 11, "11-12");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 12, "12-13");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 13, "13-14");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 14, "14-15");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 15, "15-16");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 16, "16-17");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 17, "17-18");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 18, "18-19");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 19, "19-20");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 20, "20-21");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 21, "21-22");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 22, "22-23");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(10, 23, "23-24");
+
+INSERT INTO TimeSlotSet(id, name) VALUES(20, "Laudry");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(20, 0, "07-10");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(20, 1, "10-13");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(20, 2, "13-16");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(20, 3, "16-19");
+INSERT INTO TimeSlot(setId, slotId, name) VALUES(20, 4, "19-21");
+
+INSERT INTO Resource(id, name, slotSetId) VALUES(10, "laundry", 20);
+INSERT INTO ResourceUnitType(resourceId, typeId, name) VALUES(10, 1, "Tvättmaskiner");
+INSERT INTO ResourceUnit(resourceId, typeId, unitId, name) VALUES(10, 1, 1, "W1");
+INSERT INTO ResourceUnit(resourceId, typeId, unitId, name) VALUES(10, 1, 2, "W2");
+INSERT INTO ResourceUnit(resourceId, typeId, unitId, name) VALUES(10, 1, 3, "W3");
+INSERT INTO ResourceUnit(resourceId, typeId, unitId, name) VALUES(10, 1, 4, "W4");
+INSERT INTO ResourceUnitType(resourceId, typeId, name) VALUES(10, 2, "Torktumlare");
+INSERT INTO ResourceUnit(resourceId, typeId, unitId, name) VALUES(10, 2, 1, "D1");
+INSERT INTO ResourceUnit(resourceId, typeId, unitId, name) VALUES(10, 2, 2, "D2");
+INSERT INTO ResourceUnit(resourceId, typeId, unitId, name) VALUES(10, 2, 3, "D3");
+INSERT INTO ResourceUnit(resourceId, typeId, unitId, name) VALUES(10, 2, 4, "D4");
+
+INSERT INTO Resource(id, name, slotSetId) VALUES(20, "gym", 10);
+INSERT INTO ResourceUnitType(resourceId, typeId, name) VALUES(20, 1, "Träningscykel");
+INSERT INTO ResourceUnit(resourceId, typeId, unitId, name) VALUES(20, 1, 1, "B1");
+INSERT INTO ResourceUnitType(resourceId, typeId, name) VALUES(20, 2, "Löpband");
+INSERT INTO ResourceUnit(resourceId, typeId, unitId, name) VALUES(20, 2, 1, "R1");
+
+INSERT INTO BookingReminderMedium(id, name) VALUES(1, "email");
+INSERT INTO BookingReminderMedium(id, name) VALUES(2, "sms");
+
+INSERT INTO BookingReminderTime(id, name, minutes) VALUES(4, "10 min.", 10);
+INSERT INTO BookingReminderTime(id, name, minutes) VALUES(8, "30 min.", 30);
+INSERT INTO BookingReminderTime(id, name, minutes) VALUES(16, "1 timme", 60);
+INSERT INTO BookingReminderTime(id, name, minutes) VALUES(64, "5 timmar", 300);
+INSERT INTO BookingReminderTime(id, name, minutes) VALUES(256, "1 dag", 1440);
+INSERT INTO BookingReminderTime(id, name, minutes) VALUES(2048, "1 vecka.", 10080);
+
+INSERT INTO User(id, firstName, lastName, email, md5Password) VALUES(1000, 'Sven', 'Trebard', 'sven.trebard@tieto.com', '8213c2a10cc558454d8a6d078534ba9c');
+INSERT INTO SystemUser(userId, permission) VALUES(1000, 2048);
+INSERT INTO User(id, firstName, lastName, email, md5Password) VALUES(1001, 'Giuseppe', 'Perri', 'giuseppe.perri@tieto.com', '704d1faa729243c05ffa9840bb2dd6c4');
+INSERT INTO User(id, firstName, lastName, email, md5Password) VALUES(1002, 'Malin', 'Bergqvist', 'malin.bergqvist@tieto.com', 'ae5001a8d138fbaa1bc66481ab3c451d');
+INSERT INTO User(id, firstName, lastName, email, md5Password) VALUES(1003, 'Isabelle', 'Månsson', 'isabelle.mansson@tieto.com', 'ff4c5c758b784bcc193277418696581a');

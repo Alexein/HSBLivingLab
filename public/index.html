@@ -1,4 +1,4 @@
-<html lang="en" ng-app="StarterApp">
+<html lang="en" ng-app="HSB">
 
 <head>
   <meta name="viewport" content="initial-scale=1" />
@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="src/style/style.css">
 </head>
 
-<body layout="column" ng-controller="AppController as vm">
+<body layout="column" ng-controller="HSBController as vm">
   <md-toolbar layout="row">
     <div class="md-toolbar-tools">
       <md-button ng-click="vm.toggleSidenav('left')" class="md-icon-button">
@@ -26,12 +26,18 @@
         </a>
       </header>
       <a href="#/"><div class="sidenav-item">Home</div></a>
-      <a href="#/about"><div class="sidenav-item">About</div></a>
-      <a href="#/"><div class="sidenav-item">Ad board</div></a>
-      <a href=""><div class="sidenav-item">Notifications</div></a>
-      <a href="/#/reports"><div class="sidenav-item">Reports</div></a>
-      <a href="/#/myneighbours"><div class="sidenav-item">My Neighbour</div></a>
+      <a href="#/notification"><div class="sidenav-item">Aviseringar</div></a>
+      <a href="#/booking"><div class="sidenav-item">Bokningar</div></a>
+      <a href="#/adboard"><div class="sidenav-item">Anslagstavlan</div></a>
+      <a href="#/reports"><div class="sidenav-item">Rapporter</div></a>
+      <a href="#/profile"><div class="sidenav-item">Min profil</div></a>
+      <a href="#/apartment"><div class="sidenav-item">Min lägenhet</div></a>
       <a href="#/support"><div class="sidenav-item">Support</div></a>
+      <a href="#/logout"><div class="sidenav-item">Logga ut</div></a>
+      <a href="#/" ng-click="logout()"><div class="sidenav-item">Backup</div></a>
+
+      <a href="#/about"><div class="sidenav-item">About</div></a>
+      <a href="/#/myneighbours"><div class="sidenav-item">My Neighbour</div></a>
     </md-sidenav>
 
     <div layout="column" flex id="content">
@@ -55,7 +61,11 @@
   <script src="bower_components/angular-route/angular-route.js"></script>
 
   <!-- app -->
-  <script src="src/app.js"></script>
+<!--  <script src="src/app.js"></script>--> 
+    
+  <script src="src/hsb.js"></script>
+  <script src="src/configIndex.js"></script>
+    
 </body>
 
 </html>
