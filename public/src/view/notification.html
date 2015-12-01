@@ -23,9 +23,9 @@
     </div>
     <div class="row" height=400 style="overflow-y:scroll">
         <div data-ng-repeat="n in notifications">
-            <span><input type="checkbox" ng-model="n.isSelected" /></span>
-            <span ng-click="selectNotification(n)">
-                <span ng-show="n.typeId == 1">
+            <span ng-show="n.typeId == 1">
+                <span><input type="checkbox" ng-model="n.isSelected" /></span>
+                <span ng-click="selectNotification(n)">
                     <span>{{n.fromUser.firstName}} {{n.fromUser.lastName}}:</span>
                     <span><b>{{n.subject}}</b></span>
                     <span>{{n.body}}</span>

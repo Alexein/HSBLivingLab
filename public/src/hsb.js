@@ -1,4 +1,4 @@
-var useServer = true;
+var useServer = false;
 
 var app = angular.module('HSB', ['ngMaterial', 'ngAnimate', 'ngRoute']);
 
@@ -7,7 +7,11 @@ app.config(['$routeProvider',
 		$routeProvider
 			.when('/', {
 				templateUrl: 'src/view/home.html',
-				controller: 'HSBController'
+				controller: 'HomeController'
+			})
+			.when('/login', {
+				templateUrl: 'src/view/login.html',
+				controller: 'LoginController'
 			})
 			.when('/notification', {
 				templateUrl: 'src/view/notification.html',
@@ -80,9 +84,9 @@ var reminder5hours = 64;
 var reminder1day = 256;
 var reminder1week = 2048;
 
-function handleReply(scope, data, success) {
+function handleReply(scope, data, location, success) {
     if (data.loginRequired) {
-        scope.setContent("login");
+        location.setPath('/login');
     } else if (data.error != null) {
         alert('Error: ' + data.error);
     } else {
@@ -113,14 +117,19 @@ function resetState(scope) {
 function resetData(scope) {
     scope.profileView = 'profile'
     scope.apartmentView = 'apartment'
+    scope.loginData = {email : "", password : ""};
     resetState(scope);
 }
 
-function loadCurrentUser(http, scope) {
-    if (sessionKey != null && scope.user == null) {
+function loadCurrentUser(http, scope, location) {
+    if (!useServer) {
+        scope.user = scope.users[0];
+        return;
+    }
+    if (scope.sessionKey != null && scope.user == null) {
         scope.user = {};
-        http.post('/currentUser', {sessionKey: sessionKey}).success(function(data) {
-            handleReply(scope, data, function() {
+        http.post('/currentUser', {sessionKey: scope.sessionKey}).success(function(data) {
+            handleReply(scope, data, location, function() {
                 var user = data.user;
                 scope.user = user;
             });
@@ -169,11 +178,53 @@ function formatShortDate(date) {
     return day + "/" + month;
 }
 
-function createSimulation(scope) {
+function setupScope(scope) {
+    scope.permissionView = 4;
+    scope.permissionNotify = 32;
+    scope.permissionEdit = 256;
+    scope.permissionAdmin = 2048;
+    scope.birthYears = [1999, 1998, 1997];
+    scope.dateMonths = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 
+                         'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
+    scope.dateDays = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+    scope.occupations = [{name: 'Student', occupationId: 1},
+                         {name: 'Advokat', occupationId: 2},
+                         {name: 'Läkare', occupationId: 3}];
+    scope.notificationMarks = [{name: 'Mark as', markId: 0},
+                                {name: 'Read', markId: 1},
+                                {name: 'New', markId: 2}];
+    scope.notificationViews = [{name: 'View all', viewId: 1},
+                                {name: 'View unread', viewId: 2}];
+    scope.users = [
+        {userId: 1000, firstName: "Sven", lastName: "Trebard", email: "sven.trebard@tieto.com", password: "trebard2"},
+        {userId: 1001, firstName: "Giuseppe", lastName: "Perri", email: "giuseppe.perri@tieto.com", password: "perri2"},
+        {userId: 1002, firstName: "Malin", lastName: "Bergqvist", email: "malin.bergqvist@tieto.com", password: "bergqvist2"},
+        {userId: 1003, firstName: "Isabelle", lastName: "Månsson", email: "isabelle.mansson@tieto.com", password: "mansson2"}
+    ];
+
+    scope.bookings = [
+        {name: 'Laundry', bookingId: 1},
+        {name: 'Spaces', bookingId: 2, subBookings: [
+            {name: "Gym", subBookingId: 1},
+            {name: "Sauna", subBookingId: 2},
+            {name: "Workshop", subBookingId: 3},
+            {name: "Barbeque", subBookingId: 4},
+            {name: "Kitchen", subBookingId: 5},
+            {name: "Kids playroom", subBookingId: 6}]},
+        {name: 'Tools', bookingId: 3},
+        {name: 'Services', bookingId: 4},
+        {name: 'Vehicles', bookingId: 5},
+        {name: 'Others', bookingId: 6}
+    ];
+
     scope.notifications = [];
     if (!useServer) {
         for (var i = 0; i < 10; i++) {
-            var n = {from: "From " + i, subject: "Hello " + i, body: "Body " + i, datetime: "2015-11-" + zeroPad(i + 1)};
+            var n = {typeId: 1,
+                     fromUser: {firstName: "First " + i, lastName: "Last " + i}, 
+                     subject: "Hello " + i, 
+                     body: "Body " + i, 
+                     creationTime: "2015-11-" + zeroPad(i + 1)};
             scope.notifications.push(n);
         }
         var slotsAllHours = [];
@@ -289,63 +340,40 @@ function createSimulation(scope) {
     }
 }
 
-var sessionKey = null;
-
 app.service('dataService', function($http) {
     delete $http.defaults.headers.common['X-Requested-With'];
-    this.login = function(scope) {
+    this.login = function(scope, rootScope, location) {
         $http.post('/login', scope.loginData).success(function(data){
-            sessionKey = data.sessionKey;
-            scope.hsbTitle = data.title;
+            var sessionKey = data.sessionKey;
+            rootScope.sessionKey = sessionKey;
+            rootScope.hsbTitle = data.title;
             var systemPermission = data.systemPermission;
-            scope.systemPermission = systemPermission;
-            createSimulation(scope);
-            scope.setContent('home');
+            rootScope.systemPermission = systemPermission;
             
-            scope.bookingDataMap = data.resources;
+            rootScope.bookingDataMap = data.resources;
             for (var i in data.resources) {
                 var resource = data.resources[i];
-//                if (resource.resourceId == resourceIdLaundry) {
-                    resource.bookingFormat = function(unitType, vacancies) {
-                        if (vacancies == null) {
-                            return "Fully booked";
-                        }
-                        var result = "";
-                        var v = vacancies[unitType.typeId];
-                        if (v != null) {
-                            if (v[0].length > 0) {
-                                result += v[0].length + "+" + v[1].length + " " + unitType.name + " "; 
-                            } else {
-                                result += v[1].length + " " + unitType.name + " "; 
-                            }
-                            var queue = v[2];
-                            if (queue != null && queue.length > 0) {
-                                result += "(" + queue.length + " i kö) ";
-                            }
-                        }
-                        return result;
+                resource.bookingFormat = function(unitType, vacancies) {
+                    if (vacancies == null) {
+                        return "Fully booked";
                     }
-//                } else {
-//                    reource.bookingFormat = function(unitTypes, vacancies) {
-//                        if (vacancies != null) {
-//                            var unit = vacancies[1];
-//                            if (unit != null) {
-//                                if (unit[0].length > 0) {
-//                                    return "Bokad"
-//                                } else if (unit[1].length > 0) {
-//                                    return "Boka"
-//                                } else {
-//                                    return "Upptagen"
-//                                }
-//                            } else {
-//                                return "Upptagen";
-//                            }
-//                        } else {
-//                            return "Upptagen"
-//                        }
-//                    }                
-//                }
+                    var result = "";
+                    var v = vacancies[unitType.typeId];
+                    if (v != null) {
+                        if (v[0].length > 0) {
+                            result += v[0].length + "+" + v[1].length + " " + unitType.name + " "; 
+                        } else {
+                            result += v[1].length + " " + unitType.name + " "; 
+                        }
+                        var queue = v[2];
+                        if (queue != null && queue.length > 0) {
+                            result += "(" + queue.length + " i kö) ";
+                        }
+                    }
+                    return result;
+                }
             }
+            location.path('/')
         }).error(function() {
             alert("error");
         });
@@ -354,7 +382,7 @@ app.service('dataService', function($http) {
         if (!useServer) {
             return;
         }
-        $http.post('/notifications', {sessionKey: sessionKey,
+        $http.post('/notifications', {sessionKey: scope.sessionKey,
                                      typeMask: typeMask,
                                      statusMask: statusMask}).success(function(data){
             scope.notifications = data
@@ -380,7 +408,7 @@ app.service('dataService', function($http) {
             alert('The message has no recipients');
             return;
         }
-        $http.post('/sendMessage', {sessionKey: sessionKey,
+        $http.post('/sendMessage', {sessionKey: scope.sessionKey,
                                    subject: subject,
                                    body: body,
                                    recipients: recipients}).success(function(data){
@@ -391,14 +419,14 @@ app.service('dataService', function($http) {
     }
     this.loadBookings = function(scope) {
         if (!useServer) {
-        scope.dayBookings = scope.itemBookingMap[resourceName];
+            scope.dayBookings = scope.itemBookingMap[resourceName];
             return;
         }
         scope.dayBookings = {};
         var resourceName = scope.bookingItem;
         var calenderStart = formatDate(scope.calendarStart);
         var dayCount = 7;
-        $http.post('/bookings', {sessionKey: sessionKey,
+        $http.post('/bookings', {sessionKey: scope.sessionKey,
                                      resourceName: resourceName,
                                     calendarStart: calenderStart,
                                     dayCount: dayCount}).success(function(data){
@@ -411,7 +439,7 @@ app.service('dataService', function($http) {
         if (!useServer) {
             return;
         }
-        $http.post('/setBooking', {sessionKey: sessionKey,
+        $http.post('/setBooking', {sessionKey: scope.sessionKey,
                                      booking: booking}).success(function(data){
             scope.loadBookings();
         }).error(function() {
@@ -422,7 +450,7 @@ app.service('dataService', function($http) {
         if (!useServer) {
             return;
         }
-        $http.post('/setQueue', {sessionKey: sessionKey,
+        $http.post('/setQueue', {sessionKey: scope.sessionKey,
                                         booking: booking}).success(function(data){
             scope.loadBookings();
         }).error(function() {
@@ -433,7 +461,7 @@ app.service('dataService', function($http) {
         if (!useServer) {
             return;
         }
-        $http.post('/createBackup', {sessionKey: sessionKey}).success(function(data){
+        $http.post('/createBackup', {sessionKey: scope.sessionKey}).success(function(data){
             var i = 0;
         }).error(function() {
             alert("error");
@@ -441,20 +469,22 @@ app.service('dataService', function($http) {
     }
 });
 
-app.controller('HomeController', function($scope, $http, $mdSidenav, dataService) {
+app.controller('LoginController', function($scope, $rootScope, $location, $http, $mdSidenav, dataService) {
   var vm = this;
 
   vm.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
-
-  $scope.sessionKey = function() {
-      return sessionKey;
-  }
     
+    setupScope($rootScope);
+
 });
 
-app.controller('NotificationController', function($scope, $http, $mdSidenav, dataService) {
+app.controller('HomeController', function($scope, $rootScope, $location, $http, $mdSidenav, dataService) {
+    if ($rootScope.sessionKey == null) {
+        $location.path('/login')
+    }
+    loadCurrentUser($http, $rootScope);
   var vm = this;
 
   vm.toggleSidenav = function(menuId) {
@@ -464,63 +494,30 @@ app.controller('NotificationController', function($scope, $http, $mdSidenav, dat
   dataService.loadNotifications($scope, notificationTypeMessage, notificationStatusNew + notificationStatusRead);
 });
 
-app.controller('HSBController', function($scope, $http, $mdSidenav, dataService) {
+app.controller('NotificationController', function($scope, $rootScope, $location, $http, $mdSidenav, dataService) {
+    if ($rootScope.sessionKey == null) {
+        $location.path('/login')
+    }
   var vm = this;
 
   vm.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
 
-    $scope.permissionView = 4;
-    $scope.permissionNotify = 32;
-    $scope.permissionEdit = 256;
-    $scope.permissionAdmin = 2048;
-    $scope.birthYears = [1999, 1998, 1997];
-    $scope.dateMonths = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 
-                         'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
-    $scope.dateDays = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-    $scope.occupations = [{name: 'Student', occupationId: 1},
-                         {name: 'Advokat', occupationId: 2},
-                         {name: 'Läkare', occupationId: 3}];
-    $scope.notificationMarks = [{name: 'Mark as', markId: 0},
-                                {name: 'Read', markId: 1},
-                                {name: 'New', markId: 2}];
-    $scope.notificationViews = [{name: 'View all', viewId: 1},
-                                {name: 'View unread', viewId: 2}];
-    $scope.users = [
-        {userId: 1000, firstName: "Sven", lastName: "Trebard", email: "sven.trebard@tieto.com", password: "trebard2"},
-        {userId: 1001, firstName: "Giuseppe", lastName: "Perri", email: "giuseppe.perri@tieto.com", password: "perri2"},
-        {userId: 1002, firstName: "Malin", lastName: "Bergqvist", email: "malin.bergqvist@tieto.com", password: "bergqvist2"},
-        {userId: 1003, firstName: "Isabelle", lastName: "Månsson", email: "isabelle.mansson@tieto.com", password: "mansson2"}
-    ];
+  dataService.loadNotifications($scope, notificationTypeMessage, notificationStatusNew + notificationStatusRead);
+});
 
-    $scope.bookings = [
-        {name: 'Laundry', bookingId: 1},
-        {name: 'Spaces', bookingId: 2, subBookings: [
-            {name: "Gym", subBookingId: 1},
-            {name: "Sauna", subBookingId: 2},
-            {name: "Workshop", subBookingId: 3},
-            {name: "Barbeque", subBookingId: 4},
-            {name: "Kitchen", subBookingId: 5},
-            {name: "Kids playroom", subBookingId: 6}]},
-        {name: 'Tools', bookingId: 3},
-        {name: 'Services', bookingId: 4},
-        {name: 'Vehicles', bookingId: 5},
-        {name: 'Others', bookingId: 6}
-    ];
-    
+app.controller('HSBController', function($scope, $rootScope, $location, $http, $mdSidenav, dataService) {
+    if ($rootScope.sessionKey == null) {
+        $location.path('/login')
+    }
+    var vm = this;
+
+    vm.toggleSidenav = function(menuId) {
+      $mdSidenav(menuId).toggle();
+    };
+
     $scope.setContent = function(contentId) {
-        if (sessionKey == null) {
-            $scope.loginData = {email : "", password : ""};
-            resetData($scope);
-            contentId = "login"
-        }
-        if (contentId == 'home') {
-            loadCurrentUser($http, $scope);
-        }
-        if (contentId == 'notification') {
-            dataService.loadNotifications($scope, notificationTypeMessage, notificationStatusNew + notificationStatusRead);
-        }
         resetState($scope);
 //        $($scope.contentId).hide(1000)
 //        $scope.contentId = contentId;
@@ -542,10 +539,15 @@ app.controller('HSBController', function($scope, $http, $mdSidenav, dataService)
         $scope.loginData.password = user.password;
     }
     $scope.login = function() {
-        dataService.login($scope);
+        if (!useServer) {
+            $rootScope.sessionKey = "abc";
+            $location.path('/');
+            return;
+        }
+        dataService.login($scope, $rootScope, $location);
     }
     $scope.logout = function() {
-        sessionKey = null;
+        $rootScope.sessionKey = null;
         $scope.setContent('login');
     }
     $scope.createBackup = function() {
@@ -886,7 +888,8 @@ app.controller('HSBController', function($scope, $http, $mdSidenav, dataService)
     $scope.sendMessage = function() {
         dataService.sendMessage($scope);
     }
-    $scope.setContent("home");
-    configScope($scope)
+    setupScope($rootScope);
+    resetData($scope);
+    configScope($scope);
 });
 
