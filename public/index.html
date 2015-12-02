@@ -19,15 +19,18 @@
     </div>
   </md-toolbar>
   <div layout="row" flex>
-    <md-sidenav class="md-sidenav-left md-whiteframe-z2 ma-sidenav" md-component-id="left" ng-click="vm.toggleNav('left')" md-is-locked-open="isDetailOpen">
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2 ma-sidenav ng-isolate-scope" md-component-id="left" ng-click="vm.toggleNav('left')" md-is-locked-open="$mdMedia('md')">
       <header class="nav-header">
-        <a ng-href="#/" class="site-logo">
-          <img ng-src="src/img/hsblogo.png">
-        </a>
+        <div layout="column" class="md-toolbar-tools-bottom inset">
+          <user-avatar></user-avatar>
+          <span></span>
+          <div>Firstname Lastname</div>
+          <div>email@domainname.com</div>
+        </div>
       </header>
       <a href="#/"><div class="sidenav-item">Home</div></a>
       <a href="#/notification"><div class="sidenav-item">Aviseringar</div></a>
-      <a href="#/booking"><div class="sidenav-item">Bokningar</div></a>
+      <a href="#/booking" ng-show="sessionKey != null"><div class="sidenav-item">Bokningar</div></a>
       <a href="#/adboard"><div class="sidenav-item">Anslagstavlan</div></a>
       <a href="#/reports"><div class="sidenav-item">Rapporter</div></a>
       <a href="#/profile"><div class="sidenav-item">Min profil</div></a>

@@ -26,8 +26,8 @@ h3 {
   margin: inherit;
 }
 
-md-toolbar.layout-row, .ma-sidenav {
-  background: #FFD200;
+md-toolbar.layout-row{
+  background: $yellow;
 }
 
 md-sidenav.md-locked-open {
@@ -38,6 +38,7 @@ md-sidenav.md-locked-open {
 
 header.nav-header {
   text-align: center;
+  background-color: $greymedium;
 }
 
 .btn-row {
@@ -49,19 +50,22 @@ header.nav-header {
   display: inline-block;
 }
 
-.sidenav-item {
-  padding: 10px 10px 10px 30px;
-  //color: white;
-}
+.md-sidenav-left{
 
-.sidenav-item {
+  .sidenav-item {
+    padding: 20px;
+    border-bottom: 3px $greymedium solid;
+    color: black;
+  }
+
   a {
     text-decoration: none;
     color: $black;
     font-weight: 700;
-  }
-  &:hover {
-    background-color: $mustard;
+
+    &:hover {
+      background-color: $yellow;
+    }
   }
 }
 
@@ -76,4 +80,8 @@ a {
   &.site-logo {
     margin: auto;
   }
+}
+
+svg.user-avatar {
+    border-radius: 100%;
 }

@@ -20,7 +20,7 @@ h3 {
   font-weight: inherit;
   margin: inherit; }
 
-md-toolbar.layout-row, .ma-sidenav {
+md-toolbar.layout-row {
   background: #FFD200; }
 
 md-sidenav.md-locked-open {
@@ -29,7 +29,8 @@ md-sidenav.md-locked-open {
   max-width: 150px !important; }
 
 header.nav-header {
-  text-align: center; }
+  text-align: center;
+  background-color: #F9F9F9; }
 
 .btn-row {
   padding-top: 30px;
@@ -38,15 +39,16 @@ header.nav-header {
 .btn-toggle {
   display: inline-block; }
 
-.sidenav-item {
-  padding: 10px 10px 10px 30px; }
-
-md-sidebar a {
+.md-sidenav-left .sidenav-item {
+  padding: 20px;
+  border-bottom: 3px #F9F9F9 solid;
+  color: black; }
+.md-sidenav-left a {
   text-decoration: none;
   color: #000000;
   font-weight: 700; }
-.sidenav-item:hover {
-  background-color: #ECB50F; }
+  .md-sidenav-left a:hover {
+    background-color: #FFD200; }
 
 a.topbar-logo {
   margin: auto; }
@@ -55,5 +57,8 @@ a.topbar-logo {
     height: 40px; }
 a.site-logo {
   margin: auto; }
+
+svg.user-avatar {
+  border-radius: 100%; }
 
 /*# sourceMappingURL=style.css.map */
