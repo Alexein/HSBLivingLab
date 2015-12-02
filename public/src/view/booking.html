@@ -1,5 +1,5 @@
-View:{{bookingView}} Item:{{bookingItem}} 
-<div ng-show="bookingItem == 'none'">
+View:{{bookingView}} Item:{{bookingResource}} 
+<div ng-show="bookingResource == 'none'">
     <div ng-show="bookingView == 'none'">
         <div class="row">
             <div class="col-md-12">
@@ -8,7 +8,7 @@ View:{{bookingView}} Item:{{bookingItem}}
         </div>
         <div class="row">
             <div class="col-md-4">
-                <a href ng-click="selectBookingItem('laundry')">LAUNDRY</a>
+                <a href ng-click="selectBookingResource('laundry')">LAUNDRY</a>
             </div>
             <div class="col-md-4">
                 <a href ng-click="selectBookingView('spaces')">SPACES</a>
@@ -38,32 +38,32 @@ View:{{bookingView}} Item:{{bookingItem}}
         </div>
         <div class="row">
             <div class="col-md-4">
-                <a href ng-click="selectBookingItem('gym')">GYM</a>
+                <a href ng-click="selectBookingResource('gym')">GYM</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingItem('sauna')">SAUNA</a>
+                <a href ng-click="selectBookingResource('sauna')">SAUNA</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingItem('workshop')">WORKSHOP</a>
+                <a href ng-click="selectBookingResource('workshop')">WORKSHOP</a>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
-                <a href ng-click="selectBookingItem('barbeque')">BARBEQUE</a>
+                <a href ng-click="selectBookingResource('barbeque')">BARBEQUE</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingItem('kitchen')">KITCHEN</a>
+                <a href ng-click="selectBookingResource('kitchen')">KITCHEN</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingItem('kids')">KIDS PLAYROOM</a>
+                <a href ng-click="selectBookingResource('kids')">KIDS PLAYROOM</a>
             </div>
         </div>
     </div>
 </div>
-<div ng-show="bookingItem != 'none'">
+<div ng-show="bookingResource != 'none'">
     <div class="row">
         <div class="col-md-12">
-            <a href ng-click="selectBookingItem('none')">BACK</a>
+            <a href ng-click="selectBookingResource('none')">BACK</a>
         </div>
     </div>
     <div class="row">
@@ -102,7 +102,7 @@ View:{{bookingView}} Item:{{bookingItem}}
     </div>
     <div ng-show="isShowingNewBooking()">
         <div>
-            Booking {{bookingItem}}
+            Booking {{bookingResource}}
         </div>
         <div>
             {{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}                
@@ -139,7 +139,7 @@ View:{{bookingView}} Item:{{bookingItem}}
     </div>
     <div ng-show="isShowingNewQueue()">
         <div>
-            Waiting list {{bookingItem}}
+            Waiting list {{bookingResource}}
         </div>
         <div>
             {{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}
@@ -198,8 +198,8 @@ View:{{bookingView}} Item:{{bookingItem}}
 
 
 
-View:{{bookingView}} Item:{{bookingItem}} 
-<div ng-show="bookingItem == 'none'">
+View:{{bookingView}} Item:{{bookingResource}} 
+<div ng-show="bookingResource == 'none'">
     <div ng-show="bookingView == 'none'">
         <div class="row">
             <div class="col-md-12">
@@ -208,7 +208,7 @@ View:{{bookingView}} Item:{{bookingItem}}
         </div>
         <div class="row">
             <div class="col-md-4">
-                <a href ng-click="selectBookingItem('laundry')">LAUNDRY</a>
+                <a href ng-click="selectBookingResource('laundry')">LAUNDRY</a>
             </div>
             <div class="col-md-4">
                 <a href ng-click="selectBookingView('spaces')">SPACES</a>
@@ -238,32 +238,32 @@ View:{{bookingView}} Item:{{bookingItem}}
         </div>
         <div class="row">
             <div class="col-md-4">
-                <a href ng-click="selectBookingItem('gym')">GYM</a>
+                <a href ng-click="selectBookingResource('gym')">GYM</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingItem('sauna')">SAUNA</a>
+                <a href ng-click="selectBookingResource('sauna')">SAUNA</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingItem('workshop')">WORKSHOP</a>
+                <a href ng-click="selectBookingResource('workshop')">WORKSHOP</a>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
-                <a href ng-click="selectBookingItem('barbeque')">BARBEQUE</a>
+                <a href ng-click="selectBookingResource('barbeque')">BARBEQUE</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingItem('kitchen')">KITCHEN</a>
+                <a href ng-click="selectBookingResource('kitchen')">KITCHEN</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingItem('kids')">KIDS PLAYROOM</a>
+                <a href ng-click="selectBookingResource('kids')">KIDS PLAYROOM</a>
             </div>
         </div>
     </div>
 </div>
-<div ng-show="bookingItem != 'none'">
+<div ng-show="bookingResource != 'none'">
     <div class="row">
         <div class="col-md-12">
-            <a href ng-click="selectBookingItem('none')">BACK</a>
+            <a href ng-click="selectBookingResource('none')">BACK</a>
         </div>
     </div>
     <div class="row">
@@ -302,7 +302,7 @@ View:{{bookingView}} Item:{{bookingItem}}
     </div>
     <div ng-show="isShowingNewBooking()">
         <div>
-            Booking {{bookingItem}}
+            Booking {{bookingResource}}
         </div>
         <div>
             {{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}                
@@ -339,7 +339,7 @@ View:{{bookingView}} Item:{{bookingItem}}
     </div>
     <div ng-show="isShowingNewQueue()">
         <div>
-            Waiting list {{bookingItem}}
+            Waiting list {{bookingResource}}
         </div>
         <div>
             {{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}

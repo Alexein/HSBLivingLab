@@ -19,7 +19,7 @@ app.config(['$routeProvider',
 			})
 			.when('/booking', {
 				templateUrl: 'src/view/booking.html',
-				controller: 'HSBController'
+				controller: 'BookingController'
 			})
 			.when('/adboard', {
 				templateUrl: 'src/view/adboard.html',
@@ -105,7 +105,7 @@ function resetState(scope) {
     scope.profileEdit = {};
     scope.apartmentEdit = {};
     scope.bookingView = 'none';
-    scope.bookingItem = 'none';
+    scope.bookingResource = 'none';
     scope.newBookingItem = false;    
     scope.newBookingQueue = false;    
     scope.notificationItem = null;
@@ -176,6 +176,26 @@ function formatShortDate(date) {
     var month = date.getMonth() + 1;
     var day = date.getDate();
     return day + "/" + month;
+}
+
+function bookingFormat(unitType, vacancies) {
+    if (vacancies == null) {
+        return "Fully booked";
+    }
+    var result = "";
+    var v = vacancies[unitType.typeId];
+    if (v != null) {
+        if (v[0].length > 0) {
+            result += v[0].length + "+" + v[1].length + " " + unitType.name + " "; 
+        } else {
+            result += v[1].length + " " + unitType.name + " "; 
+        }
+        var queue = v[2];
+        if (queue != null && queue.length > 0) {
+            result += "(" + queue.length + " i kö) ";
+        }
+    }
+    return result;
 }
 
 function setupScope(scope) {
@@ -254,50 +274,12 @@ function setupScope(scope) {
                         {unitId: 3, name: "D3"},
                         {unitId: 4, name: "D4"}]}
                 ],
-                bookingFormat: function(unitTypes, vacancies) {
-                    if (vacancies == null) {
-                        return "Fully booked";
-                    }
-                    var result = "";
-                    for (var i = 0; i < unitTypes.length; i++) {
-                        var unitType = unitTypes[i];
-                        var v = vacancies[unitType.typeId];
-                        if (v != null) {
-                            if (v[0].length > 0) {
-                                result += v[0].length + "+" + v[1].length + " " + unitType.name + " "; 
-                            } else {
-                                result += v[1].length + " " + unitType.name + " "; 
-                            }
-                            var queue = v[2];
-                            if (queue != null) {
-                                result += "(" + queue.length + " i kö) ";
-                            }
-                        }
-                    }
-                    return result;
-                }
+                bookingFormat: bookingFormat
             },
             'default': {
                 slots: slotsAllHours,
                 unitTypes: [{typeId: 1, units: [{unitId: 1}]}],
-                bookingFormat: function(unitTypes, vacancies) {
-                    if (vacancies != null) {
-                        var unit = vacancies[1];
-                        if (unit != null) {
-                            if (unit[0].length > 0) {
-                                return "Bokad"
-                            } else if (unit[1].length > 0) {
-                                return "Boka"
-                            } else {
-                                return "Upptagen"
-                            }
-                        } else {
-                            return "Upptagen";
-                        }
-                    } else {
-                        return "Upptagen"
-                    }
-                }
+                bookingFormat: bookingFormat
             }
         }
     }
@@ -314,28 +296,29 @@ function setupScope(scope) {
         scope.weekDates.push(dStr);
     }
     // Booking map: {day:{time:{type:{'units:'{unit:bookingId},'queue:'[[bookingId,count]]}}}} where bookingId = 1 for self, 0 for unknown, id for known
-    if (!useServer) {
-        scope.itemBookingMap = {
-            'laundry': {
-                1: {0: {1: {units: {1:0,2:0,3:0,4:0}, queue: [[1,2]]}, 2: {units: {1:0,2:0,3:0,4:0}}}, 
-                    3: {1: {units: {1:1,2:0,3:0,4:0}}, 2: {units: {1:0,2:0,3:0,4:0}}}, 
-                    4: {1: {units: {1:1,2:0}}, 2: {units: {1:1,2:0}}}},
-                2: {0: {1: {units: {1:1,2:0}, queue: [[0,1]]}, 2: {units: {1:1,2:0}}}, 
-                    1: {1: {units: {1:1,2:0}}, 2: {units: {1:1,2:0}}}, 
-                    2: {1: {units: {1:1,2:0}}, 2: {units: {1:1,2:0}}}, 
-                    3: {1: {units: {1:1,2:0}}, 2: {units: {1:1,2:0}}}, 
-                    4: {1: {units: {1:1,2:0}}, 2: {units: {1:1,2:0}}}}
-            },
-            'gym': {
-                3: {0: {1: {units: {1:0}}}, 
-                    3: {1: {units: {1:0}}}, 
-                    4: {1: {units: {1:1}}}},
-                4: {0: {1: {units: {1:1}}}, 
-                    1: {1: {units: {1:0}}}, 
-                    2: {1: {units: {1:1,2:0}}}, 
-                    3: {1: {units: {1:1,2:0}}}, 
-                    4: {1: {units: {1:1,2:0}}}}
-            }
+}
+
+function setLocalDayBookings(scope) {
+    scope.dayBookingMap = {
+        'laundry': {
+            1: {0: {1: {units: {1:0,2:0,3:0,4:0}, queue: [[1,2]]}, 2: {units: {1:0,2:0,3:0,4:0}}}, 
+                3: {1: {units: {1:1,2:0,3:0,4:0}}, 2: {units: {1:0,2:0,3:0,4:0}}}, 
+                4: {1: {units: {1:1,2:0}}, 2: {units: {1:1,2:0}}}},
+            2: {0: {1: {units: {1:1,2:0}, queue: [[0,1]]}, 2: {units: {1:1,2:0}}}, 
+                1: {1: {units: {1:1,2:0}}, 2: {units: {1:1,2:0}}}, 
+                2: {1: {units: {1:1,2:0}}, 2: {units: {1:1,2:0}}}, 
+                3: {1: {units: {1:1,2:0}}, 2: {units: {1:1,2:0}}}, 
+                4: {1: {units: {1:1,2:0}}, 2: {units: {1:1,2:0}}}}
+        },
+        'gym': {
+            3: {0: {1: {units: {1:0}}}, 
+                3: {1: {units: {1:0}}}, 
+                4: {1: {units: {1:1}}}},
+            4: {0: {1: {units: {1:1}}}, 
+                1: {1: {units: {1:0}}}, 
+                2: {1: {units: {1:1,2:0}}}, 
+                3: {1: {units: {1:1,2:0}}}, 
+                4: {1: {units: {1:1,2:0}}}}
         }
     }
 }
@@ -353,25 +336,7 @@ app.service('dataService', function($http) {
             rootScope.bookingDataMap = data.resources;
             for (var i in data.resources) {
                 var resource = data.resources[i];
-                resource.bookingFormat = function(unitType, vacancies) {
-                    if (vacancies == null) {
-                        return "Fully booked";
-                    }
-                    var result = "";
-                    var v = vacancies[unitType.typeId];
-                    if (v != null) {
-                        if (v[0].length > 0) {
-                            result += v[0].length + "+" + v[1].length + " " + unitType.name + " "; 
-                        } else {
-                            result += v[1].length + " " + unitType.name + " "; 
-                        }
-                        var queue = v[2];
-                        if (queue != null && queue.length > 0) {
-                            result += "(" + queue.length + " i kö) ";
-                        }
-                    }
-                    return result;
-                }
+                resource.bookingFormat = bookingFormat;
             }
             location.path('/')
         }).error(function() {
@@ -392,6 +357,7 @@ app.service('dataService', function($http) {
     }
     this.sendMessage = function(scope) {
         if (!useServer) {
+            scope.messageData.createMessage = false;
             return;
         }
         var subject = scope.messageData.subject;
@@ -417,20 +383,22 @@ app.service('dataService', function($http) {
             alert("error");
         });
     }
-    this.loadBookings = function(scope) {
+    this.loadBookings = function(scope, location) {
         if (!useServer) {
-            scope.dayBookings = scope.itemBookingMap[resourceName];
+            scope.dayBookings = scope.dayBookingMap[scope.bookingResource];
             return;
         }
         scope.dayBookings = {};
-        var resourceName = scope.bookingItem;
+        var resourceName = scope.bookingResource;
         var calenderStart = formatDate(scope.calendarStart);
         var dayCount = 7;
         $http.post('/bookings', {sessionKey: scope.sessionKey,
                                      resourceName: resourceName,
                                     calendarStart: calenderStart,
                                     dayCount: dayCount}).success(function(data){
-            scope.dayBookings = data;
+            handleReply(scope, data, location, function() {
+                scope.dayBookings = data;
+            });
         }).error(function() {
             alert("error");
         });
@@ -470,70 +438,6 @@ app.service('dataService', function($http) {
 });
 
 app.controller('LoginController', function($scope, $rootScope, $location, $http, $mdSidenav, dataService) {
-  var vm = this;
-
-  vm.toggleSidenav = function(menuId) {
-    $mdSidenav(menuId).toggle();
-  };
-    
-    setupScope($rootScope);
-
-});
-
-app.controller('HomeController', function($scope, $rootScope, $location, $http, $mdSidenav, dataService) {
-    if ($rootScope.sessionKey == null) {
-        $location.path('/login')
-    }
-    loadCurrentUser($http, $rootScope);
-  var vm = this;
-
-  vm.toggleSidenav = function(menuId) {
-    $mdSidenav(menuId).toggle();
-  };
-
-  dataService.loadNotifications($scope, notificationTypeMessage, notificationStatusNew + notificationStatusRead);
-});
-
-app.controller('NotificationController', function($scope, $rootScope, $location, $http, $mdSidenav, dataService) {
-    if ($rootScope.sessionKey == null) {
-        $location.path('/login')
-    }
-  var vm = this;
-
-  vm.toggleSidenav = function(menuId) {
-    $mdSidenav(menuId).toggle();
-  };
-
-  dataService.loadNotifications($scope, notificationTypeMessage, notificationStatusNew + notificationStatusRead);
-});
-
-app.controller('HSBController', function($scope, $rootScope, $location, $http, $mdSidenav, dataService) {
-    if ($rootScope.sessionKey == null) {
-        $location.path('/login')
-    }
-    var vm = this;
-
-    vm.toggleSidenav = function(menuId) {
-      $mdSidenav(menuId).toggle();
-    };
-
-    $scope.setContent = function(contentId) {
-        resetState($scope);
-//        $($scope.contentId).hide(1000)
-//        $scope.contentId = contentId;
-//        $($scope.contentId).show(1000)
-    }
-    $scope.loadCurrentUser = function() {
-        loadCurrentUser($http, $scope);
-    }
-    $scope.hasContent = function(contentId) {
-        var pid = $scope.contentId;
-        return $scope.contentId == contentId;
-    }
-    $scope.hasSystemPermission = function(permission) {
-        var systemPermission = $scope.systemPermission;
-        return (systemPermission & permission) > 0;
-    }
     $scope.selectUser = function(user) {
         $scope.loginData.email = user.email; 
         $scope.loginData.password = user.password;
@@ -546,29 +450,30 @@ app.controller('HSBController', function($scope, $rootScope, $location, $http, $
         }
         dataService.login($scope, $rootScope, $location);
     }
-    $scope.logout = function() {
-        $rootScope.sessionKey = null;
-        $scope.setContent('login');
-    }
-    $scope.createBackup = function() {
-        dataService.createBackup($scope);
-    }
-    $scope.selectProfileView = function(profileView) {
-        $scope.profileView = profileView;
-    }
-    $scope.selectApartmentView = function(apartmentView) {
-        $scope.apartmentView = apartmentView;
-    }
+});
+
+app.controller('HomeController', function($scope, $rootScope, $http, $mdSidenav, dataService) {
+  dataService.loadNotifications($rootScope, notificationTypeMessage, notificationStatusNew + notificationStatusRead);
+});
+
+app.controller('NotificationController', function($scope, $rootScope, $http, $mdSidenav, dataService) {
+  dataService.loadNotifications($rootScope, notificationTypeMessage, notificationStatusNew + notificationStatusRead);
+});
+
+app.controller('BookingController', function($scope, $rootScope, $location, $http, $mdSidenav, dataService) {
+  if (!useServer) {
+      setLocalDayBookings($rootScope);
+  }
     $scope.selectBookingView = function(bookingView) {
         $scope.bookingView = bookingView;
-        $scope.bookingItem = 'none';
+        $scope.bookingResource = 'none';
     }
     $scope.loadBookings = function() {
-        dataService.loadBookings($scope);
+        dataService.loadBookings($scope, $location);
     }
-    $scope.selectBookingItem = function(bookingItem) {
-        $scope.bookingItem = bookingItem;
-        $scope.bookingData = $scope.bookingDataMap[bookingItem];
+    $scope.selectBookingResource = function(bookingResource) {
+        $scope.bookingResource = bookingResource;
+        $scope.bookingData = $scope.bookingDataMap[bookingResource];
         if ($scope.bookingData == null) {
             $scope.bookingData = $scope.bookingDataMap['default'];
         }
@@ -738,7 +643,7 @@ app.controller('HSBController', function($scope, $rootScope, $location, $http, $
         var date = new Date($scope.calendarStart.getTime());        
         var addDays = $scope.bookingDayId;
         date.setDate(date.getDate() + addDays);
-        var booking = {resource: $scope.bookingItem, date: formatDate(date), slot: $scope.bookingSlotId, type: {}};
+        var booking = {resource: $scope.bookingResource, date: formatDate(date), slot: $scope.bookingSlotId, type: {}};
         for (var i = 0; i < unitTypes.length; i++) {
             var unitType = unitTypes[i];
             var units = [];
@@ -812,7 +717,7 @@ app.controller('HSBController', function($scope, $rootScope, $location, $http, $
 //        var typeBookings = $scope.getTypeBookings($scope.bookingDayId, $scope.bookingSlotId, true);
         var date = new Date();
         date.setDate($scope.calendarStart.getDate() + $scope.bookingDayId);
-        var booking = {resource: $scope.bookingItem, date: formatDate(date), slot: $scope.bookingSlotId, type: {}};
+        var booking = {resource: $scope.bookingResource, date: formatDate(date), slot: $scope.bookingSlotId, type: {}};
         for (var i = 0; i < unitTypes.length; i++) {
             var unitType = unitTypes[i];
             var units = [];
@@ -873,6 +778,48 @@ app.controller('HSBController', function($scope, $rootScope, $location, $http, $
     $scope.isShowingNewQueue = function() {
         return $scope.newBookingQueue == true;
     }
+});
+
+app.controller('HSBController', function($scope, $rootScope, $location, $http, $mdSidenav, dataService) {
+    if ($rootScope.sessionKey == null) {
+        $location.path('/login')
+    }
+    var vm = this;
+
+    vm.toggleSidenav = function(menuId) {
+      $mdSidenav(menuId).toggle();
+    };
+
+    $scope.setContent = function(contentId) {
+        resetState($scope);
+//        $($scope.contentId).hide(1000)
+//        $scope.contentId = contentId;
+//        $($scope.contentId).show(1000)
+    }
+    $scope.loadCurrentUser = function() {
+        loadCurrentUser($http, $scope);
+    }
+    $scope.hasContent = function(contentId) {
+        var pid = $scope.contentId;
+        return $scope.contentId == contentId;
+    }
+    $scope.hasSystemPermission = function(permission) {
+        var systemPermission = $scope.systemPermission;
+        return (systemPermission & permission) > 0;
+    }
+    $scope.logout = function() {
+        $rootScope.sessionKey = null;
+        $scope.setContent('login');
+    }
+    $scope.createBackup = function() {
+        dataService.createBackup($scope);
+    }
+    $scope.selectProfileView = function(profileView) {
+        $scope.profileView = profileView;
+    }
+    $scope.selectApartmentView = function(apartmentView) {
+        $scope.apartmentView = apartmentView;
+    }
     $scope.selectNotificationItem = function(notificationItem) {
         $scope.notificationItem = notificationItem;
     }
@@ -888,8 +835,10 @@ app.controller('HSBController', function($scope, $rootScope, $location, $http, $
     $scope.sendMessage = function() {
         dataService.sendMessage($scope);
     }
+
     setupScope($rootScope);
     resetData($scope);
     configScope($scope);
+
 });
 
