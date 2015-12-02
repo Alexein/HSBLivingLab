@@ -346,6 +346,7 @@ app.service('dataService', function($http) {
                 resource.bookingFormat = bookingFormat;
             }
             location.path('/')
+            loadCurrentUser($http, rootScope, location);
         }).error(function() {
             alert("error");
         });
@@ -453,9 +454,10 @@ app.controller('LoginController', function($scope, $rootScope, $location, $http,
         if (!useServer) {
             $rootScope.sessionKey = "abc";
             $location.path('/');
-            return;
+            loadCurrentUser($http, $rootScope, $location);
+        } else {
+            dataService.login($scope, $rootScope, $location);
         }
-        dataService.login($scope, $rootScope, $location);
     }
 });
 
@@ -801,12 +803,6 @@ app.controller('HSBController', function($scope, $rootScope, $location, $http, $
 
     $scope.setContent = function(contentId) {
         resetState($scope);
-//        $($scope.contentId).hide(1000)
-//        $scope.contentId = contentId;
-//        $($scope.contentId).show(1000)
-    }
-    $scope.loadCurrentUser = function() {
-        loadCurrentUser($http, $scope);
     }
     $scope.hasContent = function(contentId) {
         var pid = $scope.contentId;
