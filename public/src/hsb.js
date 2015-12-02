@@ -285,7 +285,12 @@ function setupScope(scope) {
             },
             'default': {
                 slots: slotsAllHours,
-                unitTypes: [{typeId: 1, units: [{unitId: 1}]}],
+                unitTypes: [
+                    {typeId: 1, name: "Träningscykel", units: [
+                        {unitId: 1, name: "C1"}]},
+                    {typeId: 2, name: "Löpband", units: [
+                        {unitId: 1, name: "R1"}]}
+                ],
                 bookingFormat: bookingFormat
             }
         }

@@ -87,7 +87,7 @@ View:{{bookingView}} Item:{{bookingResource}}
             </span>
             <div data-ng-repeat="s in bookingData.slots">
                 <div>
-                    <span style="display:inline-block; width:100px;">{{t.name}}</span>
+                    <span style="display:inline-block; width:100px;">{{s.name}}</span>
                     <span  style="display:inline-block; width:130px; border-style: double; border-color: green;" data-ng-repeat="d in weekdays">
                         <span ng-click="bookUnit($index, s.slotId)">
                             {{ vacancies = getVacancies($index, s.slotId); "" }}
@@ -287,7 +287,7 @@ View:{{bookingView}} Item:{{bookingResource}}
             </span>
             <div data-ng-repeat="s in bookingData.slots">
                 <div>
-                    <span style="display:inline-block; width:100px;">{{t.name}}</span>
+                    <span style="display:inline-block; width:100px;">{{s.name}}</span>
                     <span  style="display:inline-block; width:130px; border-style: double; border-color: green;" data-ng-repeat="d in weekdays">
                         <span ng-click="bookUnit($index, s.slotId)">
                             {{ vacancies = getVacancies($index, s.slotId); "" }}
