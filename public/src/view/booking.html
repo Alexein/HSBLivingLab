@@ -1,4 +1,4 @@
-Category:{{bookingCategory}} Item:{{bookingResource}} 
+Category:{{bookingCategory}} Resource:{{bookingResource}} 
 <div ng-show="bookingResource == 'none'">
     <div ng-show="bookingCategory == 'none'">
         <div class="row">
@@ -6,28 +6,6 @@ Category:{{bookingCategory}} Item:{{bookingResource}}
                 Select the service, tool or shared space you would like to book
             </div>
         </div>
-<<<<<<< HEAD
-        <div class="row">
-            <div class="col-md-4">
-                <a href ng-click="selectBookingResource('laundry')">LAUNDRY</a>
-            </div>
-            <div class="col-md-4">
-                <a href ng-click="selectBookingCategory('spaces')">SPACES</a>
-            </div>
-            <div class="col-md-4">
-                <a href ng-click="selectBookingCategory('tools')">TOOLS</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <a href ng-click="selectBookingCategory('services')">SERVICES</a>
-            </div>
-            <div class="col-md-4">
-                <a href ng-click="selectBookingCategory('vehicles')">VEHICLES</a>
-            </div>
-            <div class="col-md-4">
-                <a href ng-click="selectBookingCategory('others')">OTHERS</a>
-=======
         <div class="col-md-1">
             <div layout="row" layout-wrap>
                 <div flex>
@@ -36,12 +14,12 @@ Category:{{bookingCategory}} Item:{{bookingResource}}
                     </md-button>
                 </div>
                 <div flex>
-                    <md-button href ng-click="selectBookingView('spaces')"><img src="src/img/icons/Shared_Spaces_icon.png" class="booking-icons">
+                    <md-button href ng-click="selectBookingCategory('spaces')"><img src="src/img/icons/Shared_Spaces_icon.png" class="booking-icons">
                         <div><span>Platser</span></div>
                     </md-button>
                 </div>
                 <div flex>
-                    <md-button href ng-click="selectBookingView('tools')"><img src="src/img/icons/tools_icon.png" class="booking-icons">
+                    <md-button href ng-click="selectBookingCategory('tools')"><img src="src/img/icons/tools_icon.png" class="booking-icons">
                         <div><span>Verktyg</span></div>
                     </md-button>
                 </div>
@@ -50,20 +28,19 @@ Category:{{bookingCategory}} Item:{{bookingResource}}
 
         <div layout="row" layout-wrap>
             <div flex>
-                <md-button href ng-click="selectBookingView('services')"><img src="src/img/icons/Services_Icon.png" class="booking-icons">
+                <md-button href ng-click="selectBookingCategory('services')"><img src="src/img/icons/Services_Icon.png" class="booking-icons">
                     <div><span>Service</span></div>
                 </md-button>
             </div>
             <div flex>
-                <md-button href ng-click="selectBookingView('vehicles')"><img src="src/img/icons/Services_Icon.png" class="booking-icons">
+                <md-button href ng-click="selectBookingCategory('vehicles')"><img src="src/img/icons/Services_Icon.png" class="booking-icons">
                     <div><span>Fordon</span></div>
                 </md-button>
             </div>
             <div flex>
-                <md-button href ng-click="selectBookingView('others')"><img src="src/img/icons/Services_Icon.png" class="booking-icons">
+                <md-button href ng-click="selectBookingCategory('others')"><img src="src/img/icons/Services_Icon.png" class="booking-icons">
                     <div><span>Övrigt</span></div>
                 </md-button>
->>>>>>> origin/master
             </div>
         </div>
     </div>
