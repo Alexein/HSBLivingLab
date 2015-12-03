@@ -61,6 +61,10 @@ header.nav-header {
     &:hover {
       background-color: $yellow;
     }
+
+    &:focus {
+      outline: none;
+    }
   }
 
   a {
@@ -92,4 +96,35 @@ svg.user-avatar {
 .booking-icons {
   width: 100px;
   height: 100px;
+}
+
+span.day-label {
+    display: inline-block;
+    padding-left: 5px;
+    width: 180px;
+}
+
+span.hour-label {
+    vertical-align: top;
+}
+
+span.hour-cell {
+    display: inline-block;
+    width: 180px;
+    border-style: double;
+    border-color: $yellow;
+
+    span {
+      &:focus {
+        outline-color: $mustard !important;
+      }
+    }
+}
+
+div.cell-label {
+    padding: 5px 10px;
+}
+
+.cell-row {
+    padding-bottom: 10px;
 }

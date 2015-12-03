@@ -97,16 +97,16 @@ Category:{{bookingCategory}} Resource:{{bookingResource}}
     <div class="row">
         <div class="col-md-12">
             <span style="display:inline-block; width:100px;">Tid/Dag</span>
-            <span style="display:inline-block; width:130px;" data-ng-repeat="d in weekdays">
+            <span data-ng-repeat="d in weekdays" class="day-label">
                 {{ d }} {{ weekDates[$index] }}
             </span>
-            <div data-ng-repeat="s in bookingData.slots">
+            <div class="cell-row" data-ng-repeat="s in bookingData.slots">
                 <div>
-                    <span style="display:inline-block; width:100px;">{{s.name}}</span>
-                    <span  style="display:inline-block; width:130px; border-style: double; border-color: green;" data-ng-repeat="d in weekdays">
+                    <span style="display:inline-block; width:100px;" class="hour-label">{{s.name}}</span>
+                    <span  class="hour-cell" data-ng-repeat="d in weekdays">
                         <span ng-click="bookUnit($index, s.slotId)">
                             {{ vacancies = getVacancies($index, s.slotId); "" }}
-                            <div data-ng-repeat="t in bookingData.unitTypes">
+                            <div data-ng-repeat="t in bookingData.unitTypes" class="cell-label">
                                 {{ bookingData.bookingFormat(t, vacancies) }}
                             </div>
                         </span>

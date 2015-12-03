@@ -46,6 +46,8 @@ header.nav-header {
   color: black; }
   .md-sidenav-left .sidenav-item:hover {
     background-color: #FFD200; }
+  .md-sidenav-left .sidenav-item:focus {
+    outline: none; }
 .md-sidenav-left a {
   color: #000000;
   font-weight: 700; }
@@ -67,5 +69,27 @@ svg.user-avatar {
 .booking-icons {
   width: 100px;
   height: 100px; }
+
+span.day-label {
+  display: inline-block;
+  padding-left: 5px;
+  width: 180px; }
+
+span.hour-label {
+  vertical-align: top; }
+
+span.hour-cell {
+  display: inline-block;
+  width: 180px;
+  border-style: double;
+  border-color: #FFD200; }
+  span.hour-cell span:focus {
+    outline-color: #ECB50F !important; }
+
+div.cell-label {
+  padding: 5px 10px; }
+
+.cell-row {
+  padding-bottom: 10px; }
 
 /*# sourceMappingURL=style.css.map */
