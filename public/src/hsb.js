@@ -1,4 +1,4 @@
-var useServer = false;
+var useServer = true;
 
 var app = angular.module('HSB', ['ngMaterial', 'ngAnimate', 'ngRoute']);
 
@@ -111,7 +111,7 @@ function remove(array, element) {
 function resetState(scope) {
     scope.profileEdit = {};
     scope.apartmentEdit = {};
-    scope.bookingView = 'none';
+    scope.bookingCategory = 'none';
     scope.bookingResource = 'none';
     scope.newBookingItem = false;    
     scope.newBookingQueue = false;    
@@ -295,6 +295,7 @@ function setupScope(scope) {
             }
         }
     }
+    
     scope.weekdays = ['Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag'];
     // Set the first date of this week
     scope.calendarStart = new Date();
@@ -478,8 +479,8 @@ app.controller('BookingController', function($scope, $rootScope, $location, $htt
   if (!useServer) {
       setLocalDayBookings($rootScope);
   }
-    $scope.selectBookingView = function(bookingView) {
-        $scope.bookingView = bookingView;
+    $scope.selectBookingCategory = function(bookingCategory) {
+        $scope.bookingCategory = bookingCategory;
         $scope.bookingResource = 'none';
     }
     $scope.loadBookings = function() {

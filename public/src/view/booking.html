@@ -1,6 +1,6 @@
-View:{{bookingView}} Item:{{bookingResource}} 
+Category:{{bookingCategory}} Item:{{bookingResource}} 
 <div ng-show="bookingResource == 'none'">
-    <div ng-show="bookingView == 'none'">
+    <div ng-show="bookingCategory == 'none'">
         <div class="row">
             <div class="col-md-12">
                 Select the service, tool or shared space you would like to book
@@ -11,28 +11,28 @@ View:{{bookingView}} Item:{{bookingResource}}
                 <a href ng-click="selectBookingResource('laundry')">LAUNDRY</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingView('spaces')">SPACES</a>
+                <a href ng-click="selectBookingCategory('spaces')">SPACES</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingView('tools')">TOOLS</a>
+                <a href ng-click="selectBookingCategory('tools')">TOOLS</a>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
-                <a href ng-click="selectBookingView('services')">SERVICES</a>
+                <a href ng-click="selectBookingCategory('services')">SERVICES</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingView('vehicles')">VEHICLES</a>
+                <a href ng-click="selectBookingCategory('vehicles')">VEHICLES</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingView('others')">OTHERS</a>
+                <a href ng-click="selectBookingCategory('others')">OTHERS</a>
             </div>
         </div>
     </div>
-    <div ng-show="bookingView == 'spaces'">
+    <div ng-show="bookingCategory == 'spaces'">
         <div class="row">
             <div class="col-md-12">
-                <a href ng-click="selectBookingView('none')">BACK TO MAIN</a><br />
+                <a href ng-click="selectBookingCategory('none')">BACK TO MAIN</a><br />
                 You have selected spaces, select a category
             </div>
         </div>
@@ -198,9 +198,9 @@ View:{{bookingView}} Item:{{bookingResource}}
 
 
 
-View:{{bookingView}} Item:{{bookingResource}} 
+View:{{bookingCategory}} Item:{{bookingResource}} 
 <div ng-show="bookingResource == 'none'">
-    <div ng-show="bookingView == 'none'">
+    <div ng-show="bookingCategory == 'none'">
         <div class="row">
             <div class="col-md-12">
                 Select the service, tool or shared space you would like to book
@@ -211,28 +211,28 @@ View:{{bookingView}} Item:{{bookingResource}}
                 <a href ng-click="selectBookingResource('laundry')">LAUNDRY</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingView('spaces')">SPACES</a>
+                <a href ng-click="selectBookingCategory('spaces')">SPACES</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingView('tools')">TOOLS</a>
+                <a href ng-click="selectBookingCategory('tools')">TOOLS</a>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
-                <a href ng-click="selectBookingView('services')">SERVICES</a>
+                <a href ng-click="selectBookingCategory('services')">SERVICES</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingView('vehicles')">VEHICLES</a>
+                <a href ng-click="selectBookingCategory('vehicles')">VEHICLES</a>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingView('others')">OTHERS</a>
+                <a href ng-click="selectBookingCategory('others')">OTHERS</a>
             </div>
         </div>
     </div>
-    <div ng-show="bookingView == 'spaces'">
+    <div ng-show="bookingCategory == 'spaces'">
         <div class="row">
             <div class="col-md-12">
-                <a href ng-click="selectBookingView('none')">BACK TO MAIN</a><br />
+                <a href ng-click="selectBookingCategory('none')">BACK TO MAIN</a><br />
                 You have selected spaces, select a category
             </div>
         </div>
