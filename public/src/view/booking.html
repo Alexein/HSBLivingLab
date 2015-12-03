@@ -96,22 +96,19 @@ View:{{bookingView}} Item:{{bookingResource}}
     </div>
     <div class="row">
         <div class="col-md-12">
-            <table id="table" class="table table-hover table-mc-light-blue">
-                
-                <span style="display:inline-block; width:100px;">Tid/Dag</span>
-                <span style="display:inline-block; width:130px;" data-ng-repeat="d in weekdays">
-                    {{ d }} {{ weekDates[$index] }}
-                </span>
-                <div data-ng-repeat="s in bookingData.slots">
-                    <div>
-                        <span style="display:inline-block; width:100px;">{{t.name}}</span>
-                        <span  style="display:inline-block; width:130px; border-style: double; border-color: green;" data-ng-repeat="d in weekdays">
-                            <span ng-click="bookUnit($index, s.slotId)">
-                                {{ vacancies = getVacancies($index, s.slotId); "" }}
-                                <div data-ng-repeat="t in bookingData.unitTypes">
-                                    {{ bookingData.bookingFormat(t, vacancies) }}
-                                </div>
-                            </span>
+            <span style="display:inline-block; width:100px;">Tid/Dag</span>
+            <span style="display:inline-block; width:130px;" data-ng-repeat="d in weekdays">
+                {{ d }} {{ weekDates[$index] }}
+            </span>
+            <div data-ng-repeat="s in bookingData.slots">
+                <div>
+                    <span style="display:inline-block; width:100px;">{{s.name}}</span>
+                    <span  style="display:inline-block; width:130px; border-style: double; border-color: green;" data-ng-repeat="d in weekdays">
+                        <span ng-click="bookUnit($index, s.slotId)">
+                            {{ vacancies = getVacancies($index, s.slotId); "" }}
+                            <div data-ng-repeat="t in bookingData.unitTypes">
+                                {{ bookingData.bookingFormat(t, vacancies) }}
+                            </div>
                         </span>
                     </div>
                 </div>
@@ -305,7 +302,7 @@ View:{{bookingView}} Item:{{bookingResource}}
             </span>
             <div data-ng-repeat="s in bookingData.slots">
                 <div>
-                    <span style="display:inline-block; width:100px;">{{t.name}}</span>
+                    <span style="display:inline-block; width:100px;">{{s.name}}</span>
                     <span  style="display:inline-block; width:130px; border-style: double; border-color: green;" data-ng-repeat="d in weekdays">
                         <span ng-click="bookUnit($index, s.slotId)">
                             {{ vacancies = getVacancies($index, s.slotId); "" }}
