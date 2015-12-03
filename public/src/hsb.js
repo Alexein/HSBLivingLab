@@ -1,4 +1,4 @@
-var useServer = true;
+var useServer = false;
 
 var app = angular.module('HSB', ['ngMaterial', 'ngAnimate', 'ngRoute']);
 
@@ -805,7 +805,9 @@ app.controller('HSBController', function($scope, $rootScope, $location, $http, $
       $mdSidenav(menuId).toggle();
     };
 
-
+    vm.toogleSidenav = function(){
+      $mdSidenav('sidenav-item').toogle();
+    };
 
     $scope.setContent = function(contentId) {
         resetState($scope);
