@@ -6,26 +6,41 @@ View:{{bookingView}} Item:{{bookingResource}}
                 Select the service, tool or shared space you would like to book
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <a href ng-click="selectBookingResource('laundry')">LAUNDRY</a>
-            </div>
-            <div class="col-md-4">
-                <a href ng-click="selectBookingView('spaces')">SPACES</a>
-            </div>
-            <div class="col-md-4">
-                <a href ng-click="selectBookingView('tools')">TOOLS</a>
+        <div class="col-md-1">
+            <div layout="row" layout-wrap>
+                <div flex>
+                        <md-button href ng-click="selectBookingResource('laundry')"><img src="src/img/icons/washing_machine_icon.png" class="booking-icons">
+                        <div><span>Tvättstuga</span></div>
+                    </md-button>
+                </div>
+                <div flex>
+                    <md-button href ng-click="selectBookingView('spaces')"><img src="src/img/icons/Shared_Spaces_icon.png" class="booking-icons">
+                        <div><span>Platser</span></div>
+                    </md-button>
+                </div>
+                <div flex>
+                    <md-button href ng-click="selectBookingView('tools')"><img src="src/img/icons/tools_icon.png" class="booking-icons">
+                        <div><span>Verktyg</span></div>
+                    </md-button>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <a href ng-click="selectBookingView('services')">SERVICES</a>
+
+        <div layout="row" layout-wrap>
+            <div flex>
+                <md-button href ng-click="selectBookingView('services')"><img src="src/img/icons/Services_Icon.png" class="booking-icons">
+                    <div><span>Service</span></div>
+                </md-button>
             </div>
-            <div class="col-md-4">
-                <a href ng-click="selectBookingView('vehicles')">VEHICLES</a>
+            <div flex>
+                <md-button href ng-click="selectBookingView('vehicles')"><img src="src/img/icons/Services_Icon.png" class="booking-icons">
+                    <div><span>Fordon</span></div>
+                </md-button>
             </div>
-            <div class="col-md-4">
-                <a href ng-click="selectBookingView('others')">OTHERS</a>
+            <div flex>
+                <md-button href ng-click="selectBookingView('others')"><img src="src/img/icons/Services_Icon.png" class="booking-icons">
+                    <div><span>Övrigt</span></div>
+                </md-button>
             </div>
         </div>
     </div>
@@ -81,23 +96,26 @@ View:{{bookingView}} Item:{{bookingResource}}
     </div>
     <div class="row">
         <div class="col-md-12">
-            <span style="display:inline-block; width:100px;">Tid/Dag</span>
-            <span style="display:inline-block; width:130px;" data-ng-repeat="d in weekdays">
-                {{ d }} {{ weekDates[$index] }}
-            </span>
-            <div data-ng-repeat="s in bookingData.slots">
-                <div>
-                    <span style="display:inline-block; width:100px;">{{t.name}}</span>
-                    <span  style="display:inline-block; width:130px; border-style: double; border-color: green;" data-ng-repeat="d in weekdays">
-                        <span ng-click="bookUnit($index, s.slotId)">
-                            {{ vacancies = getVacancies($index, s.slotId); "" }}
-                            <div data-ng-repeat="t in bookingData.unitTypes">
-                                {{ bookingData.bookingFormat(t, vacancies) }}
-                            </div>
+            <table id="table" class="table table-hover table-mc-light-blue">
+                
+                <span style="display:inline-block; width:100px;">Tid/Dag</span>
+                <span style="display:inline-block; width:130px;" data-ng-repeat="d in weekdays">
+                    {{ d }} {{ weekDates[$index] }}
+                </span>
+                <div data-ng-repeat="s in bookingData.slots">
+                    <div>
+                        <span style="display:inline-block; width:100px;">{{t.name}}</span>
+                        <span  style="display:inline-block; width:130px; border-style: double; border-color: green;" data-ng-repeat="d in weekdays">
+                            <span ng-click="bookUnit($index, s.slotId)">
+                                {{ vacancies = getVacancies($index, s.slotId); "" }}
+                                <div data-ng-repeat="t in bookingData.unitTypes">
+                                    {{ bookingData.bookingFormat(t, vacancies) }}
+                                </div>
+                            </span>
                         </span>
-                    </span>
+                    </div>
                 </div>
-            </div>
+            </table>
         </div>
     </div>
     <div ng-show="isShowingNewBooking()">
