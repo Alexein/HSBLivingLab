@@ -1,10 +1,11 @@
 /* Colors */
 /* h1, h2, h3, link-color */
+body {
+  font-size: 14px;
+  font-family: "Arial Sans Serif"; }
+
 body, h1, h2, h3 {
   color: #333123; }
-
-body {
-  font-size: 14px; }
 
 h1 {
   font-size: 30px; }
@@ -43,22 +44,28 @@ header.nav-header {
   padding: 20px;
   border-bottom: 3px #F9F9F9 solid;
   color: black; }
+  .md-sidenav-left .sidenav-item:hover {
+    background-color: #FFD200; }
 .md-sidenav-left a {
-  text-decoration: none;
   color: #000000;
   font-weight: 700; }
-  .md-sidenav-left a:hover {
-    background-color: #FFD200; }
 
-a.topbar-logo {
-  margin: auto; }
-  a.topbar-logo img {
-    width: 40px;
-    height: 40px; }
-a.site-logo {
-  margin: auto; }
+a {
+  color: #153785;
+  text-decoration: none; }
+  a.topbar-logo {
+    margin: auto; }
+    a.topbar-logo img {
+      width: 40px;
+      height: 40px; }
+  a.site-logo {
+    margin: auto; }
 
 svg.user-avatar {
   border-radius: 100%; }
+
+.booking-icons {
+  width: 100px;
+  height: 100px; }
 
 /*# sourceMappingURL=style.css.map */
