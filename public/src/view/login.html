@@ -9,22 +9,3 @@
     </div>
 </div>
 
-<div>
-    Alex
-    <hr />
-    Sven
-</div>
-
-
-
-
-<div class="jumbotron">
-    <h1>Login</h1>
-    E-mail: <input type="text" ng-model="loginData.email"/><br />
-    Password: <input type="password" ng-model="loginData.password" /><br />
-    <button type="button" class="btn btn-sm btn-primary" ng-click="login()">Login</button>
-    {{users.count}}
-    <div data-ng-repeat="u in users">
-        <a href ng-click="selectUser(u)">{{u.firstName}} {{u.lastName}}</a>
-    </div>
-</div>
