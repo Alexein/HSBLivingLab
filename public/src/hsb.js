@@ -730,8 +730,9 @@ app.controller('BookingController', function($scope, $rootScope, $location, $htt
     $scope.setQueue = function() {
         var unitTypes = $scope.bookingData.unitTypes;
 //        var typeBookings = $scope.getTypeBookings($scope.bookingDayId, $scope.bookingSlotId, true);
-        var date = new Date();
-        date.setDate($scope.calendarStart.getDate() + $scope.bookingDayId);
+        var date = new Date($scope.calendarStart.getTime());        
+        var addDays = $scope.bookingDayId;
+        date.setDate(date.getDate() + addDays);
         var booking = {resource: $scope.bookingResource, date: formatDate(date), slot: $scope.bookingSlotId, type: {}};
         for (var i = 0; i < unitTypes.length; i++) {
             var unitType = unitTypes[i];

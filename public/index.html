@@ -29,19 +29,19 @@
           <div>{{ user.email }}</div>
         </div>
       </header>
-      <a href="#/"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Home</div></a>
-      <a href="#/notification"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Aviseringar</div></a>
+      <a href="#/" ng-show="sessionKey != null"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Home</div></a>
+      <a href="#/notification" ng-show="sessionKey != null"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Aviseringar</div></a>
       <a href="#/booking" ng-show="sessionKey != null"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Bokningar</div></a>
-      <a href="#/adboard"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Anslagstavlan</div></a>
-      <a href="#/reports"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Rapporter</div></a>
-      <a href="#/profile"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Min profil</div></a>
-      <a href="#/apartment"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Min lägenhet</div></a>
-      <a href="#/support"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Support</div></a>
-      <a href="#/logout"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Logga ut</div></a>
-      <a href="#/" ng-click="logout()"><div class="sidenav-item">Backup</div></a>
+      <a href="#/adboard" ng-show="sessionKey != null"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Anslagstavlan</div></a>
+      <a href="#/reports" ng-show="sessionKey != null"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Rapporter</div></a>
+      <a href="#/profile" ng-show="sessionKey != null"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Min profil</div></a>
+      <a href="#/apartment" ng-show="sessionKey != null"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Min lägenhet</div></a>
+      <a href="#/support" ng-show="sessionKey != null"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Support</div></a>
+      <a href="#/logout" ng-show="sessionKey != null"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">Logga ut</div></a>
+      <a href="#/" ng-click="logout()" ng-show="sessionKey != null"><div class="sidenav-item">Backup</div></a>
 
-      <a href="#/about"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">About</div></a>
-      <a href="/#/myneighbours"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">My Neighbour</div></a>
+      <a href="#/about" ng-show="sessionKey != null"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">About</div></a>
+      <a href="/#/myneighbours" ng-show="sessionKey != null"><div class="sidenav-item" ng-click="vm.toggleSidenav('left')">My Neighbour</div></a>
     </md-sidenav>
 
     <div layout="column" flex id="content">
