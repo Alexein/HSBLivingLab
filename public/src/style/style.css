@@ -25,9 +25,9 @@ md-toolbar.layout-row {
   background: #FFD200; }
 
 md-sidenav.md-locked-open {
-  width: 150px !important;
-  min-width: 150px !important;
-  max-width: 150px !important; }
+  width: 190px !important;
+  min-width: 180px !important;
+  max-width: 180px !important; }
 
 header.nav-header {
   text-align: center;

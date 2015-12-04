@@ -1,4 +1,4 @@
-Category:{{bookingCategory}} Resource:{{bookingResource}} 
+<h1>Category:{{bookingCategory}} Resource:{{bookingResource}}</h1>
 <div ng-show="bookingResource == 'none'">
     <div ng-show="bookingCategory == 'none'">
         <div class="row">
@@ -47,7 +47,7 @@ Category:{{bookingCategory}} Resource:{{bookingResource}}
     <div ng-show="bookingCategory == 'spaces'">
         <div class="row">
             <div class="col-md-12">
-                <a href ng-click="selectBookingCategory('none')">BACK TO MAIN</a><br />
+                <md-button href ng-click="selectBookingCategory('none')" class="md-raised">BACK TO MAIN</md-button><br />
                 You have selected spaces, select a category
             </div>
         </div>
@@ -121,7 +121,7 @@ Category:{{bookingCategory}} Resource:{{bookingResource}}
         </div>
         <div>
             {{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}                
-            <button ng-click="showNewQueue()">Queue</button>
+            <md-button ng-click="showNewQueue()" class="md-raised">Queue</md-button>
         </div>
         <div data-ng-repeat="t in bookingData.unitTypes">
             <span>{{ t.name }}</span>
