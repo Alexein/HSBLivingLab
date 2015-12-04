@@ -6,16 +6,43 @@ var DATE = 4;
 var DOUBLE = 5;
 
 var dbData = [
-        {name: 'User', columns: [
-            {name: 'id', type: INT, isPrimary: true},
-            {name: 'firstName', type: TEXT},
-            {name: 'lastName', type: TEXT},
-            {name: 'email', type: TEXT},
-            {name: 'md5Password', type: TEXT}
-        ]},
-        {name: 'SystemUser', columns: [
+        {name: 'Booking', columns: [
+            {name: 'resourceId', type: INT, isPrimary: true},
+            {name: 'date', type: DATE, isPrimary: true},
+            {name: 'slotId', type: INT, isPrimary: true},
             {name: 'userId', type: INT, isPrimary: true},
-            {name: 'permission', type: INT}
+            {name: 'bookingTime', type: TIME},
+            {name: 'reminderMedia', type: INT},
+            {name: 'reminderTimes', type: INT}
+        ]},
+        {name: 'BookingQueue', columns: [
+            {name: 'resourceId', type: INT, isPrimary: true},
+            {name: 'date', type: DATE, isPrimary: true},
+            {name: 'slotId', type: INT, isPrimary: true},
+            {name: 'typeId', type: INT, isPrimary: true},
+            {name: 'userId', type: INT, isPrimary: true},
+            {name: 'count', type: INT, isPrimary: true},
+            {name: 'creationTime', type: TIME},
+            {name: 'alert', type: INT},
+            {name: 'autobook', type: BOOL},
+            {name: 'reminderMedia', type: INT},
+            {name: 'reminderTimes', type: INT}
+        ]},
+        {name: 'BookingUnit', columns: [
+            {name: 'resourceId', type: INT, isPrimary: true},
+            {name: 'date', type: DATE, isPrimary: true},
+            {name: 'slotId', type: INT, isPrimary: true},
+            {name: 'typeId', type: INT, isPrimary: true},
+            {name: 'unitId', type: INT, isPrimary: true},
+            {name: 'userId', type: INT, isPrimary: true}
+        ]},
+        {name: 'Message', columns: [
+            {name: 'id', type: INT, isPrimary: true},
+            {name: 'fromUserId', type: INT},
+            {name: 'subject', type: TEXT},
+            {name: 'body', type: TEXT},
+            {name: 'creationTime', type: TIME},
+            {name: 'replyToMessageId', type: INT}
         ]},
         {name: 'Notification', columns: [
             {name: 'id', type: INT, isPrimary: true},
@@ -25,12 +52,41 @@ var dbData = [
             {name: 'statusId', type: INT},
             {name: 'statusTime', type: TIME}
         ]},
-        {name: 'Message', columns: [
+        {name: 'Resource', columns: [
             {name: 'id', type: INT, isPrimary: true},
-            {name: 'fromUserId', type: INT},
-            {name: 'subject', type: TEXT},
-            {name: 'message', type: TEXT},
-            {name: 'creationTime', type: TIME}
+            {name: 'name', type: TEXT},
+            {name: 'slotSetId', type: INT},
+        ]},
+        {name: 'ResourceUnit', columns: [
+            {name: 'resourceId', type: INT, isPrimary: true},
+            {name: 'typeId', type: INT, isPrimary: true},
+            {name: 'unitId', type: INT, isPrimary: true},
+            {name: 'name', type: TEXT}
+        ]},
+        {name: 'ResourceUnitType', columns: [
+            {name: 'resourceId', type: INT, isPrimary: true},
+            {name: 'typeId', type: INT, isPrimary: true},
+            {name: 'name', type: TEXT}
+        ]},
+        {name: 'SystemUser', columns: [
+            {name: 'userId', type: INT, isPrimary: true},
+            {name: 'permission', type: INT}
+        ]},
+        {name: 'User', columns: [
+            {name: 'id', type: INT, isPrimary: true},
+            {name: 'firstName', type: TEXT},
+            {name: 'lastName', type: TEXT},
+            {name: 'email', type: TEXT},
+            {name: 'md5Password', type: TEXT}
+        ]},
+        {name: 'TimeSlot', columns: [
+            {name: 'setId', type: INT, isPrimary: true},
+            {name: 'slotId', type: INT, isPrimary: true},
+            {name: 'name', type: TEXT},
+        ]},
+        {name: 'TimeSlotSet', columns: [
+            {name: 'id', type: INT, isPrimary: true},
+            {name: 'name', type: TEXT},
         ]},
 ]
 

@@ -93,7 +93,7 @@ var reminder1week = 2048;
 
 function handleReply(scope, data, location, success) {
     if (data.loginRequired) {
-        location.setPath('/login');
+        location.path('/login');
     } else if (data.error != null) {
         alert('Error: ' + data.error);
     } else {
@@ -416,6 +416,10 @@ app.service('dataService', function($http) {
         }
         scope.dayBookings = {};
         var resourceName = scope.bookingResource;
+        if (resourceName == 'none') {
+            scope.dayBookings = {};
+            return;
+        }
         var calenderStart = formatDate(scope.calendarStart);
         var dayCount = 7;
         $http.post('/bookings', {sessionKey: scope.sessionKey,
@@ -835,7 +839,7 @@ app.controller('HSBController', function($scope, $rootScope, $location, $http, $
     }
     $scope.logout = function() {
         $rootScope.sessionKey = null;
-        $scope.setContent('login');
+        $location.path('/login');
     }
     $scope.createBackup = function() {
         dataService.createBackup($scope);

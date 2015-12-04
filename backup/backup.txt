@@ -1,0 +1,34 @@
+TRUNCATE Booking;
+INSERT INTO Booking(resourceId,date,slotId,userId,bookingTime,reminderMedia,reminderTimes) VALUES (10,'2015-11-30 00:00:00.000',0,1000,'2015-12-04 12:29:08.000',0,0),(10,'2015-12-01 00:00:00.000',0,1000,'2015-12-04 12:51:53.000',0,0),(30,'2015-12-01 00:00:00.000',23,1000,'2015-12-04 12:52:08.000',0,0);
+
+TRUNCATE BookingQueue;
+TRUNCATE BookingUnit;
+INSERT INTO BookingUnit(resourceId,date,slotId,typeId,unitId,userId) VALUES (10,'2015-11-30 00:00:00.000',0,1,1,1000),(10,'2015-11-30 00:00:00.000',0,1,2,1000),(10,'2015-11-30 00:00:00.000',0,2,1,1000),(10,'2015-12-01 00:00:00.000',0,1,1,1000),(10,'2015-12-01 00:00:00.000',0,1,2,1000),(10,'2015-12-01 00:00:00.000',0,2,3,1000),(10,'2015-12-01 00:00:00.000',0,2,4,1000),(30,'2015-12-01 00:00:00.000',23,1,1,1000);
+
+TRUNCATE Message;
+INSERT INTO Message(id,fromUserId,subject,body,creationTime,replyToMessageId) VALUES (1,1000,'Hello','There','2015-12-04 12:24:04.000',0),(2,1001,NULL,'Yeah','2015-12-04 12:24:22.000',1),(3,1000,NULL,'XXX','2015-12-04 12:27:19.000',2),(4,1001,'RE: Hello','Yo!','2015-12-04 12:28:31.000',1),(5,1000,'RE: null','Back at ya','2015-12-04 12:45:08.000',2),(6,1000,'RE: null','Hola!','2015-12-04 12:48:44.000',2);
+
+TRUNCATE Notification;
+INSERT INTO Notification(id,recipientId,notificationTypeId,referenceId,statusId,statusTime) VALUES (1,1001,1,1,1,'2015-12-04 12:24:04.000'),(2,1002,1,1,1,'2015-12-04 12:24:04.000'),(3,1000,1,2,1,'2015-12-04 12:24:22.000'),(4,1001,1,3,1,'2015-12-04 12:27:19.000'),(5,1000,1,4,1,'2015-12-04 12:28:31.000'),(6,1001,1,5,1,'2015-12-04 12:45:08.000'),(7,1001,1,6,1,'2015-12-04 12:48:44.000');
+
+TRUNCATE Resource;
+INSERT INTO Resource(id,name,slotSetId) VALUES (10,'laundry',20),(20,'gym',10),(30,'sauna',10),(40,'workshop',10),(50,'barbeque',10),(60,'kitchen',10),(70,'kids',10);
+
+TRUNCATE ResourceUnit;
+INSERT INTO ResourceUnit(resourceId,typeId,unitId,name) VALUES (10,1,1,'W1'),(10,1,2,'W2'),(10,1,3,'W3'),(10,1,4,'W4'),(10,2,1,'D1'),(10,2,2,'D2'),(10,2,3,'D3'),(10,2,4,'D4'),(20,1,1,'B1'),(20,2,1,'R1'),(30,1,1,'Bastu'),(40,1,1,'Hobbyrum'),(50,1,1,'Grill'),(60,1,1,'Kök'),(70,1,1,'Lekrum');
+
+TRUNCATE ResourceUnitType;
+INSERT INTO ResourceUnitType(resourceId,typeId,name) VALUES (10,1,'Tvättmaskiner'),(10,2,'Torktumlare'),(20,1,'Träningscykel'),(20,2,'Löpband'),(30,1,'Bastu'),(40,1,'Hobbyrum'),(50,1,'Grill'),(60,1,'Kök'),(70,1,'Lekrum');
+
+TRUNCATE SystemUser;
+INSERT INTO SystemUser(userId,permission) VALUES (1000,2048);
+
+TRUNCATE User;
+INSERT INTO User(id,firstName,lastName,email,md5Password) VALUES (1000,'Sven','Trebard','sven.trebard@tieto.com','8213c2a10cc558454d8a6d078534ba9c'),(1001,'Giuseppe','Perri','giuseppe.perri@tieto.com','704d1faa729243c05ffa9840bb2dd6c4'),(1002,'Malin','Bergqvist','malin.bergqvist@tieto.com','ae5001a8d138fbaa1bc66481ab3c451d'),(1003,'Isabelle','Månsson','isabelle.mansson@tieto.com','ff4c5c758b784bcc193277418696581a');
+
+TRUNCATE TimeSlot;
+INSERT INTO TimeSlot(setId,slotId,name) VALUES (10,0,'00-01'),(10,1,'01-02'),(10,2,'02-03'),(10,3,'03-04'),(10,4,'04-05'),(10,5,'05-06'),(10,6,'06-07'),(10,7,'07-08'),(10,8,'08-09'),(10,9,'09-10'),(10,10,'10-11'),(10,11,'11-12'),(10,12,'12-13'),(10,13,'13-14'),(10,14,'14-15'),(10,15,'15-16'),(10,16,'16-17'),(10,17,'17-18'),(10,18,'18-19'),(10,19,'19-20'),(10,20,'20-21'),(10,21,'21-22'),(10,22,'22-23'),(10,23,'23-24'),(20,0,'07-10'),(20,1,'10-13'),(20,2,'13-16'),(20,3,'16-19'),(20,4,'19-21');
+
+TRUNCATE TimeSlotSet;
+INSERT INTO TimeSlotSet(id,name) VALUES (10,'All hours'),(20,'Laudry');
+
