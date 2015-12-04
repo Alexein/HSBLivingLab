@@ -285,11 +285,11 @@ module.exports = {
             });
         });
     },
-    sendMessage: function(response, pool, sessionKey, subject, body, recipients) {
+    sendMessage: function(response, pool, sessionKey, subject, body, recipients, replyTo) {
         // Recipients are not escaped yet
         initRequest(response, pool, sessionKey, function(response, connection, userId) {
-            var sql = "INSERT INTO Message(fromUserId, subject, body, creationTime) VALUES(" + 
-                userId + ", " + subject + ", " + body + ",NOW())";
+            var sql = "INSERT INTO Message(fromUserId, subject, body, creationTime, replyToMessageId) VALUES(" + 
+                userId + ", " + subject + ", " + body + ", NOW(), " + replyTo + ")";
             console.log(sql);
             connection.query(sql, function(err, rows, fields) {
                 if (!err) {

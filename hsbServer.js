@@ -57,7 +57,8 @@ app.post('/sendMessage', function(request, response) {
     var subject = escapeText(request.body.subject);
     var body = escapeText(request.body.body);
     var recipients = request.body.recipients;
-    hsbModule.sendMessage(response, configModule.dbPool(), sessionKey, subject, body, recipients);
+    var replyTo = escapeInt(request.body.replyTo);
+    hsbModule.sendMessage(response, configModule.dbPool(), sessionKey, subject, body, recipients, replyTo);
 });
 
 app.post('/bookings', function(request, response) {

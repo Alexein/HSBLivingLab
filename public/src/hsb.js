@@ -1,4 +1,4 @@
-var useServer = false;
+var useServer = true;
 
 var app = angular.module('HSB', ['ngMaterial', 'ngAnimate', 'ngRoute']);
 
@@ -374,14 +374,24 @@ app.service('dataService', function($http) {
             scope.messageData.createMessage = false;
             return;
         }
-        var subject = scope.messageData.subject;
+        var subject;
         var body = scope.messageData.body;
         var recipients = [];
-        for (var i = 0; i < scope.users.length; i++) {
-            var user = scope.users[i];
-            var isRecipient = scope.messageData.isRecipient[user.userId];
-            if (isRecipient == true) {
-                recipients.push(user.userId);
+        var replyTo = 0; 
+        if (scope.notificationItem != null) {
+            // Reply
+            recipients.push(scope.notificationItem.fromUser.userId);
+            subject = "RE: " + scope.notificationItem.subject;
+            replyTo = scope.notificationItem.referenceId;
+        } else {
+            // New
+            subject = scope.messageData.subject;
+            for (var i = 0; i < scope.users.length; i++) {
+                var user = scope.users[i];
+                var isRecipient = scope.messageData.isRecipient[user.userId];
+                if (isRecipient == true) {
+                    recipients.push(user.userId);
+                }
             }
         }
         if (recipients.length == 0) {
@@ -391,8 +401,10 @@ app.service('dataService', function($http) {
         $http.post('/sendMessage', {sessionKey: scope.sessionKey,
                                    subject: subject,
                                    body: body,
-                                   recipients: recipients}).success(function(data){
+                                   recipients: recipients,
+                                   replyTo: replyTo}).success(function(data){
             scope.messageData.createMessage = false;
+            scope.notificationItem = null;
         }).error(function() {
             alert("error");
         });
