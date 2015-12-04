@@ -92,4 +92,10 @@ div.cell-label {
 .cell-row {
   padding-bottom: 10px; }
 
+/*-- Buttons --*/
+button.md-raised.md-primary.md-button.md-ink-ripple {
+  background-color: #FFD200; }
+  button.md-raised.md-primary.md-button.md-ink-ripple:hover {
+    background-color: #FFD200; }
+
 /*# sourceMappingURL=style.css.map */

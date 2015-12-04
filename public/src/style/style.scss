@@ -128,3 +128,15 @@ div.cell-label {
 .cell-row {
     padding-bottom: 10px;
 }
+
+
+
+/*-- Buttons --*/
+
+button.md-raised.md-primary.md-button.md-ink-ripple {
+  background-color: $yellow;
+
+  &:hover {
+    background-color: $yellow;
+  }
+}

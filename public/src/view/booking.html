@@ -78,7 +78,7 @@ Category:{{bookingCategory}} Resource:{{bookingResource}}
 <div ng-show="bookingResource != 'none'">
     <div class="row">
         <div class="col-md-12">
-            <a href ng-click="selectBookingResource('none')">BACK</a>
+            <md-button href ng-click="selectBookingResource('none')" class="md-raised">BACK</md-button>
         </div>
     </div>
     <div class="row">
@@ -127,29 +127,29 @@ Category:{{bookingCategory}} Resource:{{bookingResource}}
             <span>{{ t.name }}</span>
             <span data-ng-repeat="u in t.units">
                 <span ng-show="isBookable(t, u)">
-                    <input type="checkbox" ng-model="bookingEdit.type[t.typeId][u.unitId]"></input>{{ u.name }}
+                    <md-checkbox ng-model="bookingEdit.type[t.typeId][u.unitId]">{{ u.name }}</md-checkbox>
                 </span>
             </span>
         </div>
         <div>
             Send reminder via 
-            <input type="checkbox" ng-model="bookingEdit.medium[1]"></input> email 
-            <input type="checkbox" ng-model="bookingEdit.medium[2]"></input> sms
+            <md-checkbox ng-model="bookingEdit.medium[1]">email</md-checkbox>
+            <md-checkbox ng-model="bookingEdit.medium[2]">sms</md-checkbox>
         </div>
         <div>
-            <input type="checkbox" ng-model="bookingEdit.time[4]"></input> 10 min
-            <input type="checkbox" ng-model="bookingEdit.time[8]"></input> 30 min
-            <input type="checkbox" ng-model="bookingEdit.time[16]"></input> 1 hour
-            <input type="checkbox" ng-model="bookingEdit.time[64]"></input> 5 hours
-            <input type="checkbox" ng-model="bookingEdit.time[256]"></input> 1 day
-            <input type="checkbox" ng-model="bookingEdit.time[2048]"></input> 1 week
+            <md-checkbox ng-model="bookingEdit.time[4]">10 min</md-checkbox>
+            <md-checkbox ng-model="bookingEdit.time[8]">30 min</md-checkbox>
+            <md-checkbox ng-model="bookingEdit.time[16]">1 hour</md-checkbox>
+            <md-checkbox ng-model="bookingEdit.time[64]">5 hours</md-checkbox>
+            <md-checkbox ng-model="bookingEdit.time[256]">1 day</md-checkbox>
+            <md-checkbox ng-model="bookingEdit.time[2048]">1 week</md-checkbox>
             BEFORE BOOKING DATE
         </div>
         <div>
-            <button ng-click="setBooking()">Confirm booking</button>
+            <md-button ng-click="setBooking()" class="md-raised md-primary">Confirm booking</md-button>
         </div>
         <div>
-            <button ng-click="clearBooking()">Delete</button>
+            <md-button ng-click="clearBooking()" class="md-raised md-warn">Delete</md-button>
         </div>
     </div>
     <div ng-show="isShowingNewQueue()">
