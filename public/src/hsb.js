@@ -21,6 +21,10 @@ app.config(['$routeProvider',
 				templateUrl: 'src/view/booking.html',
 				controller: 'BookingController'
 			})
+            .when('/booking-test', {
+                templateUrl: 'src/view/booking-test.html',
+                controller: 'BookingController'
+            })
 			.when('/adboard', {
 				templateUrl: 'src/view/adboard.html',
 				controller: 'HSBController'

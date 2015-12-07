@@ -129,36 +129,42 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
-            <span style="display:inline-block; width:100px;">Tid/Dag</span>
-            <span data-ng-repeat="d in weekdays" class="day-label">
-                {{ d }} {{ weekDates[$index] }}
-            </span>
-            <div class="cell-row" data-ng-repeat="s in bookingData.slots">
-                <div>
-                    <span style="display:inline-block; width:100px;" class="hour-label">{{s.name}}</span>
-                    <span  class="hour-cell" data-ng-repeat="d in weekdays">
-                        <span ng-click="bookUnit($index, s.slotId)">
-                            {{ vacancies = getVacancies($index, s.slotId); "" }}
-                            <div data-ng-repeat="t in bookingData.unitTypes" class="cell-label">
-                                {{ bookingData.bookingFormat(t, vacancies) }}
-                            </div>
-                        </span>
-                    </span>
-                </div>
-            </div>
-        </div>
+        <table class="col-md-12" id="table" class="table table-hover table-mc-light-blue">
+            <thead>
+                <td style="display:inline-block; width:100px;">Tid/Dag</td>
+                <td data-ng-repeat="d in weekdays" class="day-label">
+                    {{ d }} {{ weekDates[$index] }}
+                </td>
+            </thead>
+            <tbody>
+                <tr class="cell-row" data-ng-repeat="s in bookingData.slots">
+                    <div>
+                        <td style="display:inline-block; width:100px;" class="hour-label">{{s.name}}</td>
+                        <td  class="hour-cell" data-ng-repeat="d in weekdays" >
+                            <span ng-click="bookUnit($index, s.slotId)">
+                                {{ vacancies = getVacancies($index, s.slotId); "" }}
+                                <div data-ng-repeat="t in bookingData.unitTypes" class="cell-label">
+                                    <span class="bookingData">{{ bookingData.bookingFormat(t, vacancies) }}</span>
+                                    <span class="showWasher"></span>
+                                    <!--<span class="showDryer"></span>-->
+                                </div>
+                            </span>
+                        </td>
+                    </div>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <div ng-show="isShowingNewBooking()">
+    <div ng-show="isShowingNewBooking()" class="showingNewBooking">
         <div>
-            Booking {{bookingResource}}
+            <h4>Booking {{bookingResource}}</h4>
         </div>
         <div>
             {{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}                
             <md-button ng-click="showNewQueue()" class="md-raised">Queue</md-button>
         </div>
         <div data-ng-repeat="t in bookingData.unitTypes">
-            <span>{{ t.name }}</span>
+            <span class="showMachineAvailable">{{ t.name }}</span>
             <span data-ng-repeat="u in t.units">
                 <span ng-show="isBookable(t, u)">
                     <md-checkbox ng-model="bookingEdit.type[t.typeId][u.unitId]">{{ u.name }}</md-checkbox>
@@ -166,7 +172,7 @@
             </span>
         </div>
         <div>
-            Send reminder via 
+            <span class="sendReminderVia">Send reminder via</span>
             <md-checkbox ng-model="bookingEdit.medium[1]">email</md-checkbox>
             <md-checkbox ng-model="bookingEdit.medium[2]">sms</md-checkbox>
         </div>

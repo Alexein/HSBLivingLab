@@ -67,8 +67,13 @@ svg.user-avatar {
   border-radius: 100%; }
 
 .booking-icons {
-  width: 300px;
-  height: 300px; }
+  width: 100%;
+  max-width: 350px;
+  height: initial;
+  max-height: 350px; }
+
+.bookingData {
+  background: "src/img/icons/washing_machine_icon.png" 30px 30px; }
 
 span.day-label {
   display: inline-block;
@@ -106,5 +111,14 @@ md-checkbox {
   border-radius: 5px; }
   md-checkbox .md-container {
     left: 5px; }
+
+table#table {
+  border: 3px solid #DDD; }
+  table#table tr {
+    background-color: #F9F9F9; }
+
+.showingNewBooking {
+  padding: 10px;
+  background-color: #FAFAFA; }
 
 /*# sourceMappingURL=style.css.map */

@@ -94,8 +94,14 @@ svg.user-avatar {
 }
 
 .booking-icons {
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  max-width: 350px;
+  height: initial;
+  max-height: 350px;
+}
+
+.bookingData {
+  background: ("src/img/icons/washing_machine_icon.png") 30px 30px;
 }
 
 span.day-label {
@@ -154,4 +160,18 @@ md-checkbox {
   .md-container {
     left: 5px;
   }
+}
+
+table#table {
+    border: 3px solid #DDD;
+
+    tr {
+      background-color: $greymedium;
+    }
+}
+
+.showingNewBooking {
+  padding: 10px;
+  background-color: $greylight;
+
 }
