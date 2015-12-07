@@ -130,8 +130,33 @@ function loadUser(response, connection, userId) {
             if (rows.length > 0) {
                 var firstName = rows[0].firstName;
                 var lastName = rows[0].lastName;
-                var user = {user: {userId: userId, firstName: firstName, lastName: lastName}};
-                handleReply(response, connection, user);
+                var user = {userId: userId, firstName: firstName, lastName: lastName};
+                var sql = "SELECT DATE_FORMAT(b.date, '%Y-%m-%d') AS date, ts.name AS slot, ts.slotId, rut.name AS type, COUNT(ru.name) AS count " + 
+                    "FROM Booking b, BookingUnit bu, Resource r, ResourceUnit ru, ResourceUnitType rut, TimeSlot ts " + 
+                    "WHERE b.userId = " + userId + " AND b.date >= NOW() AND bu.resourceId = b.resourceId AND bu.date = b.date " + 
+                    "AND bu.slotId = b.slotId AND r.id = b.resourceId AND ru.resourceId = r.id AND ru.unitId = bu.unitId " + 
+                    "AND rut.resourceId = r.id AND rut.typeId = bu.typeId AND ts.setId = r.slotSetId AND ts.slotId = bu.slotId " + 
+                    "GROUP BY b.date, rut.resourceId, rut.typeId " + 
+                    "ORDER BY b.date, ts.slotId, type";
+                console.log(sql);
+                connection.query(sql, function(err, rows, fields) {
+                    if (!err) {
+                        var bookings = [];
+                        for (var i = 0; i < rows.length; i++) {
+                            var date = rows[i].date;
+                            var slot = rows[i].slot;
+                            var slotId = rows[i].slotId;
+                            var type = rows[i].type;
+                            var count = rows[i].count;
+                            var booking = {date: date, slot: slot, slotId: slotId, type: type, count: count};
+                            bookings.push(booking);
+                        }
+                        user.bookings = bookings
+                        handleReply(response, connection, user);
+                    } else {
+                        handleError(response, connection, err);
+                    }
+                });
             } else {
                 handleReply(response, connection, {noSuchContact:true});
             }

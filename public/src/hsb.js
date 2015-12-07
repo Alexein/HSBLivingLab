@@ -137,7 +137,7 @@ function loadCurrentUser(http, scope, location) {
         scope.user = {};
         http.post('/currentUser', {sessionKey: scope.sessionKey}).success(function(data) {
             handleReply(scope, data, location, function() {
-                var user = data.user;
+                var user = data;
                 scope.user = user;
             });
         }).error(function() {
@@ -223,7 +223,9 @@ function setupScope(scope) {
     scope.notificationViews = [{name: 'View all', viewId: 1},
                                 {name: 'View unread', viewId: 2}];
     scope.users = [
-        {userId: 1000, firstName: "Sven", lastName: "Trebard", email: "sven.trebard@tieto.com", password: "trebard2"},
+        {userId: 1000, firstName: "Sven", lastName: "Trebard", email: "sven.trebard@tieto.com", password: "trebard2", 
+        bookings: [{count: 2, type:'Tvättmaskiner', date: '2015-12-24', slot: '10-13', slotId: 1},
+                    {count: 1, type:'Bastu', date: '2015-12-24', slot: '15-16', slotId: 6}]},
         {userId: 1001, firstName: "Giuseppe", lastName: "Perri", email: "giuseppe.perri@tieto.com", password: "perri2"},
         {userId: 1002, firstName: "Malin", lastName: "Bergqvist", email: "malin.bergqvist@tieto.com", password: "bergqvist2"},
         {userId: 1003, firstName: "Isabelle", lastName: "Månsson", email: "isabelle.mansson@tieto.com", password: "mansson2"}
