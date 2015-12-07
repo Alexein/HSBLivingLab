@@ -1,4 +1,4 @@
-<h1>Category:{{bookingCategory}} Resource:{{bookingResource}}</h1>
+<h1 class="md-display-1">Category:{{bookingCategory}} Resource:{{bookingResource}}</h1>
 <div ng-show="bookingResource == 'none'">
     <div ng-show="bookingCategory == 'none'">
         <div class="row">
@@ -8,17 +8,17 @@
         </div>
         <div class="col-md-1">
             <div layout="row" layout-wrap>
-                <div flex>
+                <div class="col-md-4">
                         <md-button href ng-click="selectBookingResource('laundry')"><img src="src/img/icons/washing_machine_icon.png" class="booking-icons">
                         <div><span>Tvättstuga</span></div>
                     </md-button>
                 </div>
-                <div flex>
+                <div class="col-md-4">
                     <md-button href ng-click="selectBookingCategory('spaces')"><img src="src/img/icons/Shared_Spaces_icon.png" class="booking-icons">
                         <div><span>Platser</span></div>
                     </md-button>
                 </div>
-                <div flex>
+                <div class="col-md-4">
                     <md-button href ng-click="selectBookingCategory('tools')"><img src="src/img/icons/tools_icon.png" class="booking-icons">
                         <div><span>Verktyg</span></div>
                     </md-button>
@@ -26,21 +26,23 @@
             </div>
         </div>
 
-        <div layout="row" layout-wrap>
-            <div flex>
-                <md-button href ng-click="selectBookingCategory('services')"><img src="src/img/icons/Services_Icon.png" class="booking-icons">
-                    <div><span>Service</span></div>
-                </md-button>
-            </div>
-            <div flex>
-                <md-button href ng-click="selectBookingCategory('vehicles')"><img src="src/img/icons/Services_Icon.png" class="booking-icons">
-                    <div><span>Fordon</span></div>
-                </md-button>
-            </div>
-            <div flex>
-                <md-button href ng-click="selectBookingCategory('others')"><img src="src/img/icons/Services_Icon.png" class="booking-icons">
-                    <div><span>Övrigt</span></div>
-                </md-button>
+        <div class="col-md-1">
+            <div layout="row" layout-wrap>
+                <div class="col-md-4">
+                    <md-button href ng-click="selectBookingCategory('services')"><img src="src/img/icons/Services_Icon.png" class="booking-icons">
+                        <div><span>Service</span></div>
+                    </md-button>
+                </div>
+                <div class="col-md-4">
+                    <md-button href ng-click="selectBookingCategory('vehicles')"><img src="src/img/icons/Services_Icon.png" class="booking-icons">
+                        <div><span>Fordon</span></div>
+                    </md-button>
+                </div>
+                <div class="col-md-4">
+                    <md-button href ng-click="selectBookingCategory('others')"><img src="src/img/icons/Services_Icon.png" class="booking-icons">
+                        <div><span>Övrigt</span></div>
+                    </md-button>
+                </div>
             </div>
         </div>
     </div>

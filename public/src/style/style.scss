@@ -90,53 +90,68 @@ a {
 }
 
 svg.user-avatar {
-    border-radius: 100%;
+  border-radius: 100%;
 }
 
 .booking-icons {
-  width: 100px;
-  height: 100px;
+  width: 300px;
+  height: 300px;
 }
 
 span.day-label {
-    display: inline-block;
-    padding-left: 5px;
-    width: 180px;
+  display: inline-block;
+  padding-left: 5px;
+  width: 180px;
 }
 
 span.hour-label {
-    vertical-align: top;
+  vertical-align: 75%;
+  font-weight: 700;
 }
 
 span.hour-cell {
-    display: inline-block;
-    width: 180px;
-    border-style: double;
-    border-color: $yellow;
+  display: inline-block;
+  width: 180px;
+  border-style: double;
+  border-color: $yellow;
 
-    span {
-      &:focus {
-        outline-color: $mustard !important;
-      }
+  span {
+    &:focus {
+      outline-color: $mustard !important;
     }
+  }
 }
 
 div.cell-label {
-    padding: 5px 10px;
+  padding: 5px 10px;
 }
 
 .cell-row {
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 
 
 /*-- Buttons --*/
 
-button.md-raised.md-primary.md-button.md-ink-ripple {
-  background-color: $yellow;
+.md-button {
+  margin: 6px 8px 6px 0px;
+}
+
+button.md-primary.md-button.md-ink-ripple {
+  //background-color: $yellow;
 
   &:hover {
-    background-color: $yellow;
+    background-color: yellow !importants;
+  }
+}
+
+md-checkbox {
+  background-color: $greydark;
+  padding: 10px;
+  border-radius: 5px;
+
+  .md-container {
+    left: 5px;
   }
 }

@@ -67,8 +67,8 @@ svg.user-avatar {
   border-radius: 100%; }
 
 .booking-icons {
-  width: 100px;
-  height: 100px; }
+  width: 300px;
+  height: 300px; }
 
 span.day-label {
   display: inline-block;
@@ -76,7 +76,8 @@ span.day-label {
   width: 180px; }
 
 span.hour-label {
-  vertical-align: top; }
+  vertical-align: 75%;
+  font-weight: 700; }
 
 span.hour-cell {
   display: inline-block;
@@ -93,9 +94,17 @@ div.cell-label {
   padding-bottom: 10px; }
 
 /*-- Buttons --*/
-button.md-raised.md-primary.md-button.md-ink-ripple {
-  background-color: #FFD200; }
-  button.md-raised.md-primary.md-button.md-ink-ripple:hover {
-    background-color: #FFD200; }
+.md-button {
+  margin: 6px 8px 6px 0px; }
+
+button.md-primary.md-button.md-ink-ripple:hover {
+  background-color: yellow !important s; }
+
+md-checkbox {
+  background-color: #E0E0E0;
+  padding: 10px;
+  border-radius: 5px; }
+  md-checkbox .md-container {
+    left: 5px; }
 
 /*# sourceMappingURL=style.css.map */

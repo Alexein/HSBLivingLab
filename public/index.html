@@ -47,7 +47,9 @@
     <div layout="column" flex id="content">
       <md-content layout="column" flex class="md-padding">
         <div layout="row">
-          <div ng-view></div>
+          <md-content layout-padding>
+            <div ng-view></div>
+          </md-content>
         </div>
       </md-content>
     </div>
