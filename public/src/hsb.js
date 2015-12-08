@@ -1,4 +1,4 @@
-var useServer = false;
+﻿var useServer = true;
 
 var app = angular.module('HSB', ['ngMaterial', 'ngAnimate', 'ngRoute']);
 

@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 notifications-bar">
                 <md-checkbox 
                        ng-model="notificationView.selectAll" 
                        ng-change="changedNotificationSelectAll()" />
@@ -41,7 +41,7 @@
     <div ng-show="messageData.createMessage">
         <div class="row">
             <div class="col-md-12">
-                <a href ng-click="messageData.createMessage = false">BACK</a>
+                <md-button href ng-click="messageData.createMessage = false" class="md-raised back-btn">BACK</md-button>
             </div>
         </div>
         <div class="row">
@@ -77,7 +77,7 @@
     <div ng-show="notificationItem != null && !messageData.createMessage">
         <div class="row">
             <div class="col-md-12">
-                <md-button href ng-click="selectNotificationItem(null)" class="md-raised">BACK</md-button>
+                <md-button href ng-click="selectNotificationItem(null)" class="md-raised back-btn">BACK</md-button>
             </div>
         </div>
         <div class="row">

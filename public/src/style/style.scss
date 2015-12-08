@@ -159,42 +159,6 @@ div.cell-label {
 
 }
 
-
-/*-- notification --*/
-
-.notification {
-  background-color: $greymedium;
-  margin-bottom: 3px;
-
-  md-checkbox {
-    background-color: transparent;
-  }
-}
-
-/*-- Buttons --*/
-
-.md-button {
-  margin: 6px 8px 6px 0px;
-}
-
-button.md-primary.md-button.md-ink-ripple {
-  //background-color: $yellow;
-
-  &:hover {
-    background-color: yellow !importants;
-  }
-}
-
-md-checkbox {
-  background-color: $greydark;
-  padding: 10px;
-  border-radius: 5px;
-
-  .md-container {
-    left: 5px;
-  }
-}
-
 table#table {
     border: 3px solid #DDD;
 
@@ -208,3 +172,53 @@ table#table {
   background-color: $greylight;
 
 }
+
+/*-- notification --*/
+
+
+.notification, .notifications-bar {
+  background-color: $greymedium;
+  margin-bottom: 3px;
+
+  md-checkbox {
+    background-color: transparent;
+  }
+}
+
+.notifications-bar {
+  background-color: $greydark;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: 700;
+}
+
+
+/*-- Buttons --*/
+
+.md-button {
+  margin: 6px 8px 6px 0px;
+}
+
+a.md-button.md-primary.md-raised, a.md-button.md-primary.md-raised:not([disabled]):hover {
+  background-color: $yellow;
+
+  &:hover {
+    background-color: $yellow;
+  }
+}
+
+md-checkbox {
+  background-color: $greydark;
+  padding: 10px;
+  border-radius: 5px;
+
+  .md-container {
+    left: 5px;
+  }
+}
+
+.back-btn {
+    background: url("src/img/arrow-left-small.png") -17px no-repeat;
+    background-size: 60px;
+}
+
