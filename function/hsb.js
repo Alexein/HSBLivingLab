@@ -253,7 +253,7 @@ module.exports = {
                             }
                         });
                     } else {
-                        handleError(response, connection, err);
+                        handleError(response, connection, {noSuchUser: true});
                     }
                 } else {
                     handleError(response, connection, err);

@@ -342,11 +342,23 @@ function setLocalDayBookings(scope) {
     }
 }
 
-app.service('dataService', function($http) {
+app.service('dataService', function($http, $mdDialog) {
+    var alert;
     delete $http.defaults.headers.common['X-Requested-With'];
     this.login = function(scope, rootScope, location) {
         $http.post('/login', scope.loginData).success(function(data){
             var sessionKey = data.sessionKey;
+            if (sessionKey == null) {
+                if (data.error.noSuchUser) {
+                    alert = $mdDialog.alert().title('Login error')
+                        .content('Wrong user or password')
+                        .ok('Close');
+                    $mdDialog.show( alert ).finally(function() {
+                        alert = undefined;
+                    });
+                }
+                return;
+            }
             rootScope.sessionKey = sessionKey;
             rootScope.hsbTitle = data.title;
             var systemPermission = data.systemPermission;
