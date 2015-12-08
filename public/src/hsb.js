@@ -350,12 +350,14 @@ app.service('dataService', function($http, $mdDialog) {
             var sessionKey = data.sessionKey;
             if (sessionKey == null) {
                 if (data.error.noSuchUser) {
+                    /*
                     alert = $mdDialog.alert().title('Login error')
                         .content('Wrong user or password')
                         .ok('Close');
                     $mdDialog.show( alert ).finally(function() {
                         alert = undefined;
                     });
+                    */
                 }
                 return;
             }
