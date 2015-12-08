@@ -1,4 +1,4 @@
-var useServer = false;
+var useServer = true;
 
 var app = angular.module('HSB', ['ngMaterial', 'ngAnimate', 'ngRoute']);
 
@@ -262,7 +262,7 @@ function setupScope(scope) {
         }
         var slotsAllHours = [];
         for (var i = 0; i < 24; i++) {
-            var entry = {slotId: i, name: zeroPad(i) + ":00-" + zeroPad(i + 1) + ":00"}
+            var entry = {slotId: i, name: zeroPad(i) + "-" + zeroPad(i + 1)}
             slotsAllHours.push(entry);
         }
         var slotsLaundryHours = [
