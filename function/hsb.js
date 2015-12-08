@@ -131,7 +131,8 @@ function loadUser(response, connection, userId) {
                 var firstName = rows[0].firstName;
                 var lastName = rows[0].lastName;
                 var user = {userId: userId, firstName: firstName, lastName: lastName};
-                var sql = "SELECT DATE_FORMAT(b.date, '%Y-%m-%d') AS date, ts.name AS slot, ts.slotId, rut.name AS type, COUNT(ru.name) AS count " + 
+                var sql = "SELECT DATE_FORMAT(b.date, '%Y-%m-%d') AS date, ts.name AS slot, ts.slotId, " + 
+                    "rut.name AS type, rut.typeId, ru.unitId, COUNT(ru.name) AS count " + 
                     "FROM Booking b, BookingUnit bu, Resource r, ResourceUnit ru, ResourceUnitType rut, TimeSlot ts " + 
                     "WHERE b.userId = " + userId + " AND b.date >= NOW() AND bu.resourceId = b.resourceId AND bu.date = b.date " + 
                     "AND bu.slotId = b.slotId AND r.id = b.resourceId AND ru.resourceId = r.id AND ru.unitId = bu.unitId " + 
@@ -147,8 +148,10 @@ function loadUser(response, connection, userId) {
                             var slot = rows[i].slot;
                             var slotId = rows[i].slotId;
                             var type = rows[i].type;
+                            var typeId = rows[i].typeId;
+                            var unitId = rows[i].unitId;
                             var count = rows[i].count;
-                            var booking = {date: date, slot: slot, slotId: slotId, type: type, count: count};
+                            var booking = {date: date, slot: slot, slotId: slotId, type: type, typeId: typeId, unitId: unitId, count: count};
                             bookings.push(booking);
                         }
                         user.bookings = bookings
@@ -250,7 +253,7 @@ module.exports = {
                             }
                         });
                     } else {
-                        handleError(response, connection, err);
+                        handleError(response, connection, {noSuchUser: true});
                     }
                 } else {
                     handleError(response, connection, err);

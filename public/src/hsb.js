@@ -1,4 +1,4 @@
-﻿var useServer = true;
+var useServer = true;
 
 var app = angular.module('HSB', ['ngMaterial', 'ngAnimate', 'ngRoute']);
 
@@ -262,7 +262,7 @@ function setupScope(scope) {
         }
         var slotsAllHours = [];
         for (var i = 0; i < 24; i++) {
-            var entry = {slotId: i, name: zeroPad(i) + ":00-" + zeroPad(i + 1) + ":00"}
+            var entry = {slotId: i, name: zeroPad(i) + "-" + zeroPad(i + 1)}
             slotsAllHours.push(entry);
         }
         var slotsLaundryHours = [
@@ -342,11 +342,25 @@ function setLocalDayBookings(scope) {
     }
 }
 
-app.service('dataService', function($http) {
+app.service('dataService', function($http, $mdDialog) {
+    var alert;
     delete $http.defaults.headers.common['X-Requested-With'];
     this.login = function(scope, rootScope, location) {
         $http.post('/login', scope.loginData).success(function(data){
             var sessionKey = data.sessionKey;
+            if (sessionKey == null) {
+                if (data.error.noSuchUser) {
+                    /*
+                    alert = $mdDialog.alert().title('Login error')
+                        .content('Wrong user or password')
+                        .ok('Close');
+                    $mdDialog.show( alert ).finally(function() {
+                        alert = undefined;
+                    });
+                    */
+                }
+                return;
+            }
             rootScope.sessionKey = sessionKey;
             rootScope.hsbTitle = data.title;
             var systemPermission = data.systemPermission;
