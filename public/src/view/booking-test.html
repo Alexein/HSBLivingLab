@@ -145,8 +145,9 @@
                                 {{ vacancies = getVacancies($index, s.slotId); "" }}
                                 <div data-ng-repeat="t in bookingData.unitTypes" class="cell-label">
                                     <span class="bookingData">{{ bookingData.bookingFormat(t, vacancies) }}</span>
-                                    <span class="showWasher"></span>
+                                    <!--<span class="showWasher"></span>-->
                                     <!--<span class="showDryer"></span>-->
+                                    <img src="src/img/icons/washing_machine_icon.png" class="showWasher" />
                                 </div>
                             </span>
                         </td>
@@ -200,7 +201,7 @@
             {{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}
         </div>
         <div data-ng-repeat="t in bookingData.unitTypes">
-            <span>{{ t.name }}</span>
+            <span class="showMachineAvailable">{{ t.name }}</span>
             <span data-ng-repeat="b in queueData.type[t.typeId].queue">
                 <span ng-show="b[0] == 1">
                     You are waiting for {{ b[1] }} units.

@@ -14,7 +14,7 @@
   <md-toolbar layout="row">
     <div class="md-toolbar-tools">
       <md-button ng-click="vm.toggleSidenav('left')" class="md-icon-button">
-        <md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg">
+        <md-icon aria-label="Menu" md-svg-icon="src/img/menu.svg">
         </md-icon>
       </md-button>
       <a ng-href="#/" class="topbar-logo">
@@ -51,7 +51,7 @@
     <div layout="column" flex id="content">
       <md-content layout="column" flex class="md-padding">
         <div layout="row">
-          <md-content layout-padding>
+          <md-content layout-padding class="ngView">
             <div ng-view></div>
           </md-content>
         </div>

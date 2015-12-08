@@ -1,3 +1,4 @@
+/* Screen */
 /* Colors */
 /* h1, h2, h3, link-color */
 body {
@@ -15,6 +16,9 @@ h2 {
 
 h3 {
   font-size: 16px; }
+
+.ngView {
+  line-height: 20px; }
 
 .md-toolbar-tools h1 {
   font-size: inherit;
@@ -72,8 +76,19 @@ svg.user-avatar {
   height: initial;
   max-height: 350px; }
 
-.bookingData {
-  background: "src/img/icons/washing_machine_icon.png" 30px 30px; }
+@media screen and (max-width: 1000px) {
+  .bookingData {
+    display: none; } }
+
+@media screen and (max-width: 1000px) {
+  .showWasher {
+    display: inline-block;
+    background: url("src/img/icons/washing_machine_icon.png");
+    width: 30px;
+    height: 30px; } }
+@media screen and (min-width: 1000px) {
+  .showWasher {
+    display: none; } }
 
 span.day-label {
   display: inline-block;
@@ -87,8 +102,7 @@ span.hour-label {
 span.hour-cell {
   display: inline-block;
   width: 180px;
-  border-style: double;
-  border-color: #FFD200; }
+  border: 1px #FFD200 double; }
   span.hour-cell span:focus {
     outline-color: #ECB50F !important; }
 
@@ -97,6 +111,13 @@ div.cell-label {
 
 .cell-row {
   padding-bottom: 10px; }
+
+/*-- notification --*/
+.notification {
+  background-color: #F9F9F9;
+  margin-bottom: 3px; }
+  .notification md-checkbox {
+    background-color: transparent; }
 
 /*-- Buttons --*/
 .md-button {

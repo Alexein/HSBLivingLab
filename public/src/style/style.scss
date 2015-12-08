@@ -21,6 +21,10 @@ h3 {
   font-size: 16px;
 }
 
+.ngView {
+  line-height: 20px;
+}
+
 .md-toolbar-tools h1 {
   font-size: inherit;
   font-weight: inherit;
@@ -101,7 +105,23 @@ svg.user-avatar {
 }
 
 .bookingData {
-  background: ("src/img/icons/washing_machine_icon.png") 30px 30px;
+  
+  @media screen and (max-width: $break-large) {
+    display: none;
+  }
+}
+
+.showWasher {
+    @media screen and (max-width: $break-large) {
+      display:inline-block;
+      background: url('src/img/icons/washing_machine_icon.png');
+      width: 30px;
+      height: 30px;
+    }
+    @media screen and (min-width: $break-large) {
+      display: none
+    }
+
 }
 
 span.day-label {
@@ -118,8 +138,7 @@ span.hour-label {
 span.hour-cell {
   display: inline-block;
   width: 180px;
-  border-style: double;
-  border-color: $yellow;
+  border: 1px $yellow double;
 
   span {
     &:focus {
@@ -136,7 +155,21 @@ div.cell-label {
   padding-bottom: 10px;
 }
 
+.showMachineAvailable, .sendReminderVia {
 
+}
+
+
+/*-- notification --*/
+
+.notification {
+  background-color: $greymedium;
+  margin-bottom: 3px;
+
+  md-checkbox {
+    background-color: transparent;
+  }
+}
 
 /*-- Buttons --*/
 
