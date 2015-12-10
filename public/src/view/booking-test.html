@@ -1,4 +1,13 @@
 <h1 class="md-display-1">Category:{{bookingCategory}} Resource:{{bookingResource}}</h1>
+
+<div ng-controller="EmployeeController">
+  <div>
+    <md-button ng-click="showGreeting()" class="md-raised md-primary">
+      Choose Booking - Dialog
+    </md-button>
+  </div>
+</div>
+
 <div ng-show="bookingResource == 'none'">
     <div ng-show="bookingCategory == 'none'">
         <div class="row">
@@ -156,24 +165,24 @@
             </tbody>
         </table>
     </div>
-    <div ng-show="isShowingNewBooking()" class="showingNewBooking">
+    <!--<div ng-show="isShowingNewBooking()" class="showingNewBooking">
         <div>
             <h4>Booking {{bookingResource}}</h4>
         </div>
-        <div>
-            {{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}                
+        <div layout="row">
+            <span flex="20">{{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}</span>
             <md-button ng-click="showNewQueue()" class="md-raised">Queue</md-button>
         </div>
-        <div data-ng-repeat="t in bookingData.unitTypes">
-            <span class="showMachineAvailable">{{ t.name }}</span>
+        <div data-ng-repeat="t in bookingData.unitTypes" layout="row">
+            <span class="showMachineAvailable" flex="20">{{ t.name }}</span>
             <span data-ng-repeat="u in t.units">
-                <span ng-show="isBookable(t, u)">
-                    <md-checkbox ng-model="bookingEdit.type[t.typeId][u.unitId]">{{ u.name }}</md-checkbox>
+                <span ng-show="isBookable(t, u)" ng-controller="EmployeeController">
+                    <md-checkbox ng-model="bookingEdit.type[t.typeId][u.unitId]" ng-click="showGreeting($event)">{{ u.name }}</md-checkbox>
                 </span>
             </span>
         </div>
-        <div>
-            <span class="sendReminderVia">Send reminder via</span>
+        <div layout="row">
+            <span class="sendReminderVia" flex="20">Send reminder via</span>
             <md-checkbox ng-model="bookingEdit.medium[1]">email</md-checkbox>
             <md-checkbox ng-model="bookingEdit.medium[2]">sms</md-checkbox>
         </div>
@@ -187,7 +196,7 @@
             BEFORE BOOKING DATE
         </div>
         <div>
-            <md-button ng-click="setBooking()" class="md-raised md-primary">Confirm booking</md-button>
+            <md-button ng-click="setBooking() closeDialog()" class="md-raised md-primary">Confirm booking</md-button>
         </div>
         <div>
             <md-button ng-click="clearBooking()" class="md-raised md-warn">Delete</md-button>
@@ -240,5 +249,5 @@
         <div>
             <button ng-click="setQueue()">Join waiting list</button>
         </div>
-    </div>
+    </div>-->
 </div>

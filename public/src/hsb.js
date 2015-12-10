@@ -892,3 +892,86 @@ app.controller('HSBController', function($scope, $rootScope, $location, $http, $
 
 });
 
+app.controller('EmployeeController', EmployeeEditor)
+    .controller('GreetingController', GreetingController);
+  // Fictitious Employee Editor to show how to use simple and complex dialogs.
+  function EmployeeEditor($scope, $mdDialog) {
+    var alert;
+    $scope.showGreeting = showCustomGreeting;
+    
+    // Close the specified dialog instance and resolve with 'finished' flag
+    // Normally this is not needed, just use '$mdDialog.hide()' to close
+    // the most recent dialog popup.
+    function closeAlert() {
+      $mdDialog.hide( alert, "finished" );
+      alert = undefined;
+    }
+    
+    // Dialog #3 - Demonstrate use of ControllerAs and passing $scope to dialog
+    //             Here we used ng-controller="GreetingController as vm" and
+    //             $scope.vm === <controller instance="">
+    function showCustomGreeting() {
+       $mdDialog.show({
+          clickOutsideToClose: true,
+          scope: $scope,        // use parent scope in template
+          preserveScope: true,  // do not forget this if use parent scope
+          // Since GreetingController is instantiated with ControllerAs syntax
+          // AND we are passing the parent '$scope' to the dialog, we MUST
+          // use 'vm.<xxx>' in the template markup
+          template: '<md-dialog layout-padding flex="100">'+
+                    '  <md-dialog-content>'+
+                    '    <div>'+
+                    '      <h4>Booking {{bookingResource}}</h4>'+
+                    '    </div>'+
+                    '    <div layout="row">'+
+                    '      <span flex="20">{{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}</span>'+
+                    '      <md-button ng-click="showNewQueue()" class="md-raised">Queue</md-button>'+
+                    '    </div>'+
+                    '    <div data-ng-repeat="t in bookingData.unitTypes" layout="row">'+
+                    '      <span class="showMachineAvailable" flex="20">{{ t.name }}</span>'+
+                    '      <span data-ng-repeat="u in t.units">'+
+                    '        <span ng-show="isBookable(t, u)">'+
+                    '          <md-checkbox ng-model="bookingEdit.type[t.typeId][u.unitId]">{{ u.name }}</md-checkbox>'+
+                    '        </span>'+
+                    '      </span>'+
+                    '    </div>'+
+                    '    <div layout="row">'+
+                    '      <span class="sendReminderVia" flex="20">Send reminder via</span>'+
+                    '      <md-checkbox ng-model="bookingEdit.medium[1]">email</md-checkbox>'+
+                    '      <md-checkbox ng-model="bookingEdit.medium[2]">sms</md-checkbox>'+
+                    '    </div>'+
+                    '    <div>'+
+                    '      <md-checkbox ng-model="bookingEdit.time[4]">10 min</md-checkbox>'+
+                    '      <md-checkbox ng-model="bookingEdit.time[8]">30 min</md-checkbox>'+
+                    '      <md-checkbox ng-model="bookingEdit.time[16]">1 hour</md-checkbox>'+
+                    '      <md-checkbox ng-model="bookingEdit.time[64]">5 hours</md-checkbox>'+
+                    '      <md-checkbox ng-model="bookingEdit.time[256]">1 day</md-checkbox>'+
+                    '      <md-checkbox ng-model="bookingEdit.time[2048]">1 week</md-checkbox>'+
+                    '      BEFORE BOOKING DATE'+
+                    '    </div>'+
+                    '    <div>'+
+                    '      <md-button ng-click="setBooking()" class="md-raised md-primary">Confirm booking</md-button>'+
+                    '    </div>'+
+                    '    <div>'+
+                    '      <md-button ng-click="clearBooking()" class="md-raised md-warn">Delete</md-button>'+
+                    '    </div>'+
+                    '  </md-dialog-content>'+
+                    '</md-dialog>',
+          controller: function DialogController($scope, $mdDialog) {
+            $scope.closeDialog = function() {
+              $mdDialog.hide();
+            }
+          }
+       });
+    }
+  }
+  // Greeting controller used with the more complex 'showCustomGreeting()' custom dialog
+  function GreetingController($scope, $mdDialog, employee) {
+    // Assigned from construction <code>locals</code> options...
+    $scope.employee = employee;
+    $scope.closeDialog = function() {
+      // Easily hides most recent dialog shown...
+      // no specific instance reference is needed.
+      $mdDialog.hide();
+    };
+  }
