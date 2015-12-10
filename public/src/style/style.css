@@ -70,6 +70,7 @@ a {
 svg.user-avatar {
   border-radius: 100%; }
 
+/*-- booking.html --*/
 .booking-icons {
   width: 100%;
   max-width: 350px;
@@ -83,7 +84,6 @@ svg.user-avatar {
 @media screen and (max-width: 1000px) {
   .showWasher {
     display: inline-block;
-    background: url("src/img/icons/washing_machine_icon.png");
     width: 30px;
     height: 30px; } }
 @media screen and (min-width: 1000px) {
@@ -113,13 +113,19 @@ div.cell-label {
   padding-bottom: 10px; }
 
 table#table {
-  border: 3px solid #DDD; }
+  border: 3px solid #DDD;
+  border-radius: 10px; }
   table#table tr {
     background-color: #F9F9F9; }
 
 .showingNewBooking {
   padding: 10px;
   background-color: #FAFAFA; }
+
+div.pagination .left {
+  float: left; }
+div.pagination .right {
+  float: right; }
 
 /*-- notification --*/
 .notification, .notifications-bar {
@@ -151,7 +157,13 @@ md-checkbox {
     left: 5px; }
 
 .back-btn {
-  background: url("src/img/arrow-left-small.png") -17px no-repeat;
-  background-size: 60px; }
+  background: url("/src/img/arrow-left-small.png") -17px no-repeat;
+  background-size: 60px;
+  padding-left: 25px; }
+
+.forward-btn {
+  background: url("/src/img/arrow-right-small.png") 90px no-repeat;
+  background-size: 60px;
+  padding-right: 25px; }
 
 /*# sourceMappingURL=style.css.map */

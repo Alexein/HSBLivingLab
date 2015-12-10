@@ -867,7 +867,7 @@ app.controller('BookingController', function($scope, $rootScope, $location, $htt
           // Since GreetingController is instantiated with ControllerAs syntax
           // AND we are passing the parent '$scope' to the dialog, we MUST
           // use 'vm.<xxx>' in the template markup
-          template: '<md-dialog layout-padding flex="100">'+
+          template: '<md-dialog layout-padding flex="95">'+
                     '  <md-dialog-content>'+
                     '    <div>'+
                     '      <h4>Booking {{bookingResource}}</h4>'+

@@ -97,6 +97,8 @@ svg.user-avatar {
   border-radius: 100%;
 }
 
+/*-- booking.html --*/
+
 .booking-icons {
   width: 100%;
   max-width: 350px;
@@ -155,12 +157,9 @@ div.cell-label {
   padding-bottom: 10px;
 }
 
-.showMachineAvailable, .sendReminderVia {
-
-}
-
 table#table {
     border: 3px solid #DDD;
+    border-radius: 10px;
 
     tr {
       background-color: $greymedium;
@@ -171,6 +170,15 @@ table#table {
   padding: 10px;
   background-color: $greylight;
 
+}
+
+div.pagination {
+  .left {
+    float: left;
+  }
+  .right {
+    float: right;
+  }
 }
 
 /*-- notification --*/
@@ -218,7 +226,12 @@ md-checkbox {
 }
 
 .back-btn {
-    background: url("src/img/arrow-left-small.png") -17px no-repeat;
-    background-size: 60px;
+  background: url("/src/img/arrow-left-small.png") -17px no-repeat;
+  background-size: 60px;
+  padding-left: 25px;
 }
-
+.forward-btn {
+  background: url("/src/img/arrow-right-small.png") 90px no-repeat;
+  background-size: 60px;
+  padding-right: 25px;
+}
