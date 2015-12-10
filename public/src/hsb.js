@@ -209,6 +209,16 @@ function bookingFormat(unitType, vacancies) {
     return result;
 }
 
+function setDates(scope) {
+    scope.weekDates = [];
+    for (var i = 0; i < 7; i++) {
+        var d = new Date(scope.calendarStart.getTime());
+        d.setDate(d.getDate() + i);
+        var dStr = formatShortDate(d);
+        scope.weekDates.push(dStr);
+    }
+}
+
 function setupScope(scope) {
     scope.permissionView = 4;
     scope.permissionNotify = 32;
@@ -307,14 +317,8 @@ function setupScope(scope) {
     scope.calendarStart = new Date();
     var dow = (scope.calendarStart.getDay() + 6) % 7; // Monday, not sunday
     scope.calendarStart.setDate(scope.calendarStart.getDate() - dow);
-    scope.weekDates = [];
-    for (var i = 0; i < 7; i++) {
-        var d = new Date(scope.calendarStart.getTime());
-        d.setDate(d.getDate() + i);
-        var dStr = formatShortDate(d);
-        scope.weekDates.push(dStr);
-    }
     // Booking map: {day:{time:{type:{'units:'{unit:bookingId},'queue:'[[bookingId,count]]}}}} where bookingId = 1 for self, 0 for unknown, id for known
+    setDates(scope);
 }
 
 function setLocalDayBookings(scope) {
@@ -521,6 +525,11 @@ app.controller('BookingController', function($scope, $rootScope, $location, $htt
     }
     $scope.loadBookings = function() {
         dataService.loadBookings($scope, $location);
+    }
+    $scope.showWeek = function(adjustWeeks) {
+        $scope.calendarStart.setDate($scope.calendarStart.getDate() + adjustWeeks * 7);
+        setDates($scope);
+        $scope.loadBookings();
     }
     $scope.selectBookingResource = function(bookingResource) {
         $scope.bookingResource = bookingResource;
