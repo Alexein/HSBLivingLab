@@ -511,7 +511,7 @@ app.controller('NotificationController', function($scope, $rootScope, $http, $md
   dataService.loadNotifications($rootScope, notificationTypeMessage, notificationStatusNew + notificationStatusRead);
 });
 
-app.controller('BookingController', function($scope, $rootScope, $location, $http, $mdSidenav, dataService) {
+app.controller('BookingController', function($scope, $rootScope, $location, $http, $mdSidenav, dataService, $mdDialog) {
   if (!useServer) {
       setLocalDayBookings($rootScope);
   }
@@ -675,6 +675,7 @@ app.controller('BookingController', function($scope, $rootScope, $location, $htt
                 }
             }
         }
+        showCustomGreeting();
     }
     $scope.isBooked = function(unitType, unit) {
         var bookingEdit = $scope.bookingEdit;
@@ -830,72 +831,7 @@ app.controller('BookingController', function($scope, $rootScope, $location, $htt
     $scope.isShowingNewQueue = function() {
         return $scope.newBookingQueue == true;
     }
-});
 
-app.controller('HSBController', function($scope, $rootScope, $location, $http, $mdSidenav, dataService) {
-    if ($rootScope.sessionKey == null) {
-        $location.path('/login')
-    }
-    var vm = this;
-
-    vm.toggleSidenav = function(menuId) {
-      $mdSidenav(menuId).toggle();
-    };
-
-    vm.toogleSidenav = function(){
-      $mdSidenav('sidenav-item').toogle();
-    };
-
-    $scope.setContent = function(contentId) {
-        resetState($scope);
-    }
-    $scope.hasContent = function(contentId) {
-        var pid = $scope.contentId;
-        return $scope.contentId == contentId;
-    }
-    $scope.hasSystemPermission = function(permission) {
-        var systemPermission = $scope.systemPermission;
-        return (systemPermission & permission) > 0;
-    }
-    $scope.logout = function() {
-        $rootScope.sessionKey = null;
-        $location.path('/login');
-    }
-    $scope.createBackup = function() {
-        dataService.createBackup($scope);
-    }
-    $scope.selectProfileView = function(profileView) {
-        $scope.profileView = profileView;
-    }
-    $scope.selectApartmentView = function(apartmentView) {
-        $scope.apartmentView = apartmentView;
-    }
-    $scope.selectNotificationItem = function(notificationItem) {
-        $scope.notificationItem = notificationItem;
-    }
-    $scope.changedNotificationSelectAll = function() {
-        for (var i = 0; i < $scope.notifications.length; i++) {
-            var n = $scope.notifications[i];
-            n.isSelected = $scope.notificationView.selectAll
-        }
-    }
-    $scope.selectNotification = function(notificationItem) {
-        $scope.notificationItem = notificationItem;
-    }
-    $scope.sendMessage = function() {
-        dataService.sendMessage($scope);
-    }
-
-    setupScope($rootScope);
-    resetData($scope);
-    configScope($scope);
-
-});
-
-app.controller('EmployeeController', EmployeeEditor)
-    .controller('GreetingController', GreetingController);
-  // Fictitious Employee Editor to show how to use simple and complex dialogs.
-  function EmployeeEditor($scope, $mdDialog) {
     var alert;
     $scope.showGreeting = showCustomGreeting;
     
@@ -964,14 +900,65 @@ app.controller('EmployeeController', EmployeeEditor)
           }
        });
     }
-  }
-  // Greeting controller used with the more complex 'showCustomGreeting()' custom dialog
-  function GreetingController($scope, $mdDialog, employee) {
-    // Assigned from construction <code>locals</code> options...
-    $scope.employee = employee;
-    $scope.closeDialog = function() {
-      // Easily hides most recent dialog shown...
-      // no specific instance reference is needed.
-      $mdDialog.hide();
+});
+
+app.controller('HSBController', function($scope, $rootScope, $location, $http, $mdSidenav, dataService) {
+    if ($rootScope.sessionKey == null) {
+        $location.path('/login')
+    }
+    var vm = this;
+
+    vm.toggleSidenav = function(menuId) {
+      $mdSidenav(menuId).toggle();
     };
-  }
+
+    vm.toogleSidenav = function(){
+      $mdSidenav('sidenav-item').toogle();
+    };
+
+    $scope.setContent = function(contentId) {
+        resetState($scope);
+    }
+    $scope.hasContent = function(contentId) {
+        var pid = $scope.contentId;
+        return $scope.contentId == contentId;
+    }
+    $scope.hasSystemPermission = function(permission) {
+        var systemPermission = $scope.systemPermission;
+        return (systemPermission & permission) > 0;
+    }
+    $scope.logout = function() {
+        $rootScope.sessionKey = null;
+        $location.path('/login');
+    }
+    $scope.createBackup = function() {
+        dataService.createBackup($scope);
+    }
+    $scope.selectProfileView = function(profileView) {
+        $scope.profileView = profileView;
+    }
+    $scope.selectApartmentView = function(apartmentView) {
+        $scope.apartmentView = apartmentView;
+    }
+    $scope.selectNotificationItem = function(notificationItem) {
+        $scope.notificationItem = notificationItem;
+    }
+    $scope.changedNotificationSelectAll = function() {
+        for (var i = 0; i < $scope.notifications.length; i++) {
+            var n = $scope.notifications[i];
+            n.isSelected = $scope.notificationView.selectAll
+        }
+    }
+    $scope.selectNotification = function(notificationItem) {
+        $scope.notificationItem = notificationItem;
+    }
+    $scope.sendMessage = function() {
+        dataService.sendMessage($scope);
+    }
+
+    setupScope($rootScope);
+    resetData($scope);
+    configScope($scope);
+
+});
+
