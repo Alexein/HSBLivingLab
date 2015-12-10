@@ -143,12 +143,17 @@
                         <td style="display:inline-block; width:100px;" class="hour-label">{{s.name}}</td>
                         <td  class="hour-cell" data-ng-repeat="d in weekdays" >
                             <span ng-click="bookUnit($index, s.slotId)">
+                                <!-- $index is day, s.slotId is slot -->
                                 {{ vacancies = getVacancies($index, s.slotId); "" }}
                                 <div data-ng-repeat="t in bookingData.unitTypes" class="cell-label">
                                     <span class="bookingData">{{ bookingData.bookingFormat(t, vacancies) }}</span>
                                     <!--<span class="showWasher"></span>-->
                                     <!--<span class="showDryer"></span>-->
-                                    <img src="src/img/icons/washing_machine_icon.png" class="showWasher" />
+                                    <span class="showWasher">
+                                    {{ vacancies[t.typeId][0].length + '+' + vacancies[t.typeId][1].length }}
+                                    <img ng-show="isShowingResource(t, 'laundry', 1)" src="src/img/icons/washing_machine_icon.png" class="showWasher" />
+                                    <img ng-show="isShowingResource(t, 'laundry', 2)"src="src/img/icons/dryer_icon.png" class="showWasher" />
+                                    </span>
                                 </div>
                             </span>
                         </td>

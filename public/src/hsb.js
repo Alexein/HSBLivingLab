@@ -633,6 +633,10 @@ app.controller('BookingController', function($scope, $rootScope, $location, $htt
             $scope.showNewQueue();
         }
     }
+    $scope.isShowingResource = function(unitType, resourceName, resourceType) {
+        var br = $scope.bookingResource;
+        return br == resourceName && unitType.typeId == resourceType;
+    }
     $scope.isBookable = function(unitType, unit) { // true if free or booked by self
         var typeBookings = $scope.getTypeBookings($scope.bookingDayId, $scope.bookingSlotId, false);
         if (typeBookings == null) {
