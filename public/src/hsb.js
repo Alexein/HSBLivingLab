@@ -224,10 +224,10 @@ function setupScope(scope) {
     scope.permissionNotify = 32;
     scope.permissionEdit = 256;
     scope.permissionAdmin = 2048;
-    scope.birthYears = [1999, 1998, 1997];
+    scope.birthYears = [2000, 1999, 1998, 1997, 1996, 1995, 1994, 1993, 1992, 1991, 1990];
     scope.dateMonths = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 
                          'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
-    scope.dateDays = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+    scope.dateDays = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
     scope.occupations = [{name: 'Student', occupationId: 1},
                          {name: 'Advokat', occupationId: 2},
                          {name: 'Läkare', occupationId: 3}];
@@ -873,11 +873,11 @@ app.controller('BookingController', function($scope, $rootScope, $location, $htt
                     '      <h4>Booking {{bookingResource}}</h4>'+
                     '    </div>'+
                     '    <div layout="row">'+
-                    '      <span flex="10">{{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}</span>'+
+                    '      <span flex="20">{{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}</span>'+
                     '      <md-button ng-click="showNewQueue()" class="md-raised">Queue</md-button>'+
                     '    </div>'+
                     '    <div data-ng-repeat="t in bookingData.unitTypes" layout="row">'+
-                    '      <span class="showMachineAvailable" flex="10">{{ t.name }}</span>'+
+                    '      <span class="showMachineAvailable" flex="20">{{ t.name }}</span>'+
                     '      <span data-ng-repeat="u in t.units">'+
                     '        <span ng-show="isBookable(t, u)">'+
                     '          <md-checkbox ng-model="bookingEdit.type[t.typeId][u.unitId]">{{ u.name }}</md-checkbox>'+
@@ -885,7 +885,7 @@ app.controller('BookingController', function($scope, $rootScope, $location, $htt
                     '      </span>'+
                     '    </div>'+
                     '    <div layout="row">'+
-                    '      <span class="sendReminderVia" flex="10">Send reminder via</span>'+
+                    '      <span class="sendReminderVia" flex="20">Send reminder via</span>'+
                     '      <md-checkbox ng-model="bookingEdit.medium[1]">email</md-checkbox>'+
                     '      <md-checkbox ng-model="bookingEdit.medium[2]">sms</md-checkbox>'+
                     '    </div>'+

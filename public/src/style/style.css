@@ -144,9 +144,9 @@ div.pagination .right {
 .md-button {
   margin: 6px 8px 6px 0px; }
 
-a.md-button.md-primary.md-raised, a.md-button.md-primary.md-raised:not([disabled]):hover {
+a.md-button.md-primary.md-raised, a.md-button.md-primary.md-raised:not([disabled]):hover, .md-button.md-primary.md-raised, .md-primary {
   background-color: #FFD200; }
-  a.md-button.md-primary.md-raised:hover, a.md-button.md-primary.md-raised:not([disabled]):hover:hover {
+  a.md-button.md-primary.md-raised:hover, a.md-button.md-primary.md-raised:not([disabled]):hover:hover, .md-button.md-primary.md-raised:hover, .md-primary:hover {
     background-color: #FFD200; }
 
 md-checkbox {

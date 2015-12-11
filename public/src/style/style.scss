@@ -207,7 +207,7 @@ div.pagination {
   margin: 6px 8px 6px 0px;
 }
 
-a.md-button.md-primary.md-raised, a.md-button.md-primary.md-raised:not([disabled]):hover {
+a.md-button.md-primary.md-raised, a.md-button.md-primary.md-raised:not([disabled]):hover, .md-button.md-primary.md-raised, .md-primary {
   background-color: $yellow;
 
   &:hover {

@@ -19,45 +19,69 @@
         <div>
             <h4>Om mig</h4>
             <div>
-            Förnamn<br />
-            <input type="text" ng-model="profileEdit.firstname"/><br />
-            *Obligatoriskt fält
+                <md-input-container>
+                    <label>Förnamn</label>
+                    <input type="text" ng-model="profileEdit.firstname"/><br />
+                *Obligatoriskt fält
+                </md-input-container>
             </div>
             
             <div>
-            Efternamn<br />
-            <input type="text" ng-model="profileEdit.lastname"/><br />
-            *Obligatoriskt fält
+                <md-input-container>
+                    <label>Efternamn</label>
+                    <input type="text" ng-model="profileEdit.lastname"/><br />
+                    *Obligatoriskt fält
+                </md-input-container>
             </div>
             
             <div>
             Födelsedatum<br />
-            <select ng-model="profileEdit.day" ng-options="day for day in dateDays">
-            </select>
-            <select ng-model="profileEdit.month" ng-options="month for month in dateMonths">
-            </select>
-            <select ng-model="profileEdit.year" ng-options="year for year in birthYears">
-            </select>
+                <md-input-container>
+                    <label>Dag</label>
+                    <md-select ng-model="profileEdit.day">
+                        <md-option ng-value="day" ng-repeat="day in dateDays">{{day}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container>
+                    <label>Månad</label>
+                    <md-select ng-model="profileEdit.month">
+                        <md-option ng-value="month" ng-repeat="month in dateMonths">{{month}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container>
+                    <label>År</label>
+                    <md-select ng-model="profileEdit.birthYears">
+                        <md-option ng-value="year" ng-repeat="year in birthYears">{{year}}</md-option>
+                    </md-select>
+                </md-input-container>
             </div>
 
             <div>
-            Sysselsättning<br />
-            <select ng-model="profileEdit.occupation" ng-options="occupation.name for occupation in occupations">
-            </select>
+                <md-input-container>
+                    <label>Sysselsättning</label>
+                    <md-select ng-model="profileEdit.occupation">
+                        <md-option ng-value="occupation" ng-repeat="occupation in occupations">{{occupation.name}}</md-option>
+                    </md-select>
+                </md-input-container>
             </div>
             
+            <hr/>
             <h4>Kontaktuppgifter</h4>
             <div>
-            Telefonnummer<br />
-            <input type="text" ng-model="profileEdit.phone"/><br />
+                <md-input-container>
+                    <label>Telefonnummer</label>
+                    <input type="text" ng-model="profileEdit.phone"/>
+                </md-input-container>
             </div>
 
             <div>
-            Email<br />
-            <input type="text" ng-model="profileEdit.email"/><br />
+                <md-input-container>
+                    <label>Email</label>
+                    <input type="text" ng-model="profileEdit.email"/>
+                </md-input-container>
             </div>
             
-            <button ng-click="saveProfile()">Spara</button>
+            <md-button ng-click="saveProfile()" class="md-raised">Spara</md-button>
         </div>
     </div>
     <div ng-show="profileView == 'notifications'">
