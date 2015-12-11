@@ -873,11 +873,11 @@ app.controller('BookingController', function($scope, $rootScope, $location, $htt
                     '      <h4>Booking {{bookingResource}}</h4>'+
                     '    </div>'+
                     '    <div layout="row">'+
-                    '      <span flex="20">{{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}</span>'+
+                    '      <span flex="10">{{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}</span>'+
                     '      <md-button ng-click="showNewQueue()" class="md-raised">Queue</md-button>'+
                     '    </div>'+
                     '    <div data-ng-repeat="t in bookingData.unitTypes" layout="row">'+
-                    '      <span class="showMachineAvailable" flex="20">{{ t.name }}</span>'+
+                    '      <span class="showMachineAvailable" flex="10">{{ t.name }}</span>'+
                     '      <span data-ng-repeat="u in t.units">'+
                     '        <span ng-show="isBookable(t, u)">'+
                     '          <md-checkbox ng-model="bookingEdit.type[t.typeId][u.unitId]">{{ u.name }}</md-checkbox>'+
@@ -885,7 +885,7 @@ app.controller('BookingController', function($scope, $rootScope, $location, $htt
                     '      </span>'+
                     '    </div>'+
                     '    <div layout="row">'+
-                    '      <span class="sendReminderVia" flex="20">Send reminder via</span>'+
+                    '      <span class="sendReminderVia" flex="10">Send reminder via</span>'+
                     '      <md-checkbox ng-model="bookingEdit.medium[1]">email</md-checkbox>'+
                     '      <md-checkbox ng-model="bookingEdit.medium[2]">sms</md-checkbox>'+
                     '    </div>'+
