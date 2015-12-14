@@ -13,7 +13,7 @@
 <body layout="column" ng-controller="HSBController as vm">
   <md-toolbar layout="row">
     <div class="md-toolbar-tools">
-      <md-button ng-click="vm.toggleSidenav('left')" class="md-icon-button">
+      <md-button ng-click="vm.toggleSidenav('left')" class="md-icon-button" ng-show="sessionKey != null">
         <md-icon aria-label="Menu" md-svg-icon="src/img/menu.svg">
         </md-icon>
       </md-button>
@@ -23,7 +23,7 @@
     </div>
   </md-toolbar>
   <div layout="row" flex>
-    <md-sidenav class="md-sidenav-left md-whiteframe-z2 ma-sidenav ng-isolate-scope" md-component-id="left" ng-click="vm.toggleNav('left')" md-is-locked-open="$mdMedia('gt-lg')">
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2 ma-sidenav ng-isolate-scope" md-component-id="left" ng-click="vm.toggleNav('left')" md-is-locked-open="$mdMedia('gt-lg')" ng-show="sessionKey != null">
       <header class="nav-header">
         <div layout="column" class="md-toolbar-tools-bottom inset">
           <user-avatar></user-avatar>
