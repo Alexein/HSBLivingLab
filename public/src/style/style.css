@@ -79,7 +79,8 @@ svg.user-avatar {
 
 @media screen and (max-width: 1000px) {
   .bookingData {
-    display: none; } }
+    display: none;
+    padding: 10px 0; } }
 
 @media screen and (max-width: 1000px) {
   .showWasher {
@@ -95,25 +96,29 @@ span.day-label {
   padding-left: 5px;
   width: 180px; }
 
-span.hour-label {
+.hour-label, .hour-cell {
+  border-top: 2px solid black; }
+
+.hour-label {
   vertical-align: 75%;
   font-weight: 700; }
 
-span.hour-cell {
+.hour-cell {
   display: inline-block;
   width: 180px;
-  border: 1px #FFD200 double; }
-  span.hour-cell span:focus {
+  border-right: 2px solid #F9F9F9; }
+  .hour-cell span:focus {
     outline-color: #ECB50F !important; }
 
-div.cell-label {
-  padding: 5px 10px; }
+.cell-label {
+  padding: 5px 10px 20px 0px; }
 
-.cell-row {
-  padding-bottom: 10px; }
+tr.cell-row {
+  padding-bottom: 10px;
+  border-bottom: 2px solid #000000; }
 
 table#table {
-  border: 3px solid #DDD;
+  border: 3px solid #FAFAFA;
   border-radius: 10px; }
   table#table tr {
     background-color: #F9F9F9; }
@@ -143,6 +148,11 @@ div.pagination .right {
 /*-- Buttons --*/
 .md-button {
   margin: 6px 8px 6px 0px; }
+
+.md-icon-button {
+  position: absolute;
+  top: 10px;
+  left: 20px; }
 
 a.md-button.md-primary.md-raised, a.md-button.md-primary.md-raised:not([disabled]):hover, .md-button.md-primary.md-raised, .md-primary {
   background-color: #FFD200; }

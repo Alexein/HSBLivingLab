@@ -110,13 +110,13 @@ svg.user-avatar {
   
   @media screen and (max-width: $break-large) {
     display: none;
+    padding: 10px 0;
   }
 }
 
 .showWasher {
     @media screen and (max-width: $break-large) {
       display:inline-block;
-      //background: url('src/img/icons/washing_machine_icon.png');
       width: 30px;
       height: 30px;
     }
@@ -132,15 +132,19 @@ span.day-label {
   width: 180px;
 }
 
-span.hour-label {
+.hour-label, .hour-cell {
+  border-top: 2px solid black;
+}
+
+.hour-label {
   vertical-align: 75%;
   font-weight: 700;
 }
 
-span.hour-cell {
+.hour-cell {
   display: inline-block;
   width: 180px;
-  border: 1px $yellow double;
+  border-right: 2px solid $greymedium;
 
   span {
     &:focus {
@@ -149,16 +153,17 @@ span.hour-cell {
   }
 }
 
-div.cell-label {
-  padding: 5px 10px;
+.cell-label {
+  padding: 5px 10px 20px 0px;
 }
 
-.cell-row {
+tr.cell-row {
   padding-bottom: 10px;
+  border-bottom: 2px solid $black
 }
 
 table#table {
-    border: 3px solid #DDD;
+    border: 3px solid $greylight;
     border-radius: 10px;
 
     tr {
@@ -205,6 +210,12 @@ div.pagination {
 
 .md-button {
   margin: 6px 8px 6px 0px;
+}
+
+.md-icon-button{
+  position: absolute;
+  top: 10px;
+  left: 20px;
 }
 
 a.md-button.md-primary.md-raised, a.md-button.md-primary.md-raised:not([disabled]):hover, .md-button.md-primary.md-raised, .md-primary {

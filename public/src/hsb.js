@@ -49,10 +49,6 @@ app.config(['$routeProvider',
 				templateUrl: 'src/view/logout.html',
 				controller: 'HSBController'
 			})
-			.when('/about', {
-				templateUrl: 'src/view/about.html',
-				controller: 'HSBController'
-			})
 			.when('/reports', {
 				templateUrl: 'src/view/reports.html',
 				controller: 'HSBController'
