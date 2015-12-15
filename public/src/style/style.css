@@ -28,10 +28,31 @@ h3 {
 md-toolbar.layout-row {
   background: #FFD200; }
 
-md-sidenav.md-locked-open {
-  width: 190px !important;
-  min-width: 180px !important;
-  max-width: 180px !important; }
+md-sidenav {
+  position: static; }
+  @media screen and (min-width: 1280px) {
+    md-sidenav {
+      width: 320px !important;
+      min-width: 320px !important;
+      max-width: 320px !important; } }
+  @media screen and (min-width: 768px) and (max-width: 1280px) {
+    md-sidenav {
+      width: 100px !important;
+      min-width: 100px !important;
+      max-width: 100px !important; }
+      md-sidenav .menu-label {
+        display: none; } }
+  @media screen and (max-width: 480px) {
+    md-sidenav {
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%; } }
+
+@media screen and (min-width: 768px) and (max-width: break-large) {
+  md-sidenav.md-locked-open {
+    width: 180px !important;
+    min-width: 180px !important;
+    max-width: 180px !important; } }
 
 header.nav-header {
   text-align: center;
@@ -77,17 +98,17 @@ svg.user-avatar {
   height: initial;
   max-height: 350px; }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1280px) {
   .bookingData {
     display: none;
     padding: 10px 0; } }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1280px) {
   .showWasher {
     display: inline-block;
     width: 30px;
     height: 30px; } }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1280px) {
   .showWasher {
     display: none; } }
 
@@ -132,9 +153,6 @@ div.pagination .left {
   float: left; }
 div.pagination .right {
   float: right; }
-
-md-sidenav {
-  overflow: visible; }
 
 /*-- notification --*/
 .sidenav-btn {
@@ -182,6 +200,9 @@ md-sidenav {
   position: absolute;
   top: 10px;
   left: 20px; }
+  @media screen and (min-width: 768px) and (max-width: break-large) {
+    .md-icon-button {
+      display: none; } }
 
 a.md-button.md-primary.md-raised, a.md-button.md-primary.md-raised:not([disabled]):hover, .md-button.md-primary.md-raised, .md-primary {
   background-color: #FFD200; }
