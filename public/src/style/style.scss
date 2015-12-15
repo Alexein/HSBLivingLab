@@ -163,8 +163,9 @@ tr.cell-row {
 }
 
 table#table {
-    border: 3px solid $greylight;
-    border-radius: 10px;
+  border: 3px solid $greylight;
+  border-radius: 10px;
+  width: 100%;
 
     tr {
       background-color: $greymedium;
@@ -186,8 +187,37 @@ div.pagination {
   }
 }
 
-/*-- notification --*/
+md-sidenav {
+  overflow: visible;
+}
 
+/*-- notification --*/
+.sidenav-btn {
+  position: fixed;
+  right: -95px;
+  top: -6px;
+  height: 64px;
+  min-width: 35px;
+  z-index: -1;
+  border-radius: 0 90px 90px 0;
+  -moz-border-radius: 0 90px 90px 0;
+  -webkit-border-radius: 0 90px 90px 0;
+  background: $yellow;
+}
+
+.sidenav-btn-topbar {
+    position: fixed;
+    left: -20px;
+    height: 64px;
+    width: 35px;
+    border-radius: 0 90px 90px 0;
+    -moz-border-radius: 0 90px 90px 0;
+    -webkit-border-radius: 0 90px 90px 0;
+    background: $yellow;
+    border-bottom: 2px solid $black;
+    border-top: 2px solid $black;
+    border-right: 2px solid $black;
+}
 
 .notification, .notifications-bar {
   background-color: $greymedium;

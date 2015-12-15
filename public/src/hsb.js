@@ -896,8 +896,6 @@ app.controller('BookingController', function($scope, $rootScope, $location, $htt
                     '    </div>'+
                     '    <div>'+
                     '      <md-button ng-click="setBooking()" class="md-raised md-primary">Confirm booking</md-button>'+
-                    '    </div>'+
-                    '    <div>'+
                     '      <md-button ng-click="clearBooking()" class="md-raised md-warn">Delete</md-button>'+
                     '    </div>'+
                     '  </md-dialog-content>'+

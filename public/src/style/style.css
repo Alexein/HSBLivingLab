@@ -119,7 +119,8 @@ tr.cell-row {
 
 table#table {
   border: 3px solid #FAFAFA;
-  border-radius: 10px; }
+  border-radius: 10px;
+  width: 100%; }
   table#table tr {
     background-color: #F9F9F9; }
 
@@ -132,7 +133,35 @@ div.pagination .left {
 div.pagination .right {
   float: right; }
 
+md-sidenav {
+  overflow: visible; }
+
 /*-- notification --*/
+.sidenav-btn {
+  position: fixed;
+  right: -95px;
+  top: -6px;
+  height: 64px;
+  min-width: 35px;
+  z-index: -1;
+  border-radius: 0 90px 90px 0;
+  -moz-border-radius: 0 90px 90px 0;
+  -webkit-border-radius: 0 90px 90px 0;
+  background: #FFD200; }
+
+.sidenav-btn-topbar {
+  position: fixed;
+  left: -20px;
+  height: 64px;
+  width: 35px;
+  border-radius: 0 90px 90px 0;
+  -moz-border-radius: 0 90px 90px 0;
+  -webkit-border-radius: 0 90px 90px 0;
+  background: #FFD200;
+  border-bottom: 2px solid #000000;
+  border-top: 2px solid #000000;
+  border-right: 2px solid #000000; }
+
 .notification, .notifications-bar {
   background-color: #F9F9F9;
   margin-bottom: 3px; }
