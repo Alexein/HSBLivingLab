@@ -1,124 +1,131 @@
 <html lang="en" ng-app="HSB">
 
-<head>
-  <meta name="viewport" content="initial-scale=1" />
-  <link rel="stylesheet" href="bower_components\angular-material\angular-material.min.css">
-  <link rel="stylesheet" href="bower_components\angular-material\angular-material.layouts.min.css">
-  <link rel="stylesheet" href="src/style/style.css">
-  <!-- font-awesome -->
-  <link rel="stylesheet" href="src/style/font-awesome-4.5.0/css/font-awesome.min.css">
+  <head>
+    <meta name="viewport" content="initial-scale=1" />
 
-  <!--<script src="http://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
-</head>
+    <!-- Angular Material Design -->
+    <link rel="stylesheet" href="bower_components\angular-material\angular-material.min.css">
+    <link rel="stylesheet" href="bower_components\angular-material\angular-material.layouts.min.css">
+    <link rel="stylesheet" href="src/style/style.css">
 
-<body layout="column" ng-controller="HSBController as vm">
-  <md-toolbar layout="row">
-    <div class="md-toolbar-tools">
-      <!--<md-button ng-click="vm.toggleSidenav('left')" class="sidenav-btn-topbar md-raised" ng-show="sessionKey != null">&gt;</md-button>-->
-      <md-button ng-click="vm.toggleSidenav('left')" class="md-icon-button" ng-show="sessionKey != null">
-        <md-icon aria-label="Menu" md-svg-icon="src/img/menu.svg">
-        </md-icon>
-      </md-button>
-      <a ng-href="#/" class="topbar-logo">
-          <img ng-src="src/img/hsblogo.png">
-      </a>
+    <!-- Material Design Lite -->
+    <link rel="stylesheet" href="bower_components\material-design-lite\material.min.css">
+
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="src/style/font-awesome-4.5.0/css/font-awesome.min.css">
+  </head>
+
+  <body layout="column" ng-controller="HSBController as vm">
+    <md-toolbar layout="row">
+      <div class="md-toolbar-tools">
+        <!--<md-button ng-click="vm.toggleSidenav('left')" class="sidenav-btn-topbar md-raised" ng-show="sessionKey != null">&gt;</md-button>-->
+        <md-button ng-click="vm.toggleSidenav('left')" class="md-icon-button" ng-show="sessionKey != null">
+          <md-icon aria-label="Menu" md-svg-icon="src/img/menu.svg">
+          </md-icon>
+        </md-button>
+        <a ng-href="#/" class="topbar-logo">
+            <img ng-src="src/img/hsblogo.png">
+        </a>
+      </div>
+    </md-toolbar>
+    <div layout="row" flex>
+
+      <!-- Sidenavigation -->
+      <md-sidenav class="md-sidenav-left md-whiteframe-z2 ma-sidenav ng-isolate-scope" md-component-id="left" ng-click="vm.toggleNav('left')" md-is-locked-open="$mdMedia('min-width: 768px')" ng-show="sessionKey != null">
+        <header class="nav-header">
+          <div layout="column" class="md-toolbar-tools-bottom inset">
+            <user-avatar></user-avatar>
+            <span></span>
+            <div>{{ user.firstName }} {{ user.lastName }}</div>
+            <div>{{ user.email }}</div>
+          </div>
+        </header>
+        <a href="#/">
+          <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
+            <i class="fa fa-home fa-2x"></i><span class="menu-label"> Home</span>
+          </div>
+        </a>
+        <a href="#/notification">
+          <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
+            <i class="fa fa-bell fa-2x"></i><span class="menu-label"> Aviseringar</span>
+          </div>
+        </a>
+        <a href="#/booking">
+          <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
+            <i class="fa fa-calendar fa-2x"></i><span class="menu-label"> Bokningar</span>
+          </div>
+        </a>
+        <a href="#/booking-test">
+          <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
+            <i class="fa fa-calendar fa-2x"></i><span class="menu-label"> Bokningar-test</span>
+          </div>
+        </a>
+        <a href="#/adboard">
+          <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
+            <i class="fa fa-object-group fa-2x"></i><span class="menu-label"> Anslagstavlan</span>
+          </div>
+        </a>
+        <a href="#/reports">
+          <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
+            <i class="fa fa-paperclip fa-2x"></i><span class="menu-label"> Rapporter</span>
+          </div>
+        </a>
+        <a href="#/profile">
+          <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
+            <i class="fa fa-user fa-2x"></i><span class="menu-label"> Min profil</span>
+          </div>
+        </a>
+        <a href="#/apartment">
+          <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
+            <i class="fa fa-building fa-2x"></i><span class="menu-label"> Min lägenhet</span>
+          </div>
+        </a>
+        <a href="#/support">
+          <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
+            <i class="fa fa-life-ring fa-2x"></i><span class="menu-label"> Support</span>
+          </div>
+        </a>
+        <a href="#/logout">
+          <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
+            <i class="fa fa-sign-out fa-2x"></i><span class="menu-label"> Logga ut</span>
+          </div>
+        </a>
+        <a href ng-click="createBackup()">
+          <div class="sidenav-item">
+            <i class="fa fa-floppy-o fa-2x"></i><span class="menu-label"> Backup</span>
+          </div>
+        </a>
+        <a href="/#/myneighbours">
+          <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
+            <i class="fa fa-comments fa-2x"></i><span class="menu-label"> My Neighbour</span>
+          </div>
+        </a>
+      </md-sidenav>
+
+      <!-- Body / View -->
+      <div layout="column" flex id="content">
+        <md-content layout="column" flex class="md-padding">
+          <div layout="row">
+            <md-content layout-padding class="ngView">
+              <div ng-view></div>
+            </md-content>
+          </div>
+        </md-content>
+      </div>
     </div>
-  </md-toolbar>
-  <div layout="row" flex>
-    <md-sidenav class="md-sidenav-left md-whiteframe-z2 ma-sidenav ng-isolate-scope" md-component-id="left" ng-click="vm.toggleNav('left')" md-is-locked-open="$mdMedia('min-width: 768px')" ng-show="sessionKey != null">
-      <header class="nav-header">
-        <div layout="column" class="md-toolbar-tools-bottom inset">
-          <user-avatar></user-avatar>
-          <span></span>
-          <div>{{ user.firstName }} {{ user.lastName }}</div>
-          <div>{{ user.email }}</div>
-        </div>
-      </header>
-      <a href="#/">
-        <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
-          <i class="fa fa-home fa-2x"></i><span class="menu-label"> Home</span>
-        </div>
-      </a>
-      <a href="#/notification">
-        <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
-          <i class="fa fa-bell fa-2x"></i><span class="menu-label"> Aviseringar</span>
-        </div>
-      </a>
-      <a href="#/booking">
-        <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
-          <i class="fa fa-calendar fa-2x"></i><span class="menu-label"> Bokningar</span>
-        </div>
-      </a>
-      <a href="#/booking-test">
-        <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
-          <i class="fa fa-calendar fa-2x"></i><span class="menu-label"> Bokningar-test</span>
-        </div>
-      </a>
-      <a href="#/adboard">
-        <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
-          <i class="fa fa-object-group fa-2x"></i><span class="menu-label"> Anslagstavlan</span>
-        </div>
-      </a>
-      <a href="#/reports">
-        <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
-          <i class="fa fa-paperclip fa-2x"></i><span class="menu-label"> Rapporter</span>
-        </div>
-      </a>
-      <a href="#/profile">
-        <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
-          <i class="fa fa-user fa-2x"></i><span class="menu-label"> Min profil</span>
-        </div>
-      </a>
-      <a href="#/apartment">
-        <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
-          <i class="fa fa-building fa-2x"></i><span class="menu-label"> Min lägenhet</span>
-        </div>
-      </a>
-      <a href="#/support">
-        <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
-          <i class="fa fa-life-ring fa-2x"></i><span class="menu-label"> Support</span>
-        </div>
-      </a>
-      <a href="#/logout">
-        <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
-          <i class="fa fa-sign-out fa-2x"></i><span class="menu-label"> Logga ut</span>
-        </div>
-      </a>
-      <a href ng-click="createBackup()">
-        <div class="sidenav-item">
-          <i class="fa fa-floppy-o fa-2x"></i><span class="menu-label"> Backup</span>
-        </div>
-      </a>
-      <a href="/#/myneighbours">
-        <div class="sidenav-item" ng-click="vm.toggleSidenav('left')">
-          <i class="fa fa-comments fa-2x"></i><span class="menu-label"> My Neighbour</span>
-        </div>
-      </a>
-    </md-sidenav>
 
-    <div layout="column" flex id="content">
-      <md-content layout="column" flex class="md-padding">
-        <div layout="row">
-          <md-content layout-padding class="ngView">
-            <div ng-view></div>
-          </md-content>
-        </div>
-      </md-content>
-    </div>
-  </div>
+    <!-- Angular Dependencies -->
+    <script src="bower_components\angular\angular.min.js"></script>
+    <script src="bower_components\angular-animate\angular-animate.min.js"></script>
+    <script src="bower_components\angular-aria\angular-aria.min.js"></script>
+    <script src="bower_components\angular-material\angular-material.min.js"></script>
+    <script src="bower_components\angular-route\angular-route.min.js"></script>
+    <script src="bower_components\material-design-lite\material.min.js"></script>
 
-  <!-- Angular Material Dependencies -->
-  <script src="bower_components\angular\angular.min.js"></script>
-  <script src="bower_components\angular-animate\angular-animate.min.js"></script>
-  <script src="bower_components\angular-aria\angular-aria.min.js"></script>
-  <script src="bower_components\angular-material\angular-material.min.js"></script>
-  <script src="bower_components\angular-route\angular-route.min.js"></script>
-
-  <!-- app -->    
-  <script src="src/hsb.js"></script>
-  <script src="src/configIndex.js"></script>
-    
-</body>
+    <!-- App -->    
+    <script src="src/hsb.js"></script>
+    <script src="src/configIndex.js"></script>
+      
+  </body>
 
 </html>

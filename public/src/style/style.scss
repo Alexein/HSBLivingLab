@@ -272,7 +272,7 @@ div.pagination {
   top: 10px;
   left: 20px;
 
-  @media screen and (min-width: $break-small) and (max-width: break-large){
+  @media screen and (min-width: $break-small){
     display: none;
   }
 }
@@ -305,3 +305,20 @@ md-checkbox {
   background-size: 60px;
   padding-right: 25px;
 }
+
+
+/*-- Scrollbar --*/
+/*::-webkit-scrollbar {
+    width: 12px;
+    background-color: $yellow;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}*/
