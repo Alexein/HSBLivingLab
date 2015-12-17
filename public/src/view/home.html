@@ -61,4 +61,8 @@
         </div>
     </div>
 </div>
-
+<div class="column" ng-controller="LineCtrl">
+    <h4>Daglig förbrukning</h4>
+    <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" 
+    chart-legend="true" chart-series="series" chart-click="onClick"></canvas>
+</div>
