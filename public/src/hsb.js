@@ -17,12 +17,8 @@ app.config(['$routeProvider',
 				templateUrl: 'src/view/notification.html',
 				controller: 'NotificationController'
 			})
-			.when('/booking', {
-				templateUrl: 'src/view/booking.html',
-				controller: 'BookingController'
-			})
-            .when('/booking-test', {
-                templateUrl: 'src/view/booking-test.html',
+            .when('/booking', {
+                templateUrl: 'src/view/booking.html',
                 controller: 'BookingController'
             })
 			.when('/adboard', {

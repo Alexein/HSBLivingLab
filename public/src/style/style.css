@@ -32,9 +32,9 @@ md-sidenav {
   position: static; }
   @media screen and (min-width: 1280px) {
     md-sidenav {
-      width: 320px !important;
-      min-width: 320px !important;
-      max-width: 320px !important; } }
+      width: 260px !important;
+      min-width: 260px !important;
+      max-width: 260px !important; } }
   @media screen and (min-width: 768px) and (max-width: 1280px) {
     md-sidenav {
       width: 100px !important;

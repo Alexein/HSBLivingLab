@@ -39,9 +39,9 @@ md-sidenav {
   position: static;
 
   @media screen and (min-width: $break-large){
-    width: 320px !important;
-    min-width: 320px !important;
-    max-width: 320px !important;
+    width: 260px !important;
+    min-width: 260px !important;
+    max-width: 260px !important;
   }
 
   @media screen and (min-width: $break-small) and (max-width: $break-large){

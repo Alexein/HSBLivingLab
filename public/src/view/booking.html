@@ -1,4 +1,5 @@
 <h1 class="md-display-1">Category:{{bookingCategory}} Resource:{{bookingResource}}</h1>
+
 <div ng-show="bookingResource == 'none'">
     <div ng-show="bookingCategory == 'none'">
         <div class="row">
@@ -28,6 +29,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-1">
             <div layout="row" layout-wrap>
                 <div class="col-md-4">
@@ -54,37 +56,57 @@
     <div ng-show="bookingCategory == 'spaces'">
         <div class="row">
             <div class="col-md-12">
-                <md-button href ng-click="selectBookingCategory('none')" class="md-raised">BACK TO MAIN</md-button><br />
+                <md-button href ng-click="selectBookingCategory('none')" class="md-raised back-btn">
+                    BACK TO MAIN
+                </md-button><br />
                 You have selected spaces, select a category
             </div>
         </div>
-        <div class="row">
+        <div layout="row" layout-wrap>
             <div class="col-md-4">
-                <a href ng-click="selectBookingResource('gym')">GYM</a>
+                <md-button href ng-click="selectBookingResource('gym')" class="md-raised">
+                    <img src="src/img/icons/Gym_icon.png" class="booking-icons">
+                    <div><span>Gym</span></div>
+                </md-button>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingResource('sauna')">SAUNA</a>
+                <md-button href ng-click="selectBookingResource('sauna')" class="md-raised">
+                    <img src="src/img/icons/Sauna_icon.png" class="booking-icons">
+                    <div><span>Sauna</span></div>
+                </md-button>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingResource('workshop')">WORKSHOP</a>
+                <md-button href ng-click="selectBookingResource('workshop')" class="md-raised">
+                    <img src="src/img/icons/Workshop_icon.png" class="booking-icons">
+                    <div><span>Workshop</span></div>
+                </md-button>
             </div>
         </div>
-        <div class="row">
+        <div layout="row" layout-wrap>
             <div class="col-md-4">
-                <a href ng-click="selectBookingResource('barbeque')">BARBEQUE</a>
+                <md-button href ng-click="selectBookingResource('barbeque')" class="md-raised">
+                    <img src="src/img/icons/barbecue_icon.png" class="booking-icons">
+                    <div><span>Barbeque</span></div>
+                </md-button>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingResource('kitchen')">KITCHEN</a>
+                <md-button href ng-click="selectBookingResource('kitchen')" class="md-raised">
+                    <img src="src/img/icons/Kitchen_Icon.png" class="booking-icons">
+                    <div><span>Kitchen</span></div>
+                </md-button>
             </div>
             <div class="col-md-4">
-                <a href ng-click="selectBookingResource('kids')">KIDS PLAYROOM</a>
+                <md-button href ng-click="selectBookingResource('kids')" class="md-raised">
+                    <img src="src/img/icons/Kids_playroom_icon.png" class="booking-icons">
+                    <div><span>Kids playroom</span></div>
+                </md-button>
             </div>
         </div>
     </div>
     <div ng-show="bookingCategory == 'tools'">
         <div class="row">
             <div class="col-md-12">
-                <a href ng-click="selectBookingCategory('none')">BACK TO MAIN</a><br />
+                <md-button href ng-click="selectBookingCategory('none')" class="md-raised back-btn">BACK TO MAIN</md-button><br />
                 You have selected tools, select a category
             </div>
         </div>
@@ -92,7 +114,7 @@
     <div ng-show="bookingCategory == 'services'">
         <div class="row">
             <div class="col-md-12">
-                <a href ng-click="selectBookingCategory('none')">BACK TO MAIN</a><br />
+                <md-button href ng-click="selectBookingCategory('none')" class="md-raised back-btn">BACK TO MAIN</md-button><br />
                 You have selected services, select a category
             </div>
         </div>
@@ -100,7 +122,7 @@
     <div ng-show="bookingCategory == 'vehicles'">
         <div class="row">
             <div class="col-md-12">
-                <a href ng-click="selectBookingCategory('none')">BACK TO MAIN</a><br />
+                <md-button href ng-click="selectBookingCategory('none')" class="md-raised back-btn">BACK TO MAIN</md-button><br />
                 You have selected vehicles, select a category
             </div>
         </div>
@@ -108,7 +130,7 @@
     <div ng-show="bookingCategory == 'others'">
         <div class="row">
             <div class="col-md-12">
-                <a href ng-click="selectBookingCategory('none')">BACK TO MAIN</a><br />
+                <md-button href ng-click="selectBookingCategory('none')" class="md-raised back-btn">BACK TO MAIN</md-button><br />
                 You have selected others, select a category
             </div>
         </div>
@@ -117,7 +139,7 @@
 <div ng-show="bookingResource != 'none'">
     <div class="row">
         <div class="col-md-12">
-            <md-button href ng-click="selectBookingResource('none')" class="md-raised">BACK</md-button>
+            <md-button href ng-click="selectBookingResource('none')" class="md-raised back-btn">BACK</md-button>
         </div>
     </div>
     <div class="row">
@@ -131,114 +153,43 @@
     <div class="row">
         <div class="col-md-12">
             <span>ESTABLISH THE PERIOD OF YOUR BOOKING</span>
-            <md-button ng-click="showWeek(-1)" class="md-raised">Föregående vecka</md-button>
-            <md-button ng-click="showWeek(1)" class="md-raised">Nästa vecka</md-button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <span style="display:inline-block; width:100px;">Tid/Dag</span>
-            <span data-ng-repeat="d in weekdays" class="day-label">
-                {{ d }} {{ weekDates[$index] }}
-            </span>
-            <div class="cell-row" data-ng-repeat="s in bookingData.slots">
-                <div>
-                    <span style="display:inline-block; width:100px;" class="hour-label">{{s.name}}</span>
-                    <span  class="hour-cell" data-ng-repeat="d in weekdays">
-                        <span ng-click="bookUnit($index, s.slotId)">
-                            {{ vacancies = getVacancies($index, s.slotId); "" }}
-                            <div data-ng-repeat="t in bookingData.unitTypes" class="cell-label">
-                                {{ bookingData.bookingFormat(t, vacancies) }}
-                            </div>
-                        </span>
-                    </span>
-                </div>
+            <div class="pagination">
+                <md-button ng-click="showWeek(-1)" class="md-raised left back-btn">Föregående vecka</md-button>
+                <md-button ng-click="showWeek(1)" class="md-raised right forward-btn">Nästa vecka</md-button>
             </div>
         </div>
     </div>
-    <div ng-show="isShowingNewBooking()">
-        <div>
-            Booking {{bookingResource}}
-        </div>
-        <div>
-            {{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}                
-            <md-button ng-click="showNewQueue()" class="md-raised">Queue</md-button>
-        </div>
-        <div data-ng-repeat="t in bookingData.unitTypes">
-            <span>{{ t.name }}</span>
-            <span data-ng-repeat="u in t.units">
-                <span ng-show="isBookable(t, u)">
-                    <md-checkbox ng-model="bookingEdit.type[t.typeId][u.unitId]">{{ u.name }}</md-checkbox>
-                </span>
-            </span>
-        </div>
-        <div>
-            Send reminder via 
-            <md-checkbox ng-model="bookingEdit.medium[1]">email</md-checkbox>
-            <md-checkbox ng-model="bookingEdit.medium[2]">sms</md-checkbox>
-        </div>
-        <div>
-            <md-checkbox ng-model="bookingEdit.time[4]">10 min</md-checkbox>
-            <md-checkbox ng-model="bookingEdit.time[8]">30 min</md-checkbox>
-            <md-checkbox ng-model="bookingEdit.time[16]">1 hour</md-checkbox>
-            <md-checkbox ng-model="bookingEdit.time[64]">5 hours</md-checkbox>
-            <md-checkbox ng-model="bookingEdit.time[256]">1 day</md-checkbox>
-            <md-checkbox ng-model="bookingEdit.time[2048]">1 week</md-checkbox>
-            BEFORE BOOKING DATE
-        </div>
-        <div>
-            <md-button ng-click="setBooking()" class="md-raised md-primary">Confirm booking</md-button>
-        </div>
-        <div>
-            <md-button ng-click="clearBooking()" class="md-raised md-warn">Delete</md-button>
-        </div>
-    </div>
-    <div ng-show="isShowingNewQueue()">
-        <div>
-            Waiting list {{bookingResource}}
-        </div>
-        <div>
-            {{ weekDates[bookingDayId] }} {{ bookingData.slots[bookingSlotId].name }}
-        </div>
-        <div data-ng-repeat="t in bookingData.unitTypes">
-            <span>{{ t.name }}</span>
-            <span data-ng-repeat="b in queueData.type[t.typeId].queue">
-                <span ng-show="b[0] == 1">
-                    You are waiting for {{ b[1] }} units.
-                </span>
-                <span ng-show="b[0] != 1">
-                    Someone is waiting for {{ b[1] }} units.
-                </span>
-            </span>  
-            Antal <select ng-model="queueData.type[t.typeId].count" 
-                    ng-options="c for c in createNumberArray(queueData.type[t.typeId].max + 1)">
-            </select>
-        </div>
-        <div>
-            Alert me via 
-            <input type="checkbox" ng-model="queueData.alert[1]"></input> email 
-            <input type="checkbox" ng-model="queueData.alert[2]"></input> sms
-            if a machine in this turn becomes available
-        </div>
-        <div>
-            <input type="checkbox" ng-model="queueData.autobook"></input> Autobook the available machine for me
-        </div>
-        <div>
-            Send reminder via 
-            <input type="checkbox" ng-model="queueData.medium[1]"></input> email 
-            <input type="checkbox" ng-model="queueData.medium[2]"></input> sms
-        </div>
-        <div>
-            <input type="checkbox" ng-model="queueData.time[4]"></input> 10 min
-            <input type="checkbox" ng-model="queueData.time[8]"></input> 30 min
-            <input type="checkbox" ng-model="queueData.time[16]"></input> 1 hour
-            <input type="checkbox" ng-model="queueData.time[64]"></input> 5 hours
-            <input type="checkbox" ng-model="queueData.time[256]"></input> 1 day
-            <input type="checkbox" ng-model="queueData.time[2048]"></input> 1 week
-            BEFORE BOOKING DATE
-        </div>
-        <div>
-            <button ng-click="setQueue()">Join waiting list</button>
-        </div>
+    <div class="row">
+        <table flex="100" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+            <thead>
+                <td style="display:inline-block; width:100px;">Tid/Dag</td>
+                <td data-ng-repeat="d in weekdays" class="day-label">
+                    {{ d }} {{ weekDates[$index] }}
+                </td>
+            </thead>
+            <tbody>
+                <tr class="cell-row" data-ng-repeat="s in bookingData.slots">
+                    <div>
+                        <td class="mdl-data-table__cell--non-numeric">{{s.name}}</td>
+                        <td class="mdl-data-table__cell--non-numeric" data-ng-repeat="d in weekdays" >
+                            <span ng-click="bookUnit($index, s.slotId)">
+                                <!-- $index is day, s.slotId is slot -->
+                                {{ vacancies = getVacancies($index, s.slotId); "" }}
+                                <div data-ng-repeat="t in bookingData.unitTypes" class="cell-label">
+                                    <span class="bookingData">{{ bookingData.bookingFormat(t, vacancies) }}</span>
+                                    <!--<span class="showWasher"></span>-->
+                                    <!--<span class="showDryer"></span>-->
+                                    <span class="showWasher">
+                                    {{ vacancies[t.typeId][0].length + '+' + vacancies[t.typeId][1].length }}
+                                    <img ng-show="isShowingResource(t, 'laundry', 1)" src="src/img/icons/washing_machine_icon.png" class="showWasher" />
+                                    <img ng-show="isShowingResource(t, 'laundry', 2)"src="src/img/icons/dryer_icon.png" class="showWasher" />
+                                    </span>
+                                </div>
+                            </span>
+                        </td>
+                    </div>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
