@@ -84,7 +84,10 @@ a {
     margin: auto; }
     a.topbar-logo img {
       width: 40px;
-      height: 40px; }
+      height: 40px;
+      position: absolute;
+      top: 10px;
+      left: 50%; }
   a.site-logo {
     margin: auto; }
 
@@ -133,10 +136,6 @@ span.day-label {
 
 .cell-label {
   padding: 5px 10px 20px 0px; }
-
-tr.cell-row {
-  padding-bottom: 10px;
-  border-bottom: 2px solid #000000; }
 
 table#table {
   border: 3px solid #FAFAFA;
