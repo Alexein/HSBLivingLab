@@ -41,7 +41,9 @@ md-sidenav {
       min-width: 100px !important;
       max-width: 100px !important; }
       md-sidenav .menu-label {
-        display: none; } }
+        display: none; }
+      md-sidenav .sidenav-item {
+        text-align: center; } }
   @media screen and (max-width: 480px) {
     md-sidenav {
       width: 100%;
@@ -126,22 +128,29 @@ span.day-label {
   vertical-align: 75%;
   font-weight: 700; }
 
-.hour-cell {
-  display: inline-block;
-  width: 180px;
-  border-right: 2px solid #F9F9F9; }
-  .hour-cell span:focus {
-    outline-color: #ECB50F !important; }
+.hour-cell:hover {
+  -webkit-transition-duration: .28s;
+  transition-duration: .28s;
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-transition-property: background-color;
+  transition-property: background-color;
+  background-color: #eee; }
+.hour-cell span:focus {
+  outline-color: #ECB50F !important; }
 
 .cell-label {
   padding: 5px 10px 20px 0px; }
 
-table#table {
-  border: 3px solid #FAFAFA;
-  border-radius: 10px;
-  width: 100%; }
-  table#table tr {
-    background-color: #F9F9F9; }
+tr.cell-row {
+  -webkit-transition-duration: none !important;
+  transition-duration: none !important;
+  -webkit-transition-timing-function: none !important;
+  transition-timing-function: none !important;
+  -webkit-transition-property: none !important;
+  transition-property: none !important; }
+  tr.cell-row:hover {
+    background-color: transparent !important; }
 
 .showingNewBooking {
   padding: 10px;
@@ -224,20 +233,8 @@ md-checkbox {
   background-size: 60px;
   padding-right: 25px; }
 
-/*-- Scrollbar --*/
-/*::-webkit-scrollbar {
-    width: 12px;
-    background-color: $yellow;
-}
- 
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-    border-radius: 10px;
-}
- 
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-}*/
+/*-- Mobile / Handheld --*/
+/*-- Pad --*/
+/*-- Desktop --*/
 
 /*# sourceMappingURL=style.css.map */

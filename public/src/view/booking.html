@@ -161,7 +161,7 @@
     </div>
     <div class="row">
         <div style="width:100%;overflow:auto;">
-        <table flex="100" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+        <table flex="100" id="table" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
             <thead>
                 <td style="display:inline-block; width:100px;">Tid/Dag</td>
                 <td data-ng-repeat="d in weekdays" class="day-label">
@@ -172,7 +172,7 @@
                 <tr class="cell-row" data-ng-repeat="s in bookingData.slots">
                     <div>
                         <td class="mdl-data-table__cell--non-numeric">{{s.name}}</td>
-                        <td class="mdl-data-table__cell--non-numeric" data-ng-repeat="d in weekdays" >
+                        <td class="mdl-data-table__cell--non-numeric hour-cell" data-ng-repeat="d in weekdays" >
                             <span ng-click="bookUnit($index, s.slotId)">
                                 <!-- $index is day, s.slotId is slot -->
                                 {{ vacancies = getVacancies($index, s.slotId); "" }}

@@ -52,6 +52,10 @@ md-sidenav {
     .menu-label {
       display: none;
     }
+
+    .sidenav-item{
+      text-align: center;
+    }
   }
 
   @media screen and (max-width: $break-mobile){
@@ -173,9 +177,17 @@ span.day-label {
 }
 
 .hour-cell {
-  display: inline-block;
-  width: 180px;
-  border-right: 2px solid $greymedium;
+
+  &:hover {
+    -webkit-transition-duration: .28s;
+    transition-duration: .28s;
+    -webkit-transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    -webkit-transition-property: background-color;
+    transition-property: background-color;
+    background-color: #eee;
+  }
+
 
   span {
     &:focus {
@@ -184,23 +196,29 @@ span.day-label {
   }
 }
 
+.mdl-data-table tbody tr{
+
+}
+
 .cell-label {
   padding: 5px 10px 20px 0px;
 }
 
 tr.cell-row {
-  //padding-bottom: 10px;
-  //border-bottom: 2px solid $black
+  -webkit-transition-duration: none !important;
+  transition-duration: none !important;
+  -webkit-transition-timing-function: none !important;
+  transition-timing-function: none !important;
+  -webkit-transition-property: none !important;
+  transition-property: none !important;
+
+  &:hover {
+    background-color: transparent !important;
+  }
 }
 
 table#table {
-  border: 3px solid $greylight;
-  border-radius: 10px;
-  width: 100%;
-
-    tr {
-      background-color: $greymedium;
-    }
+  
 }
 
 .showingNewBooking {
@@ -308,19 +326,17 @@ md-checkbox {
   padding-right: 25px;
 }
 
+/*-- Mobile / Handheld --*/
+@media screen and (min-width: $break-small) {
+    
+}
 
-/*-- Scrollbar --*/
-/*::-webkit-scrollbar {
-    width: 12px;
-    background-color: $yellow;
+/*-- Pad --*/
+@media screen and (min-width: $break-small) and (max-width: break-large) {
+
 }
- 
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-    border-radius: 10px;
+
+/*-- Desktop --*/
+@media screen and (min-width: $break-large) {
+
 }
- 
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-}*/
