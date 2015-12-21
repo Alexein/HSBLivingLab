@@ -1,0 +1,57 @@
+[
+      {
+        "name": "Home",
+        "href": "",
+        "fontawesome": "fa-home"
+      },
+      {
+        "name": "Aviseringar",
+        "href": "notification",
+        "fontawesome": "fa-bell"
+      },
+      {
+        "name": "Bokningar",
+        "href": "booking",
+        "fontawesome": "fa-calendar"
+      },
+      {
+        "name": "Anslagstavla",
+        "href": "adboard",
+        "fontawesome": "fa-object-group"
+      },
+      {
+        "name": "Rapporter",
+        "href": "reports",
+        "fontawesome": "fa-paperclip"
+      },
+      {
+        "name": "Min profil",
+        "href": "profile",
+        "fontawesome": "fa-user"
+      },
+      {
+        "name": "Min lägenhet",
+        "href": "apartment",
+        "fontawesome": "fa-building"
+      },
+      {
+        "name": "Support",
+        "href": "support",
+        "fontawesome": "fa-life-ring"
+      },
+      {
+        "name": "Logga ut",
+        "href": "logout",
+        "fontawesome": "fa-sign-out"
+      },
+      {
+        "name": "Backup",
+        "href": "",
+        "fontawesome": "fa-floppy-o"
+      },
+      {
+        "name": "My Neighbour",
+        "href": "myneighbours",
+        "fontawesome": "fa-comments"
+      }
+]

@@ -919,6 +919,10 @@ app.controller('HSBController', function($scope, $rootScope, $location, $http, $
       $mdSidenav('sidenav-item').toogle();
     };
 
+    $http.get('src/json/menu.json').success(function(data){
+        $scope.menus = data;
+    });
+
     $scope.setContent = function(contentId) {
         resetState($scope);
     }

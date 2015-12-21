@@ -37,6 +37,53 @@
                 </span>
             </div>
         </div>
+
+
+        morphing new notification, not finished!
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+            <thead>
+                <tr>
+                    <th>
+                        <md-checkbox 
+                           ng-model="notificationView.selectAll" 
+                           ng-change="changedNotificationSelectAll()" />
+                           SELECT ALL
+                        </md-checkbox>
+                    </th>
+                    <th>
+                        <select ng-model="notificationView.mark" 
+                            ng-change="changedNotificationMark()"
+                            ng-options="mark.name for mark in notificationMarks">
+                        </select>
+                    </th>
+                    <th>
+                        <a href ng-click="deleteNotifications()">DELETE</a>
+                    </th>
+                    <th>
+                        <select ng-model="notificationView.view" 
+                            ng-change="changedNotificationView()"
+                            ng-options="view.name for view in notificationViews">
+                        </select>
+                    </th>
+                    <th>
+                        <a href ng-click="messageData.createMessage = true">CREATE NEW</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="n in notifications" class="notification">
+                    <span ng-show="n.typeId == 1">
+                        <md-checkbox ng-model="n.isSelected"></md-checkbox>
+                        <tr ng-click="selectNotification(n)">
+                            <td>{{n.fromUser.firstName}} {{n.fromUser.lastName}}:</td>
+                            <td><b>{{n.subject}}</b></td>
+                            <td>{{n.body}}</td>
+                            <td>({{n.creationTime}})</td>
+                        </tr>
+                    </span>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div ng-show="messageData.createMessage">
         <div class="row">
@@ -76,7 +123,7 @@
                 <div>
                     <md-input-container>
                         <label>Description</label>
-                        <textarea ng-model="post.description"></textarea>
+                        <textarea ng-model="messageData.body"></textarea>
                     </md-input-container>
                 </div>
                 <md-button href ng-click="sendMessage()" class="md-raised md-primary">Send</md-button>

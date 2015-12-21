@@ -21,16 +21,14 @@
             <div>
                 <md-input-container>
                     <label>Förnamn</label>
-                    <input type="text" ng-model="profileEdit.firstname"/><br />
-                *Obligatoriskt fält
+                    <input type="text" ng-model="profileEdit.firstname" required/><br />
                 </md-input-container>
             </div>
             
             <div>
                 <md-input-container>
                     <label>Efternamn</label>
-                    <input type="text" ng-model="profileEdit.lastname"/><br />
-                    *Obligatoriskt fält
+                    <input type="text" ng-model="profileEdit.lastname" required/><br />
                 </md-input-container>
             </div>
             
@@ -70,14 +68,14 @@
             <div>
                 <md-input-container>
                     <label>Telefonnummer</label>
-                    <input type="text" ng-model="profileEdit.phone"/>
+                    <input type="text" ng-model="profileEdit.phone" required/>
                 </md-input-container>
             </div>
 
             <div>
                 <md-input-container>
                     <label>Email</label>
-                    <input type="text" ng-model="profileEdit.email"/>
+                    <input type="text" ng-model="profileEdit.email" required/>
                 </md-input-container>
             </div>
             

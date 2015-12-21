@@ -42,12 +42,20 @@ md-sidenav {
     width: 260px !important;
     min-width: 260px !important;
     max-width: 260px !important;
+
+    i.fa.fa-2x {
+      width: 20%;
+    }
   }
 
   @media screen and (min-width: $break-small) and (max-width: $break-large){
     width: 100px !important;
     min-width: 100px !important;
     max-width: 100px !important;
+
+    svg.user-avatar {
+      margin: auto;
+    }
 
     .menu-label {
       display: none;

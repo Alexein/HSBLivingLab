@@ -1,7 +1,13 @@
 <div class="jumbotron">
     <h1 class="md-display-1">Login</h1>
-    <md-input-container><label>E-mail:</label><input type="text" ng-model="loginData.email"/></md-input-container><br />
-    <md-input-container><label>Password:</label><input type="password" ng-model="loginData.password" /></md-input-container><br />
+    <md-input-container>
+    	<label>E-mail:</label>
+    	<input type="text" ng-model="loginData.email" required/>
+    </md-input-container><br />
+    <md-input-container>
+    	<label>Password:</label>
+    	<input type="password" ng-model="loginData.password" required/>
+    </md-input-container><br />
     <md-button type="button" class="md-raised" ng-click="login()">Login</md-button>
     {{users.count}}
     <div data-ng-repeat="u in users">
