@@ -1,3 +1,8 @@
+<div class="column canvas" ng-controller="LineCtrl">
+    <h4>Daglig förbrukning</h4>
+    <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" 
+    chart-legend="true" chart-series="series" chart-click="onClick" style="height:200px"></canvas>
+</div>
 <div class="row">
     <div class="col-md-12">
         <h4 class="md-display-1">{{ user.firstName }} {{ user.lastName }}</h4>
@@ -60,9 +65,4 @@
             </div>
         </div>
     </div>
-</div>
-<div class="column" ng-controller="LineCtrl">
-    <h4>Daglig förbrukning</h4>
-    <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" 
-    chart-legend="true" chart-series="series" chart-click="onClick"></canvas>
 </div>

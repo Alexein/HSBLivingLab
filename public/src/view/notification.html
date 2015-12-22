@@ -5,11 +5,12 @@
                 <h4 class="md-display-1">Your notifications</h4>
             </div>
         </div>
+        
         <div class="row">
             <div class="col-md-12 notifications-bar">
                 <md-checkbox 
                        ng-model="notificationView.selectAll" 
-                       ng-change="changedNotificationSelectAll()" />
+                       ng-change="changedNotificationSelectAll()" >
                        SELECT ALL
                 </md-checkbox>
                 <select ng-model="notificationView.mark" 
@@ -24,7 +25,7 @@
                 <a href ng-click="messageData.createMessage = true">CREATE NEW</a>
             </div>
         </div>
-        <div class="row" height=400 style="overflow-y:scroll">
+        <div class="row" height=400 style="overflow-y:scroll" layout-padding>
             <div data-ng-repeat="n in notifications" class="notification">
                 <span ng-show="n.typeId == 1">
                     <span><md-checkbox ng-model="n.isSelected" /></span>
@@ -37,18 +38,14 @@
                 </span>
             </div>
         </div>
-
-
-        morphing new notification, not finished!
+        
+        
+        <!--morphing new notification, not finished!-->
         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
             <thead>
                 <tr>
-                    <th>
-                        <md-checkbox 
-                           ng-model="notificationView.selectAll" 
-                           ng-change="changedNotificationSelectAll()" />
-                           SELECT ALL
-                        </md-checkbox>
+                    <th class="mdl-data-table--selectable" ng-model="notificationView.selectAll" ng-change="changedNotificationSelectAll()">
+                        SELECT ALL
                     </th>
                     <th>
                         <select ng-model="notificationView.mark" 
@@ -70,20 +67,22 @@
                     </th>
                 </tr>
             </thead>
+            
             <tbody>
-                <tr data-ng-repeat="n in notifications" class="notification">
-                    <span ng-show="n.typeId == 1">
-                        <md-checkbox ng-model="n.isSelected"></md-checkbox>
+                <tr data-ng-repeat="n in notifications">
+                    <div ng-show="n.typeId == 1">
                         <tr ng-click="selectNotification(n)">
+                            <td ng-model="n.isSelected" class="mdl-data-table__cell--selectable"></td>
                             <td>{{n.fromUser.firstName}} {{n.fromUser.lastName}}:</td>
                             <td><b>{{n.subject}}</b></td>
                             <td>{{n.body}}</td>
                             <td>({{n.creationTime}})</td>
                         </tr>
-                    </span>
+                    </div>
                 </tr>
             </tbody>
         </table>
+
     </div>
     <div ng-show="messageData.createMessage">
         <div class="row">

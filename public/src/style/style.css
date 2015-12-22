@@ -18,7 +18,7 @@ h3 {
   font-size: 16px; }
 
 .ngView {
-  line-height: 20px; }
+  width: 100%; }
 
 .md-toolbar-tools h1 {
   font-size: inherit;
@@ -52,7 +52,9 @@ md-sidenav {
     md-sidenav {
       width: 100%;
       min-width: 100%;
-      max-width: 100%; } }
+      max-width: 100%; }
+      md-sidenav i.fa.fa-2x {
+        width: 15%; } }
 
 @media screen and (min-width: 768px) and (max-width: break-large) {
   md-sidenav.md-locked-open {
@@ -62,7 +64,7 @@ md-sidenav {
 
 header.nav-header {
   text-align: center;
-  background-color: #F9F9F9; }
+  background-color: #E7E7E7; }
 
 .btn-row {
   padding-top: 30px;
@@ -73,7 +75,8 @@ header.nav-header {
 
 .md-sidenav-left .sidenav-item {
   padding: 20px;
-  border-bottom: 3px #F9F9F9 solid;
+  background-color: #FAFAFA;
+  border-top: 2px #E7E7E7 solid;
   color: black; }
   .md-sidenav-left .sidenav-item:hover {
     background-color: #FFD200; }
@@ -126,7 +129,7 @@ span.day-label {
   width: 180px; }
 
 .hour-label, .hour-cell {
-  border-top: 2px solid black; }
+  border-top: 2px solid #000000; }
 
 .hour-label {
   vertical-align: 75%;
@@ -139,7 +142,8 @@ span.day-label {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-transition-property: background-color;
   transition-property: background-color;
-  background-color: #eee; }
+  background-color: #eee;
+  cursor: pointer; }
 .hour-cell span:focus {
   outline-color: #ECB50F !important; }
 

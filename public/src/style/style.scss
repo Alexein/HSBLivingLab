@@ -22,7 +22,8 @@ h3 {
 }
 
 .ngView {
-  line-height: 20px;
+  //line-height: 20px;
+  width: 100%;
 }
 
 .md-toolbar-tools h1 {
@@ -70,6 +71,10 @@ md-sidenav {
     width: 100%;
     min-width: 100%;
     max-width: 100%;
+
+    i.fa.fa-2x {
+      width: 15%;
+    }
   }
 }
 
@@ -84,7 +89,7 @@ md-sidenav.md-locked-open {
 
 header.nav-header {
   text-align: center;
-  background-color: $greymedium;
+  background-color: $greydarker;
 }
 
 .btn-row {
@@ -100,7 +105,8 @@ header.nav-header {
 
   .sidenav-item {
     padding: 20px;
-    border-bottom: 3px $greymedium solid;
+    background-color: $greylight;
+    border-top: 2px $greydarker solid;
     color: black;
 
     &:hover {
@@ -176,7 +182,7 @@ span.day-label {
 }
 
 .hour-label, .hour-cell {
-  border-top: 2px solid black;
+  border-top: 2px solid $black;
 }
 
 .hour-label {
@@ -194,6 +200,7 @@ span.day-label {
     -webkit-transition-property: background-color;
     transition-property: background-color;
     background-color: #eee;
+    cursor: pointer;
   }
 
 

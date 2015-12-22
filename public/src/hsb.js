@@ -915,9 +915,9 @@ app.controller('HSBController', function($scope, $rootScope, $location, $http, $
       $mdSidenav(menuId).toggle();
     };
 
-    vm.toogleSidenav = function(){
+    /*vm.toogleSidenav = function(){
       $mdSidenav('sidenav-item').toogle();
-    };
+    };*/
 
     $http.get('src/json/menu.json').success(function(data){
         $scope.menus = data;
@@ -969,6 +969,7 @@ app.controller('HSBController', function($scope, $rootScope, $location, $http, $
 
 });
 
+/*-- test chart --*/
 app.controller("LineCtrl", ['$scope', '$timeout', function ($scope, $timeout) {
 
   $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
